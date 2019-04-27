@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-property-heading">Create or edit a Property</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!property.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="property.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="property.name" required minlength="1" maxlength="20"/>
+                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.name?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.name?.errors?.minlength">
+                        This field is required to be at least 1 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.name?.errors?.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_valueType">Value Type</label>
+                    <select class="form-control" name="valueType" [(ngModel)]="property.valueType" id="field_valueType"  required>
+                        <option value="STRING">STRING</option>
+                        <option value="FLOAT">FLOAT</option>
+                        <option value="DATE">DATE</option>
+                        <option value="INTEGER">INTEGER</option>
+                        <option value="BOOLEAN">BOOLEAN</option>
+                        <option value="DOUBLE">DOUBLE</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.valueType?.dirty && editForm.controls.valueType?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.valueType?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="field_product">Product</label>
+                    <select class="form-control" id="field_product" multiple name="product" [(ngModel)]="property.products" required>
+                        <option [ngValue]="getSelected(property.products, productOption)" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.name}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.product?.dirty && editForm.controls.product?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.product?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
