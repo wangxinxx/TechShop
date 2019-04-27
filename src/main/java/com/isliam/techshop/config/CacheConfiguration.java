@@ -42,6 +42,8 @@ public class CacheConfiguration {
             cm.createCache(com.isliam.techshop.domain.Product.class.getName(), jcacheConfiguration);
             cm.createCache(com.isliam.techshop.domain.Product.class.getName() + ".properties", jcacheConfiguration);
             cm.createCache(com.isliam.techshop.domain.Property.class.getName() + ".products", jcacheConfiguration);
+            cm.createCache(com.isliam.techshop.domain.Item.class.getName(), jcacheConfiguration);
+            cm.createCache(com.isliam.techshop.domain.ItemPropertyString.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

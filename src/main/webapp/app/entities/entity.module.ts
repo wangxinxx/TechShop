@@ -15,6 +15,14 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'property',
                 loadChildren: './property/property.module#TechShopPropertyModule'
+            },
+            {
+                path: 'item',
+                loadChildren: './item/item.module#TechShopItemModule'
+            },
+            {
+                path: 'item-property-string',
+                loadChildren: './item-property-string/item-property-string.module#TechShopItemPropertyStringModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
