@@ -1,0 +1,35 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.isliam.techshop"
+        },
+        "jhipsterVersion": "5.8.2",
+        "applicationType": "monolith",
+        "baseName": "TechShop",
+        "packageName": "com.isliam.techshop",
+        "packageFolder": "com/isliam/techshop",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "mysql",
+        "prodDatabaseType": "mysql",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "ZDM4YTc0YTA5YzFiMTI2OWRjZGQxOGU5MmU5ZmEyMTA0NjhhNzVjYzZjZmI3OWNjYmFkODQwM2E5YzkwMDVlNTJjNjUxYjIzZTc4NTlkN2EzZWU1NDFmZDNjZTc4NjI1Y2Q1MzdiNjg0ZWFjMDQ5ZmJjMDIwMjE1MGRhNmQ5ZTk=",
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": [],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": false
+    }
+}
