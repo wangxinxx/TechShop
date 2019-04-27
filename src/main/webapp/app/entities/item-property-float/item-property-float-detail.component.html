@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="itemPropertyFloat">
+            <h2><span>Item Property Float</span> {{itemPropertyFloat.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Value</span></dt>
+                <dd>
+                    <span>{{itemPropertyFloat.value}}</span>
+                </dd>
+                <dt><span>Item</span></dt>
+                <dd>
+                    <div *ngIf="itemPropertyFloat.itemId">
+                        <a [routerLink]="['/item', itemPropertyFloat.itemId, 'view']">{{itemPropertyFloat.itemName}}</a>
+                    </div>
+                </dd>
+                <dt><span>Property</span></dt>
+                <dd>
+                    <div *ngIf="itemPropertyFloat.propertyId">
+                        <a [routerLink]="['/property', itemPropertyFloat.propertyId, 'view']">{{itemPropertyFloat.propertyName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/item-property-float', itemPropertyFloat.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

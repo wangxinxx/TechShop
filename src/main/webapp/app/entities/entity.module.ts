@@ -27,6 +27,30 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'item',
                 loadChildren: './item/item.module#TechShopItemModule'
+            },
+            {
+                path: 'item-property-int',
+                loadChildren: './item-property-int/item-property-int.module#TechShopItemPropertyIntModule'
+            },
+            {
+                path: 'item-property-float',
+                loadChildren: './item-property-float/item-property-float.module#TechShopItemPropertyFloatModule'
+            },
+            {
+                path: 'item-property-bool',
+                loadChildren: './item-property-bool/item-property-bool.module#TechShopItemPropertyBoolModule'
+            },
+            {
+                path: 'item-property-double',
+                loadChildren: './item-property-double/item-property-double.module#TechShopItemPropertyDoubleModule'
+            },
+            {
+                path: 'item-property-double',
+                loadChildren: './item-property-double/item-property-double.module#TechShopItemPropertyDoubleModule'
+            },
+            {
+                path: 'item-property-double',
+                loadChildren: './item-property-double/item-property-double.module#TechShopItemPropertyDoubleModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
