@@ -23,6 +23,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'item-property-string',
                 loadChildren: './item-property-string/item-property-string.module#TechShopItemPropertyStringModule'
+            },
+            {
+                path: 'item',
+                loadChildren: './item/item.module#TechShopItemModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

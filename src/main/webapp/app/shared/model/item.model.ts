@@ -11,6 +11,7 @@ export interface IItem {
     barcode?: any;
     cost?: number;
     status?: ItemStatus;
+    name?: string;
     productName?: string;
     productId?: number;
 }
@@ -22,6 +23,7 @@ export class Item implements IItem {
         public barcode?: any,
         public cost?: number,
         public status?: ItemStatus,
+        public name?: string,
         public productName?: string,
         public productId?: number
     ) {}

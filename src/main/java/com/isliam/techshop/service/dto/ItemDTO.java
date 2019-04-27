@@ -24,6 +24,10 @@ public class ItemDTO implements Serializable {
     @NotNull
     private ItemStatus status;
 
+    @NotNull
+    @Size(min = 1, max = 30)
+    private String name;
+
 
     private Long productId;
 
@@ -67,6 +71,14 @@ public class ItemDTO implements Serializable {
 
     public void setStatus(ItemStatus status) {
         this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getProductId() {
@@ -114,6 +126,7 @@ public class ItemDTO implements Serializable {
             ", barcode='" + getBarcode() + "'" +
             ", cost=" + getCost() +
             ", status='" + getStatus() + "'" +
+            ", name='" + getName() + "'" +
             ", product=" + getProductId() +
             ", product='" + getProductName() + "'" +
             "}";

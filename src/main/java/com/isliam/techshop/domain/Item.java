@@ -44,8 +44,14 @@ public class Item implements Serializable {
     @Column(name = "status", nullable = false)
     private ItemStatus status;
 
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "name", length = 30, nullable = false)
+    private String name;
+
     @ManyToOne(optional = false)
     @NotNull
+    @JsonIgnoreProperties("items")
     private Product product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -109,6 +115,19 @@ public class Item implements Serializable {
         this.status = status;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Item name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -151,6 +170,7 @@ public class Item implements Serializable {
             ", barcode='" + getBarcode() + "'" +
             ", cost=" + getCost() +
             ", status='" + getStatus() + "'" +
+            ", name='" + getName() + "'" +
             "}";
     }
 }

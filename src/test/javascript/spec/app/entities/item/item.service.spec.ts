@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(ItemService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Item(0, 'AAAAAAA', 'AAAAAAA', 0, ItemStatus.SAVED);
+            elemDefault = new Item(0, 'AAAAAAA', 'AAAAAAA', 0, ItemStatus.SAVED, 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -58,7 +58,8 @@ describe('Service Tests', () => {
                         gtin: 'BBBBBB',
                         barcode: 'BBBBBB',
                         cost: 1,
-                        status: 'BBBBBB'
+                        status: 'BBBBBB',
+                        name: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -78,7 +79,8 @@ describe('Service Tests', () => {
                         gtin: 'BBBBBB',
                         barcode: 'BBBBBB',
                         cost: 1,
-                        status: 'BBBBBB'
+                        status: 'BBBBBB',
+                        name: 'BBBBBB'
                     },
                     elemDefault
                 );

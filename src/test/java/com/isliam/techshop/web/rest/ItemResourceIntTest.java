@@ -60,6 +60,9 @@ public class ItemResourceIntTest {
     private static final ItemStatus DEFAULT_STATUS = ItemStatus.SAVED;
     private static final ItemStatus UPDATED_STATUS = ItemStatus.IN_SHOP;
 
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
     @Autowired
     private ItemRepository itemRepository;
 
@@ -114,7 +117,8 @@ public class ItemResourceIntTest {
             .gtin(DEFAULT_GTIN)
             .barcode(DEFAULT_BARCODE)
             .cost(DEFAULT_COST)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .name(DEFAULT_NAME);
         // Add required entity
         Product product = ProductResourceIntTest.createEntity(em);
         em.persist(product);
@@ -148,6 +152,7 @@ public class ItemResourceIntTest {
         assertThat(testItem.getBarcode()).isEqualTo(DEFAULT_BARCODE);
         assertThat(testItem.getCost()).isEqualTo(DEFAULT_COST);
         assertThat(testItem.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testItem.getName()).isEqualTo(DEFAULT_NAME);
     }
 
     @Test
@@ -210,6 +215,25 @@ public class ItemResourceIntTest {
 
     @Test
     @Transactional
+    public void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = itemRepository.findAll().size();
+        // set the field null
+        item.setName(null);
+
+        // Create the Item, which fails.
+        ItemDTO itemDTO = itemMapper.toDto(item);
+
+        restItemMockMvc.perform(post("/api/items")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(itemDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Item> itemList = itemRepository.findAll();
+        assertThat(itemList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllItems() throws Exception {
         // Initialize the database
         itemRepository.saveAndFlush(item);
@@ -222,7 +246,8 @@ public class ItemResourceIntTest {
             .andExpect(jsonPath("$.[*].gtin").value(hasItem(DEFAULT_GTIN.toString())))
             .andExpect(jsonPath("$.[*].barcode").value(hasItem(DEFAULT_BARCODE.toString())))
             .andExpect(jsonPath("$.[*].cost").value(hasItem(DEFAULT_COST.doubleValue())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
     
     @Test
@@ -239,7 +264,8 @@ public class ItemResourceIntTest {
             .andExpect(jsonPath("$.gtin").value(DEFAULT_GTIN.toString()))
             .andExpect(jsonPath("$.barcode").value(DEFAULT_BARCODE.toString()))
             .andExpect(jsonPath("$.cost").value(DEFAULT_COST.doubleValue()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
 
     @Test
@@ -361,6 +387,45 @@ public class ItemResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllItemsByNameIsEqualToSomething() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where name equals to DEFAULT_NAME
+        defaultItemShouldBeFound("name.equals=" + DEFAULT_NAME);
+
+        // Get all the itemList where name equals to UPDATED_NAME
+        defaultItemShouldNotBeFound("name.equals=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByNameIsInShouldWork() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where name in DEFAULT_NAME or UPDATED_NAME
+        defaultItemShouldBeFound("name.in=" + DEFAULT_NAME + "," + UPDATED_NAME);
+
+        // Get all the itemList where name equals to UPDATED_NAME
+        defaultItemShouldNotBeFound("name.in=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByNameIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where name is not null
+        defaultItemShouldBeFound("name.specified=true");
+
+        // Get all the itemList where name is null
+        defaultItemShouldNotBeFound("name.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllItemsByProductIsEqualToSomething() throws Exception {
         // Initialize the database
         Product product = ProductResourceIntTest.createEntity(em);
@@ -388,7 +453,8 @@ public class ItemResourceIntTest {
             .andExpect(jsonPath("$.[*].gtin").value(hasItem(DEFAULT_GTIN)))
             .andExpect(jsonPath("$.[*].barcode").value(hasItem(DEFAULT_BARCODE.toString())))
             .andExpect(jsonPath("$.[*].cost").value(hasItem(DEFAULT_COST.doubleValue())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
 
         // Check, that the count call also returns 1
         restItemMockMvc.perform(get("/api/items/count?sort=id,desc&" + filter))
@@ -439,7 +505,8 @@ public class ItemResourceIntTest {
             .gtin(UPDATED_GTIN)
             .barcode(UPDATED_BARCODE)
             .cost(UPDATED_COST)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .name(UPDATED_NAME);
         ItemDTO itemDTO = itemMapper.toDto(updatedItem);
 
         restItemMockMvc.perform(put("/api/items")
@@ -455,6 +522,7 @@ public class ItemResourceIntTest {
         assertThat(testItem.getBarcode()).isEqualTo(UPDATED_BARCODE);
         assertThat(testItem.getCost()).isEqualTo(UPDATED_COST);
         assertThat(testItem.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testItem.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test

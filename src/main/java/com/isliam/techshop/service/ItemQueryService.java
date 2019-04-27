@@ -98,6 +98,9 @@ public class ItemQueryService extends QueryService<Item> {
             if (criteria.getStatus() != null) {
                 specification = specification.and(buildSpecification(criteria.getStatus(), Item_.status));
             }
+            if (criteria.getName() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getName(), Item_.name));
+            }
             if (criteria.getProductId() != null) {
                 specification = specification.and(buildSpecification(criteria.getProductId(),
                     root -> root.join(Item_.product, JoinType.LEFT).get(Product_.id)));

@@ -19,6 +19,7 @@
             <th jhiSortBy="barcode"><span>Barcode</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cost"><span>Cost</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="productName"><span>Product</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -30,6 +31,7 @@
                 <td>{{item.barcode}}</td>
                 <td>{{item.cost}}</td>
                 <td>{{item.status}}</td>
+                <td>{{item.name}}</td>
                 <td>
                     <div *ngIf="item.productId">
                         <a [routerLink]="['../product', item.productId , 'view' ]" >{{item.productName}}</a>

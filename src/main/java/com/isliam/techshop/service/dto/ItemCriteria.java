@@ -36,6 +36,8 @@ public class ItemCriteria implements Serializable {
 
     private ItemStatusFilter status;
 
+    private StringFilter name;
+
     private LongFilter productId;
 
     public LongFilter getId() {
@@ -70,6 +72,14 @@ public class ItemCriteria implements Serializable {
         this.status = status;
     }
 
+    public StringFilter getName() {
+        return name;
+    }
+
+    public void setName(StringFilter name) {
+        this.name = name;
+    }
+
     public LongFilter getProductId() {
         return productId;
     }
@@ -93,6 +103,7 @@ public class ItemCriteria implements Serializable {
             Objects.equals(gtin, that.gtin) &&
             Objects.equals(cost, that.cost) &&
             Objects.equals(status, that.status) &&
+            Objects.equals(name, that.name) &&
             Objects.equals(productId, that.productId);
     }
 
@@ -103,6 +114,7 @@ public class ItemCriteria implements Serializable {
         gtin,
         cost,
         status,
+        name,
         productId
         );
     }
@@ -114,6 +126,7 @@ public class ItemCriteria implements Serializable {
                 (gtin != null ? "gtin=" + gtin + ", " : "") +
                 (cost != null ? "cost=" + cost + ", " : "") +
                 (status != null ? "status=" + status + ", " : "") +
+                (name != null ? "name=" + name + ", " : "") +
                 (productId != null ? "productId=" + productId + ", " : "") +
             "}";
     }
