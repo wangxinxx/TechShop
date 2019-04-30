@@ -59,6 +59,14 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'profile',
                 loadChildren: './profile/profile.module#TechShopProfileModule'
+            },
+            {
+                path: 'permission',
+                loadChildren: './permission/permission.module#TechShopPermissionModule'
+            },
+            {
+                path: 'position',
+                loadChildren: './position/position.module#TechShopPositionModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

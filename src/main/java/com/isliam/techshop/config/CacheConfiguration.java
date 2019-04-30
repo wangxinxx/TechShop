@@ -50,6 +50,8 @@ public class CacheConfiguration {
             cm.createCache(com.isliam.techshop.domain.ItemPropertyDouble.class.getName(), jcacheConfiguration);
             cm.createCache(com.isliam.techshop.domain.Passport.class.getName(), jcacheConfiguration);
             cm.createCache(com.isliam.techshop.domain.Profile.class.getName(), jcacheConfiguration);
+            cm.createCache(com.isliam.techshop.domain.Permission.class.getName(), jcacheConfiguration);
+            cm.createCache(com.isliam.techshop.domain.Position.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

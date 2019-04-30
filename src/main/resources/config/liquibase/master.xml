@@ -15,6 +15,8 @@
     <include file="config/liquibase/changelog/20190427154351_added_entity_ItemPropertyDouble.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190430161312_added_entity_Passport.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190430161518_added_entity_Profile.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190430162103_added_entity_Permission.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190430162315_added_entity_Position.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190427145031_added_entity_constraints_Property.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190427150657_added_entity_constraints_Item.xml" relativeToChangelogFile="false"/>
@@ -23,5 +25,6 @@
     <include file="config/liquibase/changelog/20190427153112_added_entity_constraints_ItemPropertyFloat.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190427154137_added_entity_constraints_ItemPropertyBool.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190427154351_added_entity_constraints_ItemPropertyDouble.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190430162315_added_entity_constraints_Position.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
