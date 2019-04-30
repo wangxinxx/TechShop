@@ -9,6 +9,7 @@ export interface IPassport {
     serialNumber?: string;
     taxId?: string;
     active?: boolean;
+    profileId?: number;
 }
 
 export class Passport implements IPassport {
@@ -20,7 +21,8 @@ export class Passport implements IPassport {
         public dob?: Moment,
         public serialNumber?: string,
         public taxId?: string,
-        public active?: boolean
+        public active?: boolean,
+        public profileId?: number
     ) {
         this.active = this.active || false;
     }

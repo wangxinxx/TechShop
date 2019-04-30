@@ -36,6 +36,8 @@ public class PassportDTO implements Serializable {
     private Boolean active;
 
 
+    private Long profileId;
+
     public Long getId() {
         return id;
     }
@@ -100,6 +102,14 @@ public class PassportDTO implements Serializable {
         this.active = active;
     }
 
+    public Long getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -132,6 +142,7 @@ public class PassportDTO implements Serializable {
             ", serialNumber='" + getSerialNumber() + "'" +
             ", taxId='" + getTaxId() + "'" +
             ", active='" + isActive() + "'" +
+            ", profile=" + getProfileId() +
             "}";
     }
 }

@@ -22,6 +22,7 @@
             <th jhiSortBy="serialNumber"><span>Serial Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="taxId"><span>Tax Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="active"><span>Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="profileId"><span>Profile</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -35,6 +36,11 @@
                 <td>{{passport.serialNumber}}</td>
                 <td>{{passport.taxId}}</td>
                 <td>{{passport.active}}</td>
+                <td>
+                    <div *ngIf="passport.profileId">
+                        <a [routerLink]="['../profile', passport.profileId , 'view' ]" >{{passport.profileId}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

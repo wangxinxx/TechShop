@@ -8,10 +8,14 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Passport and its DTO PassportDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {ProfileMapper.class})
 public interface PassportMapper extends EntityMapper<PassportDTO, Passport> {
 
+    @Mapping(source = "profile.id", target = "profileId")
+    PassportDTO toDto(Passport passport);
 
+    @Mapping(source = "profileId", target = "profile")
+    Passport toEntity(PassportDTO passportDTO);
 
     default Passport fromId(Long id) {
         if (id == null) {

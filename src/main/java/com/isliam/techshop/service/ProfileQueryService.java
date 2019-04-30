@@ -92,6 +92,14 @@ public class ProfileQueryService extends QueryService<Profile> {
             if (criteria.getPhone() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getPhone(), Profile_.phone));
             }
+            if (criteria.getPositionId() != null) {
+                specification = specification.and(buildSpecification(criteria.getPositionId(),
+                    root -> root.join(Profile_.position, JoinType.LEFT).get(Position_.id)));
+            }
+            if (criteria.getPassportId() != null) {
+                specification = specification.and(buildSpecification(criteria.getPassportId(),
+                    root -> root.join(Profile_.passports, JoinType.LEFT).get(Passport_.id)));
+            }
         }
         return specification;
     }

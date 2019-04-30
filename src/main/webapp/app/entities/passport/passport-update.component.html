@@ -122,6 +122,19 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" for="field_profile">Profile</label>
+                    <select class="form-control" id="field_profile" name="profile" [(ngModel)]="passport.profileId"  required>
+                        <option *ngIf="!editForm.value.profile" [ngValue]="null" selected></option>
+                        <option [ngValue]="profileOption.id" *ngFor="let profileOption of profiles; trackBy: trackProfileById">{{profileOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.profile?.dirty && editForm.controls.profile?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.profile?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

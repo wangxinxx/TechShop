@@ -1,7 +1,26 @@
 {
     "fluentMethods": true,
     "clientRootFolder": "",
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "position",
+            "otherEntityName": "position",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "profile",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "passport",
+            "otherEntityName": "passport",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "profile",
+            "otherEntityRelationshipNameUndefined": false
+        }
+    ],
     "fields": [
         {
             "fieldName": "phone",

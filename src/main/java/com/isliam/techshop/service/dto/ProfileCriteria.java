@@ -26,6 +26,10 @@ public class ProfileCriteria implements Serializable {
 
     private StringFilter phone;
 
+    private LongFilter positionId;
+
+    private LongFilter passportId;
+
     public LongFilter getId() {
         return id;
     }
@@ -42,6 +46,22 @@ public class ProfileCriteria implements Serializable {
         this.phone = phone;
     }
 
+    public LongFilter getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(LongFilter positionId) {
+        this.positionId = positionId;
+    }
+
+    public LongFilter getPassportId() {
+        return passportId;
+    }
+
+    public void setPassportId(LongFilter passportId) {
+        this.passportId = passportId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -54,14 +74,18 @@ public class ProfileCriteria implements Serializable {
         final ProfileCriteria that = (ProfileCriteria) o;
         return
             Objects.equals(id, that.id) &&
-            Objects.equals(phone, that.phone);
+            Objects.equals(phone, that.phone) &&
+            Objects.equals(positionId, that.positionId) &&
+            Objects.equals(passportId, that.passportId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
-        phone
+        phone,
+        positionId,
+        passportId
         );
     }
 
@@ -70,6 +94,8 @@ public class ProfileCriteria implements Serializable {
         return "ProfileCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (phone != null ? "phone=" + phone + ", " : "") +
+                (positionId != null ? "positionId=" + positionId + ", " : "") +
+                (passportId != null ? "passportId=" + passportId + ", " : "") +
             "}";
     }
 

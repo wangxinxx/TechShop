@@ -33,6 +33,12 @@
                 <dd>
                     <span>{{passport.active}}</span>
                 </dd>
+                <dt><span>Profile</span></dt>
+                <dd>
+                    <div *ngIf="passport.profileId">
+                        <a [routerLink]="['/profile', passport.profileId, 'view']">{{passport.profileId}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

@@ -4,8 +4,11 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { JhiAlertService } from 'ng-jhipster';
 import { IPassport } from 'app/shared/model/passport.model';
 import { PassportService } from './passport.service';
+import { IProfile } from 'app/shared/model/profile.model';
+import { ProfileService } from 'app/entities/profile';
 
 @Component({
     selector: 'jhi-passport-update',
@@ -14,15 +17,29 @@ import { PassportService } from './passport.service';
 export class PassportUpdateComponent implements OnInit {
     passport: IPassport;
     isSaving: boolean;
+
+    profiles: IProfile[];
     dobDp: any;
 
-    constructor(protected passportService: PassportService, protected activatedRoute: ActivatedRoute) {}
+    constructor(
+        protected jhiAlertService: JhiAlertService,
+        protected passportService: PassportService,
+        protected profileService: ProfileService,
+        protected activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ passport }) => {
             this.passport = passport;
         });
+        this.profileService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IProfile[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IProfile[]>) => response.body)
+            )
+            .subscribe((res: IProfile[]) => (this.profiles = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -49,5 +66,13 @@ export class PassportUpdateComponent implements OnInit {
 
     protected onSaveError() {
         this.isSaving = false;
+    }
+
+    protected onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackProfileById(index: number, item: IProfile) {
+        return item.id;
     }
 }

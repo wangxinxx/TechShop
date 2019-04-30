@@ -75,6 +75,14 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'position',
                 loadChildren: './position/position.module#TechShopPositionModule'
+            },
+            {
+                path: 'profile',
+                loadChildren: './profile/profile.module#TechShopProfileModule'
+            },
+            {
+                path: 'passport',
+                loadChildren: './passport/passport.module#TechShopPassportModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

@@ -14,6 +14,10 @@ public class ProfileDTO implements Serializable {
     private String phone;
 
 
+    private Long positionId;
+
+    private String positionName;
+
     public Long getId() {
         return id;
     }
@@ -28,6 +32,22 @@ public class ProfileDTO implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Long getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 
     @Override
@@ -56,6 +76,8 @@ public class ProfileDTO implements Serializable {
         return "ProfileDTO{" +
             "id=" + getId() +
             ", phone='" + getPhone() + "'" +
+            ", position=" + getPositionId() +
+            ", position='" + getPositionName() + "'" +
             "}";
     }
 }

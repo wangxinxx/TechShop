@@ -1,6 +1,8 @@
 package com.isliam.techshop.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,6 +10,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -28,6 +32,14 @@ public class Profile implements Serializable {
     @Column(name = "phone", length = 12)
     private String phone;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("profiles")
+    private Position position;
+
+    @OneToMany(mappedBy = "profile")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Passport> passports = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -48,6 +60,44 @@ public class Profile implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public Profile position(Position position) {
+        this.position = position;
+        return this;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public Set<Passport> getPassports() {
+        return passports;
+    }
+
+    public Profile passports(Set<Passport> passports) {
+        this.passports = passports;
+        return this;
+    }
+
+    public Profile addPassport(Passport passport) {
+        this.passports.add(passport);
+        passport.setProfile(this);
+        return this;
+    }
+
+    public Profile removePassport(Passport passport) {
+        this.passports.remove(passport);
+        passport.setProfile(null);
+        return this;
+    }
+
+    public void setPassports(Set<Passport> passports) {
+        this.passports = passports;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

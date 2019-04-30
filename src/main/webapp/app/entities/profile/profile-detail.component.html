@@ -9,6 +9,12 @@
                 <dd>
                     <span>{{profile.phone}}</span>
                 </dd>
+                <dt><span>Position</span></dt>
+                <dd>
+                    <div *ngIf="profile.positionId">
+                        <a [routerLink]="['/position', profile.positionId, 'view']">{{profile.positionName}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

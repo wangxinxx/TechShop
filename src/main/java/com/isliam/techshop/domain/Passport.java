@@ -1,6 +1,7 @@
 package com.isliam.techshop.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -55,6 +56,11 @@ public class Passport implements Serializable {
     @NotNull
     @Column(name = "active", nullable = false)
     private Boolean active;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("passports")
+    private Profile profile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -154,6 +160,19 @@ public class Passport implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public Passport profile(Profile profile) {
+        this.profile = profile;
+        return this;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

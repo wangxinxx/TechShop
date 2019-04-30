@@ -110,6 +110,10 @@ public class PassportQueryService extends QueryService<Passport> {
             if (criteria.getActive() != null) {
                 specification = specification.and(buildSpecification(criteria.getActive(), Passport_.active));
             }
+            if (criteria.getProfileId() != null) {
+                specification = specification.and(buildSpecification(criteria.getProfileId(),
+                    root -> root.join(Passport_.profile, JoinType.LEFT).get(Profile_.id)));
+            }
         }
         return specification;
     }

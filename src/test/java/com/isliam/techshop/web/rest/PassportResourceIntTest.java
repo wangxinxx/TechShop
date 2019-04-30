@@ -3,6 +3,7 @@ package com.isliam.techshop.web.rest;
 import com.isliam.techshop.TechShopApp;
 
 import com.isliam.techshop.domain.Passport;
+import com.isliam.techshop.domain.Profile;
 import com.isliam.techshop.repository.PassportRepository;
 import com.isliam.techshop.service.PassportService;
 import com.isliam.techshop.service.dto.PassportDTO;
@@ -126,6 +127,11 @@ public class PassportResourceIntTest {
             .serialNumber(DEFAULT_SERIAL_NUMBER)
             .taxId(DEFAULT_TAX_ID)
             .active(DEFAULT_ACTIVE);
+        // Add required entity
+        Profile profile = ProfileResourceIntTest.createEntity(em);
+        em.persist(profile);
+        em.flush();
+        passport.setProfile(profile);
         return passport;
     }
 
@@ -613,6 +619,25 @@ public class PassportResourceIntTest {
         // Get all the passportList where active is null
         defaultPassportShouldNotBeFound("active.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllPassportsByProfileIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Profile profile = ProfileResourceIntTest.createEntity(em);
+        em.persist(profile);
+        em.flush();
+        passport.setProfile(profile);
+        passportRepository.saveAndFlush(passport);
+        Long profileId = profile.getId();
+
+        // Get all the passportList where profile equals to profileId
+        defaultPassportShouldBeFound("profileId.equals=" + profileId);
+
+        // Get all the passportList where profile equals to profileId + 1
+        defaultPassportShouldNotBeFound("profileId.equals=" + (profileId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

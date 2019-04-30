@@ -3,6 +3,8 @@ package com.isliam.techshop.web.rest;
 import com.isliam.techshop.TechShopApp;
 
 import com.isliam.techshop.domain.Profile;
+import com.isliam.techshop.domain.Position;
+import com.isliam.techshop.domain.Passport;
 import com.isliam.techshop.repository.ProfileRepository;
 import com.isliam.techshop.service.ProfileService;
 import com.isliam.techshop.service.dto.ProfileDTO;
@@ -100,6 +102,11 @@ public class ProfileResourceIntTest {
     public static Profile createEntity(EntityManager em) {
         Profile profile = new Profile()
             .phone(DEFAULT_PHONE);
+        // Add required entity
+        Position position = PositionResourceIntTest.createEntity(em);
+        em.persist(position);
+        em.flush();
+        profile.setPosition(position);
         return profile;
     }
 
@@ -213,6 +220,44 @@ public class ProfileResourceIntTest {
         // Get all the profileList where phone is null
         defaultProfileShouldNotBeFound("phone.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllProfilesByPositionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Position position = PositionResourceIntTest.createEntity(em);
+        em.persist(position);
+        em.flush();
+        profile.setPosition(position);
+        profileRepository.saveAndFlush(profile);
+        Long positionId = position.getId();
+
+        // Get all the profileList where position equals to positionId
+        defaultProfileShouldBeFound("positionId.equals=" + positionId);
+
+        // Get all the profileList where position equals to positionId + 1
+        defaultProfileShouldNotBeFound("positionId.equals=" + (positionId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllProfilesByPassportIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Passport passport = PassportResourceIntTest.createEntity(em);
+        em.persist(passport);
+        em.flush();
+        profile.addPassport(passport);
+        profileRepository.saveAndFlush(profile);
+        Long passportId = passport.getId();
+
+        // Get all the profileList where passport equals to passportId
+        defaultProfileShouldBeFound("passportId.equals=" + passportId);
+
+        // Get all the profileList where passport equals to passportId + 1
+        defaultProfileShouldNotBeFound("passportId.equals=" + (passportId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

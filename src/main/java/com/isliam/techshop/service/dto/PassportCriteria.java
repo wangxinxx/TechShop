@@ -39,6 +39,8 @@ public class PassportCriteria implements Serializable {
 
     private BooleanFilter active;
 
+    private LongFilter profileId;
+
     public LongFilter getId() {
         return id;
     }
@@ -103,6 +105,14 @@ public class PassportCriteria implements Serializable {
         this.active = active;
     }
 
+    public LongFilter getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(LongFilter profileId) {
+        this.profileId = profileId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -121,7 +131,8 @@ public class PassportCriteria implements Serializable {
             Objects.equals(dob, that.dob) &&
             Objects.equals(serialNumber, that.serialNumber) &&
             Objects.equals(taxId, that.taxId) &&
-            Objects.equals(active, that.active);
+            Objects.equals(active, that.active) &&
+            Objects.equals(profileId, that.profileId);
     }
 
     @Override
@@ -134,7 +145,8 @@ public class PassportCriteria implements Serializable {
         dob,
         serialNumber,
         taxId,
-        active
+        active,
+        profileId
         );
     }
 
@@ -149,6 +161,7 @@ public class PassportCriteria implements Serializable {
                 (serialNumber != null ? "serialNumber=" + serialNumber + ", " : "") +
                 (taxId != null ? "taxId=" + taxId + ", " : "") +
                 (active != null ? "active=" + active + ", " : "") +
+                (profileId != null ? "profileId=" + profileId + ", " : "") +
             "}";
     }
 

@@ -3,8 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { JhiAlertService } from 'ng-jhipster';
 import { IProfile } from 'app/shared/model/profile.model';
 import { ProfileService } from './profile.service';
+import { IPosition } from 'app/shared/model/position.model';
+import { PositionService } from 'app/entities/position';
 
 @Component({
     selector: 'jhi-profile-update',
@@ -14,13 +17,27 @@ export class ProfileUpdateComponent implements OnInit {
     profile: IProfile;
     isSaving: boolean;
 
-    constructor(protected profileService: ProfileService, protected activatedRoute: ActivatedRoute) {}
+    positions: IPosition[];
+
+    constructor(
+        protected jhiAlertService: JhiAlertService,
+        protected profileService: ProfileService,
+        protected positionService: PositionService,
+        protected activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ profile }) => {
             this.profile = profile;
         });
+        this.positionService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IPosition[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IPosition[]>) => response.body)
+            )
+            .subscribe((res: IPosition[]) => (this.positions = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -47,5 +64,13 @@ export class ProfileUpdateComponent implements OnInit {
 
     protected onSaveError() {
         this.isSaving = false;
+    }
+
+    protected onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackPositionById(index: number, item: IPosition) {
+        return item.id;
     }
 }
