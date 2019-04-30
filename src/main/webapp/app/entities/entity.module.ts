@@ -51,6 +51,14 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'item-property-double',
                 loadChildren: './item-property-double/item-property-double.module#TechShopItemPropertyDoubleModule'
+            },
+            {
+                path: 'passport',
+                loadChildren: './passport/passport.module#TechShopPassportModule'
+            },
+            {
+                path: 'profile',
+                loadChildren: './profile/profile.module#TechShopProfileModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
