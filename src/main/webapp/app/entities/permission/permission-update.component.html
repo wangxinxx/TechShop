@@ -29,6 +29,18 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="field_position">Position</label>
+                    <select class="form-control" id="field_position" multiple name="position" [(ngModel)]="permission.positions" required>
+                        <option [ngValue]="getSelected(permission.positions, positionOption)" *ngFor="let positionOption of positions; trackBy: trackPositionById">{{positionOption.name}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.position?.dirty && editForm.controls.position?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.position?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

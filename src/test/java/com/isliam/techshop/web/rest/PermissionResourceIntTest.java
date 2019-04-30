@@ -3,6 +3,7 @@ package com.isliam.techshop.web.rest;
 import com.isliam.techshop.TechShopApp;
 
 import com.isliam.techshop.domain.Permission;
+import com.isliam.techshop.domain.Position;
 import com.isliam.techshop.repository.PermissionRepository;
 import com.isliam.techshop.service.PermissionService;
 import com.isliam.techshop.service.dto.PermissionDTO;
@@ -14,9 +15,12 @@ import com.isliam.techshop.service.PermissionQueryService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -27,12 +31,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 
 import static com.isliam.techshop.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -51,8 +57,14 @@ public class PermissionResourceIntTest {
     @Autowired
     private PermissionRepository permissionRepository;
 
+    @Mock
+    private PermissionRepository permissionRepositoryMock;
+
     @Autowired
     private PermissionMapper permissionMapper;
+
+    @Mock
+    private PermissionService permissionServiceMock;
 
     @Autowired
     private PermissionService permissionService;
@@ -100,6 +112,11 @@ public class PermissionResourceIntTest {
     public static Permission createEntity(EntityManager em) {
         Permission permission = new Permission()
             .name(DEFAULT_NAME);
+        // Add required entity
+        Position position = PositionResourceIntTest.createEntity(em);
+        em.persist(position);
+        em.flush();
+        permission.getPositions().add(position);
         return permission;
     }
 
@@ -180,6 +197,39 @@ public class PermissionResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllPermissionsWithEagerRelationshipsIsEnabled() throws Exception {
+        PermissionResource permissionResource = new PermissionResource(permissionServiceMock, permissionQueryService);
+        when(permissionServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restPermissionMockMvc = MockMvcBuilders.standaloneSetup(permissionResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restPermissionMockMvc.perform(get("/api/permissions?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(permissionServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllPermissionsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        PermissionResource permissionResource = new PermissionResource(permissionServiceMock, permissionQueryService);
+            when(permissionServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restPermissionMockMvc = MockMvcBuilders.standaloneSetup(permissionResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restPermissionMockMvc.perform(get("/api/permissions?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(permissionServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getPermission() throws Exception {
@@ -232,6 +282,25 @@ public class PermissionResourceIntTest {
         // Get all the permissionList where name is null
         defaultPermissionShouldNotBeFound("name.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllPermissionsByPositionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Position position = PositionResourceIntTest.createEntity(em);
+        em.persist(position);
+        em.flush();
+        permission.addPosition(position);
+        permissionRepository.saveAndFlush(permission);
+        Long positionId = position.getId();
+
+        // Get all the permissionList where position equals to positionId
+        defaultPermissionShouldBeFound("positionId.equals=" + positionId);
+
+        // Get all the permissionList where position equals to positionId + 1
+        defaultPermissionShouldNotBeFound("positionId.equals=" + (positionId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

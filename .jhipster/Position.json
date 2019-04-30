@@ -6,7 +6,17 @@
             "relationshipName": "manager",
             "otherEntityName": "position",
             "relationshipType": "many-to-one",
-            "otherEntityField": "name"
+            "otherEntityField": "name",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "position"
+        },
+        {
+            "relationshipName": "permission",
+            "otherEntityName": "permission",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "position",
+            "otherEntityRelationshipNameUndefined": false
         }
     ],
     "fields": [

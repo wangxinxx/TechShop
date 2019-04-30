@@ -92,6 +92,10 @@ public class PermissionQueryService extends QueryService<Permission> {
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), Permission_.name));
             }
+            if (criteria.getPositionId() != null) {
+                specification = specification.and(buildSpecification(criteria.getPositionId(),
+                    root -> root.join(Permission_.positions, JoinType.LEFT).get(Position_.id)));
+            }
         }
         return specification;
     }

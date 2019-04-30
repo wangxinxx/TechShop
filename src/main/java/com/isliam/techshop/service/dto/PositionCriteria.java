@@ -28,6 +28,8 @@ public class PositionCriteria implements Serializable {
 
     private LongFilter managerId;
 
+    private LongFilter permissionId;
+
     public LongFilter getId() {
         return id;
     }
@@ -52,6 +54,14 @@ public class PositionCriteria implements Serializable {
         this.managerId = managerId;
     }
 
+    public LongFilter getPermissionId() {
+        return permissionId;
+    }
+
+    public void setPermissionId(LongFilter permissionId) {
+        this.permissionId = permissionId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -65,7 +75,8 @@ public class PositionCriteria implements Serializable {
         return
             Objects.equals(id, that.id) &&
             Objects.equals(name, that.name) &&
-            Objects.equals(managerId, that.managerId);
+            Objects.equals(managerId, that.managerId) &&
+            Objects.equals(permissionId, that.permissionId);
     }
 
     @Override
@@ -73,7 +84,8 @@ public class PositionCriteria implements Serializable {
         return Objects.hash(
         id,
         name,
-        managerId
+        managerId,
+        permissionId
         );
     }
 
@@ -83,6 +95,7 @@ public class PositionCriteria implements Serializable {
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (managerId != null ? "managerId=" + managerId + ", " : "") +
+                (permissionId != null ? "permissionId=" + permissionId + ", " : "") +
             "}";
     }
 

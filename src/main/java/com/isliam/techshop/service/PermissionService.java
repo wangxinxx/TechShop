@@ -28,7 +28,13 @@ public interface PermissionService {
      */
     Page<PermissionDTO> findAll(Pageable pageable);
 
-
+    /**
+     * Get all the Permission with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    Page<PermissionDTO> findAllWithEagerRelationships(Pageable pageable);
+    
     /**
      * Get the "id" permission.
      *

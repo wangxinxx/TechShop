@@ -96,6 +96,10 @@ public class PositionQueryService extends QueryService<Position> {
                 specification = specification.and(buildSpecification(criteria.getManagerId(),
                     root -> root.join(Position_.manager, JoinType.LEFT).get(Position_.id)));
             }
+            if (criteria.getPermissionId() != null) {
+                specification = specification.and(buildSpecification(criteria.getPermissionId(),
+                    root -> root.join(Position_.permissions, JoinType.LEFT).get(Permission_.id)));
+            }
         }
         return specification;
     }

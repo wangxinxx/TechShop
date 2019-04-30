@@ -26,6 +26,8 @@ public class PermissionCriteria implements Serializable {
 
     private StringFilter name;
 
+    private LongFilter positionId;
+
     public LongFilter getId() {
         return id;
     }
@@ -42,6 +44,14 @@ public class PermissionCriteria implements Serializable {
         this.name = name;
     }
 
+    public LongFilter getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(LongFilter positionId) {
+        this.positionId = positionId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -54,14 +64,16 @@ public class PermissionCriteria implements Serializable {
         final PermissionCriteria that = (PermissionCriteria) o;
         return
             Objects.equals(id, that.id) &&
-            Objects.equals(name, that.name);
+            Objects.equals(name, that.name) &&
+            Objects.equals(positionId, that.positionId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
-        name
+        name,
+        positionId
         );
     }
 
@@ -70,6 +82,7 @@ public class PermissionCriteria implements Serializable {
         return "PermissionCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
+                (positionId != null ? "positionId=" + positionId + ", " : "") +
             "}";
     }
 

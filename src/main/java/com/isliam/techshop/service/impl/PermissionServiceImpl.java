@@ -61,6 +61,15 @@ public class PermissionServiceImpl implements PermissionService {
             .map(permissionMapper::toDto);
     }
 
+    /**
+     * Get all the Permission with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    public Page<PermissionDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return permissionRepository.findAllWithEagerRelationships(pageable).map(permissionMapper::toDto);
+    }
+    
 
     /**
      * Get one permission by id.
@@ -72,7 +81,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Transactional(readOnly = true)
     public Optional<PermissionDTO> findOne(Long id) {
         log.debug("Request to get Permission : {}", id);
-        return permissionRepository.findById(id)
+        return permissionRepository.findOneWithEagerRelationships(id)
             .map(permissionMapper::toDto);
     }
 

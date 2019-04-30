@@ -4,6 +4,7 @@ import com.isliam.techshop.TechShopApp;
 
 import com.isliam.techshop.domain.Position;
 import com.isliam.techshop.domain.Position;
+import com.isliam.techshop.domain.Permission;
 import com.isliam.techshop.repository.PositionRepository;
 import com.isliam.techshop.service.PositionService;
 import com.isliam.techshop.service.dto.PositionDTO;
@@ -250,6 +251,25 @@ public class PositionResourceIntTest {
 
         // Get all the positionList where manager equals to managerId + 1
         defaultPositionShouldNotBeFound("managerId.equals=" + (managerId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllPositionsByPermissionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Permission permission = PermissionResourceIntTest.createEntity(em);
+        em.persist(permission);
+        em.flush();
+        position.addPermission(permission);
+        positionRepository.saveAndFlush(position);
+        Long permissionId = permission.getId();
+
+        // Get all the positionList where permission equals to permissionId
+        defaultPositionShouldBeFound("permissionId.equals=" + permissionId);
+
+        // Get all the positionList where permission equals to permissionId + 1
+        defaultPositionShouldNotBeFound("permissionId.equals=" + (permissionId + 1));
     }
 
     /**

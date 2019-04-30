@@ -6,6 +6,8 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IPosition } from 'app/shared/model/position.model';
 import { PositionService } from './position.service';
+import { IPermission } from 'app/shared/model/permission.model';
+import { PermissionService } from 'app/entities/permission';
 
 @Component({
     selector: 'jhi-position-update',
@@ -17,9 +19,12 @@ export class PositionUpdateComponent implements OnInit {
 
     positions: IPosition[];
 
+    permissions: IPermission[];
+
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected positionService: PositionService,
+        protected permissionService: PermissionService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -35,6 +40,13 @@ export class PositionUpdateComponent implements OnInit {
                 map((response: HttpResponse<IPosition[]>) => response.body)
             )
             .subscribe((res: IPosition[]) => (this.positions = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.permissionService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IPermission[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IPermission[]>) => response.body)
+            )
+            .subscribe((res: IPermission[]) => (this.permissions = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -69,5 +81,20 @@ export class PositionUpdateComponent implements OnInit {
 
     trackPositionById(index: number, item: IPosition) {
         return item.id;
+    }
+
+    trackPermissionById(index: number, item: IPermission) {
+        return item.id;
+    }
+
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
     }
 }

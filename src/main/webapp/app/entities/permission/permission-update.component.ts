@@ -3,8 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { JhiAlertService } from 'ng-jhipster';
 import { IPermission } from 'app/shared/model/permission.model';
 import { PermissionService } from './permission.service';
+import { IPosition } from 'app/shared/model/position.model';
+import { PositionService } from 'app/entities/position';
 
 @Component({
     selector: 'jhi-permission-update',
@@ -14,13 +17,27 @@ export class PermissionUpdateComponent implements OnInit {
     permission: IPermission;
     isSaving: boolean;
 
-    constructor(protected permissionService: PermissionService, protected activatedRoute: ActivatedRoute) {}
+    positions: IPosition[];
+
+    constructor(
+        protected jhiAlertService: JhiAlertService,
+        protected permissionService: PermissionService,
+        protected positionService: PositionService,
+        protected activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ permission }) => {
             this.permission = permission;
         });
+        this.positionService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IPosition[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IPosition[]>) => response.body)
+            )
+            .subscribe((res: IPosition[]) => (this.positions = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -47,5 +64,24 @@ export class PermissionUpdateComponent implements OnInit {
 
     protected onSaveError() {
         this.isSaving = false;
+    }
+
+    protected onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackPositionById(index: number, item: IPosition) {
+        return item.id;
+    }
+
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
     }
 }

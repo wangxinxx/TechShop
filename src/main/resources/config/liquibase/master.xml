@@ -26,5 +26,6 @@
     <include file="config/liquibase/changelog/20190427154137_added_entity_constraints_ItemPropertyBool.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190427154351_added_entity_constraints_ItemPropertyDouble.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190430162315_added_entity_constraints_Position.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190430162103_added_entity_constraints_Permission.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -1,6 +1,8 @@
 package com.isliam.techshop.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -14,6 +16,8 @@ public class PermissionDTO implements Serializable {
     @Size(min = 1, max = 20)
     private String name;
 
+
+    private Set<PositionDTO> positions = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -29,6 +33,14 @@ public class PermissionDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<PositionDTO> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(Set<PositionDTO> positions) {
+        this.positions = positions;
     }
 
     @Override

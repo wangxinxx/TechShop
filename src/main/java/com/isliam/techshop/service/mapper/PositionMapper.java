@@ -16,6 +16,7 @@ public interface PositionMapper extends EntityMapper<PositionDTO, Position> {
     PositionDTO toDto(Position position);
 
     @Mapping(source = "managerId", target = "manager")
+    @Mapping(target = "permissions", ignore = true)
     Position toEntity(PositionDTO positionDTO);
 
     default Position fromId(Long id) {

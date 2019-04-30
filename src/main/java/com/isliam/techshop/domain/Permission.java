@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -29,6 +31,14 @@ public class Permission implements Serializable {
     @Column(name = "name", length = 20, nullable = false, unique = true)
     private String name;
 
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @NotNull
+    @JoinTable(name = "permission_position",
+               joinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "position_id", referencedColumnName = "id"))
+    private Set<Position> positions = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -49,6 +59,31 @@ public class Permission implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Position> getPositions() {
+        return positions;
+    }
+
+    public Permission positions(Set<Position> positions) {
+        this.positions = positions;
+        return this;
+    }
+
+    public Permission addPosition(Position position) {
+        this.positions.add(position);
+        position.getPermissions().add(this);
+        return this;
+    }
+
+    public Permission removePosition(Position position) {
+        this.positions.remove(position);
+        position.getPermissions().remove(this);
+        return this;
+    }
+
+    public void setPositions(Set<Position> positions) {
+        this.positions = positions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

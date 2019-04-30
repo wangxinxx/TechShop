@@ -8,7 +8,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Permission and its DTO PermissionDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {PositionMapper.class})
 public interface PermissionMapper extends EntityMapper<PermissionDTO, Permission> {
 
 
