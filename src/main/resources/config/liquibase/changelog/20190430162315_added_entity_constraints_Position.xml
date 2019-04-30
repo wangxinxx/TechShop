@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="position"/>
 
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/positions.csv"
+                  separator=";"
+                  tableName="position">
+        </loadData>
+
     </changeSet>
 </databaseChangeLog>

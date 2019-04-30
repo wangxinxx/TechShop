@@ -18,6 +18,20 @@
                                  constraintName="fk_permission_position_position_id"
                                  referencedColumnNames="id"
                                  referencedTableName="position"/>
-        
+
+<!--
+-->
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/permissions.csv"
+                  separator=";"
+                  tableName="permission">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/position_permission.csv"
+                  separator=";"
+                  tableName="permission_position">
+            <column name="permission_id" type="NUMERIC"/>
+            <column name="position_id" type="NUMERIC"/>
+        </loadData>
     </changeSet>
 </databaseChangeLog>
