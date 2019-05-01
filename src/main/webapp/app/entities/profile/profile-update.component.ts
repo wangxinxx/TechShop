@@ -8,6 +8,7 @@ import { IProfile } from 'app/shared/model/profile.model';
 import { ProfileService } from './profile.service';
 import { IPosition } from 'app/shared/model/position.model';
 import { PositionService } from 'app/entities/position';
+import { IUser, UserService } from 'app/core';
 
 @Component({
     selector: 'jhi-profile-update',
@@ -19,10 +20,13 @@ export class ProfileUpdateComponent implements OnInit {
 
     positions: IPosition[];
 
+    users: IUser[];
+
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected profileService: ProfileService,
         protected positionService: PositionService,
+        protected userService: UserService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -38,6 +42,13 @@ export class ProfileUpdateComponent implements OnInit {
                 map((response: HttpResponse<IPosition[]>) => response.body)
             )
             .subscribe((res: IPosition[]) => (this.positions = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.userService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IUser[]>) => response.body)
+            )
+            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -71,6 +82,10 @@ export class ProfileUpdateComponent implements OnInit {
     }
 
     trackPositionById(index: number, item: IPosition) {
+        return item.id;
+    }
+
+    trackUserById(index: number, item: IUser) {
         return item.id;
     }
 }

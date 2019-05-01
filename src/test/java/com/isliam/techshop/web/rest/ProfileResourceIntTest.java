@@ -5,6 +5,7 @@ import com.isliam.techshop.TechShopApp;
 import com.isliam.techshop.domain.Profile;
 import com.isliam.techshop.domain.Position;
 import com.isliam.techshop.domain.Passport;
+import com.isliam.techshop.domain.User;
 import com.isliam.techshop.repository.ProfileRepository;
 import com.isliam.techshop.service.ProfileService;
 import com.isliam.techshop.service.dto.ProfileDTO;
@@ -107,6 +108,11 @@ public class ProfileResourceIntTest {
         em.persist(position);
         em.flush();
         profile.setPosition(position);
+        // Add required entity
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        profile.setUser(user);
         return profile;
     }
 
@@ -132,6 +138,9 @@ public class ProfileResourceIntTest {
         assertThat(profileList).hasSize(databaseSizeBeforeCreate + 1);
         Profile testProfile = profileList.get(profileList.size() - 1);
         assertThat(testProfile.getPhone()).isEqualTo(DEFAULT_PHONE);
+
+        // Validate the id for MapsId, the ids must be same
+        assertThat(testProfile.getId()).isEqualTo(testProfile.getUser().getId());
     }
 
     @Test
@@ -256,6 +265,25 @@ public class ProfileResourceIntTest {
 
         // Get all the profileList where passport equals to passportId + 1
         defaultProfileShouldNotBeFound("passportId.equals=" + (passportId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllProfilesByUserIsEqualToSomething() throws Exception {
+        // Initialize the database
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        profile.setUser(user);
+        profileRepository.saveAndFlush(profile);
+        Long userId = user.getId();
+
+        // Get all the profileList where user equals to userId
+        defaultProfileShouldBeFound("userId.equals=" + userId);
+
+        // Get all the profileList where user equals to userId + 1
+        defaultProfileShouldNotBeFound("userId.equals=" + (userId + 1));
     }
 
     /**

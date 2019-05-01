@@ -17,22 +17,22 @@ import io.github.jhipster.config.liquibase.AsyncSpringLiquibase;
 import liquibase.integration.spring.SpringLiquibase;
 
 @Configuration
-public class LiquibaseConfiguration {
+public class TechShopLiquibaseConfiguration {
 
-    private final Logger log = LoggerFactory.getLogger(LiquibaseConfiguration.class);
+    private final Logger log = LoggerFactory.getLogger(TechShopLiquibaseConfiguration.class);
 
     private final Environment env;
 
     private final CacheManager cacheManager;
 
-    public LiquibaseConfiguration(Environment env, CacheManager cacheManager) {
+    public TechShopLiquibaseConfiguration(Environment env, CacheManager cacheManager) {
         this.env = env;
         this.cacheManager = cacheManager;
     }
 
-    @Bean
-    public SpringLiquibase liquibase(@Qualifier("taskExecutor") TaskExecutor taskExecutor,
-            DataSource dataSource, LiquibaseProperties liquibaseProperties) {
+    @Bean(name="techShopLiquibase")
+    public SpringLiquibase liquibase(@Qualifier("taskExecutor1") TaskExecutor taskExecutor,
+            @Qualifier("techshopDataSource") DataSource dataSource, LiquibaseProperties liquibaseProperties) {
 
         // Use liquibase.integration.spring.SpringLiquibase if you don't want Liquibase to start asynchronously
         SpringLiquibase liquibase = new AsyncSpringLiquibase(taskExecutor, env);

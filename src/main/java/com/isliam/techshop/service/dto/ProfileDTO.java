@@ -18,6 +18,10 @@ public class ProfileDTO implements Serializable {
 
     private String positionName;
 
+    private Long userId;
+
+    private String userLogin;
+
     public Long getId() {
         return id;
     }
@@ -50,6 +54,22 @@ public class ProfileDTO implements Serializable {
         this.positionName = positionName;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -78,6 +98,8 @@ public class ProfileDTO implements Serializable {
             ", phone='" + getPhone() + "'" +
             ", position=" + getPositionId() +
             ", position='" + getPositionName() + "'" +
+            ", user=" + getUserId() +
+            ", user='" + getUserLogin() + "'" +
             "}";
     }
 }

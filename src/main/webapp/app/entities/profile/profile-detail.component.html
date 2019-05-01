@@ -15,6 +15,10 @@
                         <a [routerLink]="['/position', profile.positionId, 'view']">{{profile.positionName}}</a>
                     </div>
                 </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{profile.userLogin}}
+                </dd>
             </dl>
 
             <button type="submit"

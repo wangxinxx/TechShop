@@ -17,6 +17,7 @@
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="phone"><span>Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="positionName"><span>Position</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userLogin"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -28,6 +29,9 @@
                     <div *ngIf="profile.positionId">
                         <a [routerLink]="['../position', profile.positionId , 'view' ]" >{{profile.positionName}}</a>
                     </div>
+                </td>
+                <td>
+                    {{profile.userLogin}}
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

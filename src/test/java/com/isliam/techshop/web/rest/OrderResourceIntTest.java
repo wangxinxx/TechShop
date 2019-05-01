@@ -1,10 +1,12 @@
 package com.isliam.techshop.web.rest;
 
 import com.isliam.techshop.TechShopApp;
+import com.isliam.techshop.service.OrderService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,8 +23,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TechShopApp.class)
 public class OrderResourceIntTest {
-
     private MockMvc restMockMvc;
+
+    @Autowired
+    private OrderService orderService;
 
     @Before
     public void setUp() {

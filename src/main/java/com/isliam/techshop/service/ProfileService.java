@@ -1,5 +1,6 @@
 package com.isliam.techshop.service;
 
+import com.isliam.techshop.domain.Profile;
 import com.isliam.techshop.service.dto.ProfileDTO;
 
 import org.springframework.data.domain.Page;
@@ -43,4 +44,6 @@ public interface ProfileService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    Profile getCurrentUserProfile();
 }

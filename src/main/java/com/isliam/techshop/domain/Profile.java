@@ -25,7 +25,6 @@ public class Profile implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Size(min = 12, max = 12)
@@ -40,6 +39,12 @@ public class Profile implements Serializable {
     @OneToMany(mappedBy = "profile")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Passport> passports = new HashSet<>();
+    @OneToOne(optional = false)    @NotNull
+
+    @MapsId
+    @JoinColumn(name = "id")
+    private User user;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -98,6 +103,19 @@ public class Profile implements Serializable {
 
     public void setPassports(Set<Passport> passports) {
         this.passports = passports;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Profile user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

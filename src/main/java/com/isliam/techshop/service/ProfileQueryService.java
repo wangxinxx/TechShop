@@ -100,6 +100,10 @@ public class ProfileQueryService extends QueryService<Profile> {
                 specification = specification.and(buildSpecification(criteria.getPassportId(),
                     root -> root.join(Profile_.passports, JoinType.LEFT).get(Passport_.id)));
             }
+            if (criteria.getUserId() != null) {
+                specification = specification.and(buildSpecification(criteria.getUserId(),
+                    root -> root.join(Profile_.user, JoinType.LEFT).get(User_.id)));
+            }
         }
         return specification;
     }

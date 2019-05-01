@@ -1,10 +1,13 @@
 package com.isliam.techshop.service.impl;
 
+import com.isliam.techshop.domain.User;
 import com.isliam.techshop.service.ProfileService;
 import com.isliam.techshop.domain.Profile;
 import com.isliam.techshop.repository.ProfileRepository;
+import com.isliam.techshop.service.UserService;
 import com.isliam.techshop.service.dto.ProfileDTO;
 import com.isliam.techshop.service.mapper.ProfileMapper;
+import com.isliam.techshop.web.rest.errors.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +31,12 @@ public class ProfileServiceImpl implements ProfileService {
 
     private final ProfileMapper profileMapper;
 
-    public ProfileServiceImpl(ProfileRepository profileRepository, ProfileMapper profileMapper) {
+    private final UserService userService;
+
+    public ProfileServiceImpl(ProfileRepository profileRepository, ProfileMapper profileMapper, UserService userService) {
         this.profileRepository = profileRepository;
         this.profileMapper = profileMapper;
+        this.userService = userService;
     }
 
     /**
@@ -85,5 +91,14 @@ public class ProfileServiceImpl implements ProfileService {
     public void delete(Long id) {
         log.debug("Request to delete Profile : {}", id);
         profileRepository.deleteById(id);
+    }
+
+    @Override
+    public Profile getCurrentUserProfile() {
+        User user = userService.getUserWithAuthorities()
+            .orElseThrow(ResourceNotFoundException::new);
+
+        return profileRepository.findOneByUserId(user.getId())
+            .orElseThrow(ResourceNotFoundException::new);
     }
 }

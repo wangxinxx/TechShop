@@ -6,6 +6,8 @@ export interface IProfile {
     positionName?: string;
     positionId?: number;
     passports?: IPassport[];
+    userLogin?: string;
+    userId?: number;
 }
 
 export class Profile implements IProfile {
@@ -14,6 +16,8 @@ export class Profile implements IProfile {
         public phone?: string,
         public positionName?: string,
         public positionId?: number,
-        public passports?: IPassport[]
+        public passports?: IPassport[],
+        public userLogin?: string,
+        public userId?: number
     ) {}
 }

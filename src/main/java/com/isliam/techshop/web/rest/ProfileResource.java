@@ -21,6 +21,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -55,6 +56,9 @@ public class ProfileResource {
         log.debug("REST request to save Profile : {}", profileDTO);
         if (profileDTO.getId() != null) {
             throw new BadRequestAlertException("A new profile cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        if (Objects.isNull(profileDTO.getUserId())) {
+            throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
         ProfileDTO result = profileService.save(profileDTO);
         return ResponseEntity.created(new URI("/api/profiles/" + result.getId()))

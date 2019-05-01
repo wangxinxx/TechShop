@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="position"/>
 
+        <addForeignKeyConstraint baseColumnNames="id"
+                                 baseTableName="profile"
+                                 constraintName="fk_profile_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
     </changeSet>
 </databaseChangeLog>
