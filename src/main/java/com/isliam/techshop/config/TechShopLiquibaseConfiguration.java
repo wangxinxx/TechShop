@@ -30,9 +30,9 @@ public class TechShopLiquibaseConfiguration {
         this.cacheManager = cacheManager;
     }
 
-    @Bean(name="techShopLiquibase")
+    @Bean(name="flowableLiquibase")
     public SpringLiquibase liquibase(@Qualifier("taskExecutor1") TaskExecutor taskExecutor,
-            @Qualifier("techshopDataSource") DataSource dataSource, LiquibaseProperties liquibaseProperties) {
+            @Qualifier("flowableDataSource") DataSource dataSource, LiquibaseProperties liquibaseProperties) {
 
         // Use liquibase.integration.spring.SpringLiquibase if you don't want Liquibase to start asynchronously
         SpringLiquibase liquibase = new AsyncSpringLiquibase(taskExecutor, env);

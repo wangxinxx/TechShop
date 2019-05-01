@@ -25,7 +25,7 @@ import java.util.HashMap;
 @Configuration
 public class DataSourceConfiguration {
 
-    @Bean(name = "flowableDataSource")
+    @Bean(name = "techShopDataSource")
     @ConfigurationProperties(prefix="spring.datasource")
     public DataSource primaryDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
@@ -37,7 +37,7 @@ public class DataSourceConfiguration {
     }
 
     @Primary
-    @Bean(name = "techshopDataSource")
+    @Bean(name = "flowableDataSource")
     @ConfigurationProperties(prefix="spring.seconddatasource")
     public DataSource secondaryDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
