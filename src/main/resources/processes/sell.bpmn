@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-               xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
-               xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
-               xmlns:flowable="http://flowable.org/bpmn"
-               typeLanguage="http://www.w3.org/2001/XMLSchema"
-               expressionLanguage="http://www.w3.org/1999/XPath"
-               targetNamespace="http://www.flowable.org/processdef">
-
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:flowable="http://flowable.org/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
   <process id="sell" name="My process" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <serviceTask id="itemPresentServiceTask"
-                 name="My Java Service Task"
-                 flowable:class="com.isliam.techshop.service.sell.SuccessfulPurchaseDelegate"/>
+    <serviceTask flowable:class="com.isliam.techshop.service.sell.ItemPresentDelegate" id="itemPresentServiceTask" name="My Java Service Task"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="itemPresentServiceTask"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="itemPresentServiceTask" targetRef="isPresentGateway"></sequenceFlow>
     <exclusiveGateway id="isPresentGateway"></exclusiveGateway>
     <sequenceFlow id="sellerApproveUserTaskFlow" sourceRef="isPresentGateway" targetRef="sellerApproveUserTask">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${item_present}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="itemNotPresentFlow" sourceRef="isPresentGateway" targetRef="endevent1">
+    <sequenceFlow id="itemNotPresentFlow" sourceRef="isPresentGateway" targetRef="failure">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!item_present}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="sellerApproveUserTask" name="Approve order by seller" flowable:candidateGroups="approve_order"></userTask>
-    <serviceTask id="successfulPurchase" name="Item Present" flowable:class="com.isliam.techshop.service.sell.SuccessfulPurchaseDelegate"></serviceTask>
-    <sequenceFlow id="sequenceFlow-fc80f54c-836c-414e-845e-a6cc8bd0937f" sourceRef="sellerApproveUserTask" targetRef="successfulPurchase"></sequenceFlow>
+    <userTask id="sellerApproveUserTask" name="Approve order by seller" xmlns:flowable="http://flowable.org/bpmn" flowable:candidateGroups="approve_order"></userTask>
+    <sequenceFlow id="failureEndFlow" sourceRef="failure" targetRef="endevent1"></sequenceFlow>
+    <serviceTask id="failure" flowable:class="com.isliam.techshop.service.sell.FailureDelegate" name="Failure"></serviceTask>
+    <serviceTask id="successfulPurchase" flowable:class="com.isliam.techshop.service.sell.SuccessfulPurchaseDelegate" name="successfulPurchase"></serviceTask>
+    <sequenceFlow id="sequenceFlow-fc80f54c-836c-414e-845e-a6cc8bd0937f" sourceRef="sellerApproveUserTask" targetRef="isApprovedGateway"></sequenceFlow>
     <sequenceFlow id="sequenceFlow-5a506025-183f-4e80-af8b-9104d68ca687" sourceRef="successfulPurchase" targetRef="endevent1"></sequenceFlow>
+    
+    
+    <exclusiveGateway id="isApprovedGateway"></exclusiveGateway>
+    <sequenceFlow id="approvedFlow" sourceRef="isApprovedGateway" targetRef="successfulPurchase">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${order_approved}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="notApprovedFlow" sourceRef="isApprovedGateway" targetRef="failure">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!order_approved}]]></conditionExpression>
+    </sequenceFlow>
+    
+    
+    
+    
   </process>
 </definitions>

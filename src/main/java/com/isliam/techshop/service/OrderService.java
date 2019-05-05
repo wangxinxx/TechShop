@@ -8,13 +8,15 @@ import org.springframework.data.domain.Pageable;
 
 public interface OrderService {
 
-    void makeAnOrder(Integer itemId);
+    void makeAnOrder(Long itemId);
 
-    void rejectOrder(Integer itemId);
+    void rejectOrder(String itemId);
 
-    void approveOrder(Integer itemId);
+    void approveOrder(String taskId);
 
     Page<ItemDTO> getItems(ItemCriteria criteria, Pageable pageable);
 
     Page<TaskDTO> getMyTasks(ItemCriteria criteria, Pageable pageable);
+
+    Page<TaskDTO> getComplatedTasks(Pageable pageable);
 }

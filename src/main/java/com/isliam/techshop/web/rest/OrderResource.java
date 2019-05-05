@@ -31,27 +31,24 @@ public class OrderResource {
     * POST makeAnOrder
     */
     @PostMapping("/make-an-order/{item_id}")
-    public String makeAnOrder(final @PathVariable("item_id") Integer itemId) {
+    public void makeAnOrder(final @PathVariable("item_id") Long itemId) {
         orderService.makeAnOrder(itemId);
-        return "makeAnOrder";
     }
 
     /**
     * POST approveOrder
     */
     @PostMapping("/approve-order/{order_id}")
-    public String approveOrder(final @PathVariable("item_id") Integer itemId) {
+    public void approveOrder(final @PathVariable("order_id") String itemId) {
         orderService.approveOrder(itemId);
-        return "approveOrder";
     }
 
     /**
     * POST rejectAnOrder
     */
     @PostMapping("/reject-order/{order_id}")
-    public String rejectAnOrder(final @PathVariable("item_id") Integer itemId) {
+    public void rejectAnOrder(final @PathVariable("order_id") String itemId) {
         orderService.rejectOrder(itemId);
-        return "rejectAnOrder";
     }
 
     /**
@@ -69,6 +66,15 @@ public class OrderResource {
     @GetMapping("/tasks")
     public List<TaskDTO> tasks(ItemCriteria criteria, Pageable pageable) {
         return orderService.getMyTasks(criteria,pageable).stream().collect(Collectors.toList());
+    }
+
+
+    /**
+     * GET items
+     */
+    @GetMapping("/complatedTasks")
+    public List<TaskDTO> complatedTasks(ItemCriteria criteria, Pageable pageable) {
+        return orderService.getComplatedTasks(pageable).stream().collect(Collectors.toList());
     }
 
 
