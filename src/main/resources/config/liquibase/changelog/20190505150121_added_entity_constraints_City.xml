@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="country"/>
 
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/cities.csv"
+                  separator=";"
+                  tableName="city">
+        </loadData>
+
     </changeSet>
 </databaseChangeLog>
