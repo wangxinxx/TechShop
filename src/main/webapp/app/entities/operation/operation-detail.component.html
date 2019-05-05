@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="operation">
+            <h2><span>Operation</span> {{operation.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Type</span></dt>
+                <dd>
+                    <span>{{operation.type}}</span>
+                </dd>
+                <dt><span>State</span></dt>
+                <dd>
+                    <span>{{operation.state}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{operation.description}}</span>
+                </dd>
+                <dt><span>Customer</span></dt>
+                <dd>
+                    <div *ngIf="operation.customerId">
+                        <a [routerLink]="['/profile', operation.customerId, 'view']">{{operation.customerId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Seller</span></dt>
+                <dd>
+                    <div *ngIf="operation.sellerId">
+                        <a [routerLink]="['/profile', operation.sellerId, 'view']">{{operation.sellerId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Curier</span></dt>
+                <dd>
+                    <div *ngIf="operation.curierId">
+                        <a [routerLink]="['/profile', operation.curierId, 'view']">{{operation.curierId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Item</span></dt>
+                <dd>
+                    <div *ngIf="operation.itemId">
+                        <a [routerLink]="['/item', operation.itemId, 'view']">{{operation.itemName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/operation', operation.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
