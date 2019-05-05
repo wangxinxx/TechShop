@@ -34,11 +34,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="status" type="varchar(255)">
+            <column name="name" type="varchar(30)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="name" type="varchar(30)">
+            <column name="active" type="boolean">
                 <constraints nullable="false" />
             </column>
 

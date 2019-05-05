@@ -2,7 +2,6 @@ package com.isliam.techshop.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import com.isliam.techshop.domain.enumeration.ItemStatus;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
@@ -20,11 +19,6 @@ import io.github.jhipster.service.filter.StringFilter;
  * fix type specific filters.
  */
 public class ItemCriteria implements Serializable {
-    /**
-     * Class for filtering ItemStatus
-     */
-    public static class ItemStatusFilter extends Filter<ItemStatus> {
-    }
 
     private static final long serialVersionUID = 1L;
 
@@ -34,9 +28,9 @@ public class ItemCriteria implements Serializable {
 
     private DoubleFilter cost;
 
-    private ItemStatusFilter status;
-
     private StringFilter name;
+
+    private BooleanFilter active;
 
     private LongFilter productId;
 
@@ -64,20 +58,20 @@ public class ItemCriteria implements Serializable {
         this.cost = cost;
     }
 
-    public ItemStatusFilter getStatus() {
-        return status;
-    }
-
-    public void setStatus(ItemStatusFilter status) {
-        this.status = status;
-    }
-
     public StringFilter getName() {
         return name;
     }
 
     public void setName(StringFilter name) {
         this.name = name;
+    }
+
+    public BooleanFilter getActive() {
+        return active;
+    }
+
+    public void setActive(BooleanFilter active) {
+        this.active = active;
     }
 
     public LongFilter getProductId() {
@@ -102,8 +96,8 @@ public class ItemCriteria implements Serializable {
             Objects.equals(id, that.id) &&
             Objects.equals(gtin, that.gtin) &&
             Objects.equals(cost, that.cost) &&
-            Objects.equals(status, that.status) &&
             Objects.equals(name, that.name) &&
+            Objects.equals(active, that.active) &&
             Objects.equals(productId, that.productId);
     }
 
@@ -113,8 +107,8 @@ public class ItemCriteria implements Serializable {
         id,
         gtin,
         cost,
-        status,
         name,
+        active,
         productId
         );
     }
@@ -125,8 +119,8 @@ public class ItemCriteria implements Serializable {
                 (id != null ? "id=" + id + ", " : "") +
                 (gtin != null ? "gtin=" + gtin + ", " : "") +
                 (cost != null ? "cost=" + cost + ", " : "") +
-                (status != null ? "status=" + status + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
+                (active != null ? "active=" + active + ", " : "") +
                 (productId != null ? "productId=" + productId + ", " : "") +
             "}";
     }

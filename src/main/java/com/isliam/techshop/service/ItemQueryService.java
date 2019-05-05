@@ -95,11 +95,11 @@ public class ItemQueryService extends QueryService<Item> {
             if (criteria.getCost() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getCost(), Item_.cost));
             }
-            if (criteria.getStatus() != null) {
-                specification = specification.and(buildSpecification(criteria.getStatus(), Item_.status));
-            }
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), Item_.name));
+            }
+            if (criteria.getActive() != null) {
+                specification = specification.and(buildSpecification(criteria.getActive(), Item_.active));
             }
             if (criteria.getProductId() != null) {
                 specification = specification.and(buildSpecification(criteria.getProductId(),

@@ -3,7 +3,6 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Lob;
-import com.isliam.techshop.domain.enumeration.ItemStatus;
 
 /**
  * A DTO for the Item entity.
@@ -22,11 +21,11 @@ public class ItemDTO implements Serializable {
     private Double cost;
 
     @NotNull
-    private ItemStatus status;
-
-    @NotNull
     @Size(min = 1, max = 30)
     private String name;
+
+    @NotNull
+    private Boolean active;
 
 
     private Long productId;
@@ -65,20 +64,20 @@ public class ItemDTO implements Serializable {
         this.cost = cost;
     }
 
-    public ItemStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ItemStatus status) {
-        this.status = status;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Long getProductId() {
@@ -125,8 +124,8 @@ public class ItemDTO implements Serializable {
             ", gtin='" + getGtin() + "'" +
             ", barcode='" + getBarcode() + "'" +
             ", cost=" + getCost() +
-            ", status='" + getStatus() + "'" +
             ", name='" + getName() + "'" +
+            ", active='" + isActive() + "'" +
             ", product=" + getProductId() +
             ", product='" + getProductName() + "'" +
             "}";

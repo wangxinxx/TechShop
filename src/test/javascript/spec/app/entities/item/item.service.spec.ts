@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { ItemService } from 'app/entities/item/item.service';
-import { IItem, Item, ItemStatus } from 'app/shared/model/item.model';
+import { IItem, Item } from 'app/shared/model/item.model';
 
 describe('Service Tests', () => {
     describe('Item Service', () => {
@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(ItemService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Item(0, 'AAAAAAA', 'AAAAAAA', 0, ItemStatus.SAVED, 'AAAAAAA');
+            elemDefault = new Item(0, 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA', false);
         });
 
         describe('Service methods', async () => {
@@ -58,8 +58,8 @@ describe('Service Tests', () => {
                         gtin: 'BBBBBB',
                         barcode: 'BBBBBB',
                         cost: 1,
-                        status: 'BBBBBB',
-                        name: 'BBBBBB'
+                        name: 'BBBBBB',
+                        active: true
                     },
                     elemDefault
                 );
@@ -79,8 +79,8 @@ describe('Service Tests', () => {
                         gtin: 'BBBBBB',
                         barcode: 'BBBBBB',
                         cost: 1,
-                        status: 'BBBBBB',
-                        name: 'BBBBBB'
+                        name: 'BBBBBB',
+                        active: true
                     },
                     elemDefault
                 );

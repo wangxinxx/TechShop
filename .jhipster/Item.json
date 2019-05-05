@@ -10,7 +10,7 @@
                 "required"
             ],
             "otherEntityField": "name",
-            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "item"
         }
     ],
@@ -38,14 +38,6 @@
             ]
         },
         {
-            "fieldName": "status",
-            "fieldType": "ItemStatus",
-            "fieldValues": "SAVED,IN_SHOP,IN_STOCK,UNAVAILABLE",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -55,6 +47,13 @@
             ],
             "fieldValidateRulesMinlength": "1",
             "fieldValidateRulesMaxlength": "30"
+        },
+        {
+            "fieldName": "active",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20190427150657",

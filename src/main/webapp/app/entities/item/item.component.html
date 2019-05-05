@@ -18,8 +18,8 @@
             <th jhiSortBy="gtin"><span>Gtin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="barcode"><span>Barcode</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cost"><span>Cost</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="active"><span>Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="productName"><span>Product</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -30,8 +30,8 @@
                 <td>{{item.gtin}}</td>
                 <td>{{item.barcode}}</td>
                 <td>{{item.cost}}</td>
-                <td>{{item.status}}</td>
                 <td>{{item.name}}</td>
+                <td>{{item.active}}</td>
                 <td>
                     <div *ngIf="item.productId">
                         <a [routerLink]="['../product', item.productId , 'view' ]" >{{item.productName}}</a>

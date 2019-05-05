@@ -14,5 +14,12 @@
                                  referencedColumnNames="id"
                                  referencedTableName="product"/>
 
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/items.csv"
+                  separator=";"
+                  tableName="item">
+            <column name="active" type="boolean"/>
+        </loadData>
+
     </changeSet>
 </databaseChangeLog>

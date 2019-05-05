@@ -18,6 +18,10 @@
                                  constraintName="fk_property_product_product_id"
                                  referencedColumnNames="id"
                                  referencedTableName="product"/>
-        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/properties.csv"
+                  separator=";"
+                  tableName="property">
+        </loadData>
     </changeSet>
 </databaseChangeLog>

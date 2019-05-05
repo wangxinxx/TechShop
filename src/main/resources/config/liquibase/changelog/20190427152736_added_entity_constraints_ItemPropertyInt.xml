@@ -20,5 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="property"/>
 
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/prop_int.csv"
+                  separator=";"
+                  tableName="item_property_int">
+        </loadData>
+
     </changeSet>
 </databaseChangeLog>

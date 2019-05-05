@@ -11,8 +11,6 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.isliam.techshop.domain.enumeration.ItemStatus;
-
 /**
  * A Item.
  */
@@ -40,14 +38,13 @@ public class Item implements Serializable {
     private Double cost;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private ItemStatus status;
-
-    @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "name", length = 30, nullable = false)
     private String name;
+
+    @NotNull
+    @Column(name = "active", nullable = false)
+    private Boolean active;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -102,19 +99,6 @@ public class Item implements Serializable {
         this.cost = cost;
     }
 
-    public ItemStatus getStatus() {
-        return status;
-    }
-
-    public Item status(ItemStatus status) {
-        this.status = status;
-        return this;
-    }
-
-    public void setStatus(ItemStatus status) {
-        this.status = status;
-    }
-
     public String getName() {
         return name;
     }
@@ -126,6 +110,19 @@ public class Item implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public Item active(Boolean active) {
+        this.active = active;
+        return this;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Product getProduct() {
@@ -169,8 +166,8 @@ public class Item implements Serializable {
             ", gtin='" + getGtin() + "'" +
             ", barcode='" + getBarcode() + "'" +
             ", cost=" + getCost() +
-            ", status='" + getStatus() + "'" +
             ", name='" + getName() + "'" +
+            ", active='" + isActive() + "'" +
             "}";
     }
 }

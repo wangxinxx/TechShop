@@ -38,7 +38,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.isliam.techshop.domain.enumeration.ItemStatus;
 /**
  * Test class for the ItemResource REST controller.
  *
@@ -57,11 +56,11 @@ public class ItemResourceIntTest {
     private static final Double DEFAULT_COST = 1D;
     private static final Double UPDATED_COST = 2D;
 
-    private static final ItemStatus DEFAULT_STATUS = ItemStatus.SAVED;
-    private static final ItemStatus UPDATED_STATUS = ItemStatus.IN_SHOP;
-
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_ACTIVE = false;
+    private static final Boolean UPDATED_ACTIVE = true;
 
     @Autowired
     private ItemRepository itemRepository;
@@ -117,8 +116,8 @@ public class ItemResourceIntTest {
             .gtin(DEFAULT_GTIN)
             .barcode(DEFAULT_BARCODE)
             .cost(DEFAULT_COST)
-            .status(DEFAULT_STATUS)
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .active(DEFAULT_ACTIVE);
         // Add required entity
         Product product = ProductResourceIntTest.createEntity(em);
         em.persist(product);
@@ -151,8 +150,8 @@ public class ItemResourceIntTest {
         assertThat(testItem.getGtin()).isEqualTo(DEFAULT_GTIN);
         assertThat(testItem.getBarcode()).isEqualTo(DEFAULT_BARCODE);
         assertThat(testItem.getCost()).isEqualTo(DEFAULT_COST);
-        assertThat(testItem.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testItem.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testItem.isActive()).isEqualTo(DEFAULT_ACTIVE);
     }
 
     @Test
@@ -196,10 +195,10 @@ public class ItemResourceIntTest {
 
     @Test
     @Transactional
-    public void checkStatusIsRequired() throws Exception {
+    public void checkNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = itemRepository.findAll().size();
         // set the field null
-        item.setStatus(null);
+        item.setName(null);
 
         // Create the Item, which fails.
         ItemDTO itemDTO = itemMapper.toDto(item);
@@ -215,10 +214,10 @@ public class ItemResourceIntTest {
 
     @Test
     @Transactional
-    public void checkNameIsRequired() throws Exception {
+    public void checkActiveIsRequired() throws Exception {
         int databaseSizeBeforeTest = itemRepository.findAll().size();
         // set the field null
-        item.setName(null);
+        item.setActive(null);
 
         // Create the Item, which fails.
         ItemDTO itemDTO = itemMapper.toDto(item);
@@ -246,8 +245,8 @@ public class ItemResourceIntTest {
             .andExpect(jsonPath("$.[*].gtin").value(hasItem(DEFAULT_GTIN.toString())))
             .andExpect(jsonPath("$.[*].barcode").value(hasItem(DEFAULT_BARCODE.toString())))
             .andExpect(jsonPath("$.[*].cost").value(hasItem(DEFAULT_COST.doubleValue())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())));
     }
     
     @Test
@@ -264,8 +263,8 @@ public class ItemResourceIntTest {
             .andExpect(jsonPath("$.gtin").value(DEFAULT_GTIN.toString()))
             .andExpect(jsonPath("$.barcode").value(DEFAULT_BARCODE.toString()))
             .andExpect(jsonPath("$.cost").value(DEFAULT_COST.doubleValue()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()));
     }
 
     @Test
@@ -348,45 +347,6 @@ public class ItemResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllItemsByStatusIsEqualToSomething() throws Exception {
-        // Initialize the database
-        itemRepository.saveAndFlush(item);
-
-        // Get all the itemList where status equals to DEFAULT_STATUS
-        defaultItemShouldBeFound("status.equals=" + DEFAULT_STATUS);
-
-        // Get all the itemList where status equals to UPDATED_STATUS
-        defaultItemShouldNotBeFound("status.equals=" + UPDATED_STATUS);
-    }
-
-    @Test
-    @Transactional
-    public void getAllItemsByStatusIsInShouldWork() throws Exception {
-        // Initialize the database
-        itemRepository.saveAndFlush(item);
-
-        // Get all the itemList where status in DEFAULT_STATUS or UPDATED_STATUS
-        defaultItemShouldBeFound("status.in=" + DEFAULT_STATUS + "," + UPDATED_STATUS);
-
-        // Get all the itemList where status equals to UPDATED_STATUS
-        defaultItemShouldNotBeFound("status.in=" + UPDATED_STATUS);
-    }
-
-    @Test
-    @Transactional
-    public void getAllItemsByStatusIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        itemRepository.saveAndFlush(item);
-
-        // Get all the itemList where status is not null
-        defaultItemShouldBeFound("status.specified=true");
-
-        // Get all the itemList where status is null
-        defaultItemShouldNotBeFound("status.specified=false");
-    }
-
-    @Test
-    @Transactional
     public void getAllItemsByNameIsEqualToSomething() throws Exception {
         // Initialize the database
         itemRepository.saveAndFlush(item);
@@ -426,6 +386,45 @@ public class ItemResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllItemsByActiveIsEqualToSomething() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where active equals to DEFAULT_ACTIVE
+        defaultItemShouldBeFound("active.equals=" + DEFAULT_ACTIVE);
+
+        // Get all the itemList where active equals to UPDATED_ACTIVE
+        defaultItemShouldNotBeFound("active.equals=" + UPDATED_ACTIVE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByActiveIsInShouldWork() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where active in DEFAULT_ACTIVE or UPDATED_ACTIVE
+        defaultItemShouldBeFound("active.in=" + DEFAULT_ACTIVE + "," + UPDATED_ACTIVE);
+
+        // Get all the itemList where active equals to UPDATED_ACTIVE
+        defaultItemShouldNotBeFound("active.in=" + UPDATED_ACTIVE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByActiveIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where active is not null
+        defaultItemShouldBeFound("active.specified=true");
+
+        // Get all the itemList where active is null
+        defaultItemShouldNotBeFound("active.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllItemsByProductIsEqualToSomething() throws Exception {
         // Initialize the database
         Product product = ProductResourceIntTest.createEntity(em);
@@ -453,8 +452,8 @@ public class ItemResourceIntTest {
             .andExpect(jsonPath("$.[*].gtin").value(hasItem(DEFAULT_GTIN)))
             .andExpect(jsonPath("$.[*].barcode").value(hasItem(DEFAULT_BARCODE.toString())))
             .andExpect(jsonPath("$.[*].cost").value(hasItem(DEFAULT_COST.doubleValue())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())));
 
         // Check, that the count call also returns 1
         restItemMockMvc.perform(get("/api/items/count?sort=id,desc&" + filter))
@@ -505,8 +504,8 @@ public class ItemResourceIntTest {
             .gtin(UPDATED_GTIN)
             .barcode(UPDATED_BARCODE)
             .cost(UPDATED_COST)
-            .status(UPDATED_STATUS)
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .active(UPDATED_ACTIVE);
         ItemDTO itemDTO = itemMapper.toDto(updatedItem);
 
         restItemMockMvc.perform(put("/api/items")
@@ -521,8 +520,8 @@ public class ItemResourceIntTest {
         assertThat(testItem.getGtin()).isEqualTo(UPDATED_GTIN);
         assertThat(testItem.getBarcode()).isEqualTo(UPDATED_BARCODE);
         assertThat(testItem.getCost()).isEqualTo(UPDATED_COST);
-        assertThat(testItem.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testItem.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testItem.isActive()).isEqualTo(UPDATED_ACTIVE);
     }
 
     @Test

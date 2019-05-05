@@ -20,5 +20,12 @@
                                  referencedColumnNames="id"
                                  referencedTableName="property"/>
 
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/prop_bool.csv"
+                  separator=";"
+                  tableName="item_property_bool">
+            <column name="jhi_value" type="boolean"/>
+        </loadData>
+
     </changeSet>
 </databaseChangeLog>
