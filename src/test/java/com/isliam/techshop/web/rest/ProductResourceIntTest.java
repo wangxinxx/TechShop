@@ -4,6 +4,7 @@ import com.isliam.techshop.TechShopApp;
 
 import com.isliam.techshop.domain.Product;
 import com.isliam.techshop.domain.Property;
+import com.isliam.techshop.domain.Product;
 import com.isliam.techshop.repository.ProductRepository;
 import com.isliam.techshop.service.ProductService;
 import com.isliam.techshop.service.dto.ProductDTO;
@@ -250,6 +251,25 @@ public class ProductResourceIntTest {
 
         // Get all the productList where property equals to propertyId + 1
         defaultProductShouldNotBeFound("propertyId.equals=" + (propertyId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllProductsByParentIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Product parent = ProductResourceIntTest.createEntity(em);
+        em.persist(parent);
+        em.flush();
+        product.setParent(parent);
+        productRepository.saveAndFlush(product);
+        Long parentId = parent.getId();
+
+        // Get all the productList where parent equals to parentId
+        defaultProductShouldBeFound("parentId.equals=" + parentId);
+
+        // Get all the productList where parent equals to parentId + 1
+        defaultProductShouldNotBeFound("parentId.equals=" + (parentId + 1));
     }
 
     /**

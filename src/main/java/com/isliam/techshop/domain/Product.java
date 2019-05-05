@@ -2,6 +2,7 @@ package com.isliam.techshop.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -36,6 +37,10 @@ public class Product implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
     private Set<Property> properties = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties("products")
+    private Product parent;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -82,6 +87,19 @@ public class Product implements Serializable {
 
     public void setProperties(Set<Property> properties) {
         this.properties = properties;
+    }
+
+    public Product getParent() {
+        return parent;
+    }
+
+    public Product parent(Product product) {
+        this.parent = product;
+        return this;
+    }
+
+    public void setParent(Product product) {
+        this.parent = product;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

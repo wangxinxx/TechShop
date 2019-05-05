@@ -15,6 +15,10 @@ public class ProductDTO implements Serializable {
     private String name;
 
 
+    private Long parentId;
+
+    private String parentName;
+
     public Long getId() {
         return id;
     }
@@ -29,6 +33,22 @@ public class ProductDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long productId) {
+        this.parentId = productId;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String productName) {
+        this.parentName = productName;
     }
 
     @Override
@@ -57,6 +77,8 @@ public class ProductDTO implements Serializable {
         return "ProductDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", parent=" + getParentId() +
+            ", parent='" + getParentName() + "'" +
             "}";
     }
 }

@@ -7,7 +7,16 @@
             "otherEntityName": "property",
             "relationshipType": "many-to-many",
             "ownerSide": false,
-            "otherEntityRelationshipName": "product"
+            "otherEntityRelationshipName": "product",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "parent",
+            "otherEntityName": "product",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "product",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

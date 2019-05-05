@@ -19,6 +19,8 @@ export class ProductUpdateComponent implements OnInit {
 
     properties: IProperty[];
 
+    products: IProduct[];
+
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected productService: ProductService,
@@ -38,6 +40,13 @@ export class ProductUpdateComponent implements OnInit {
                 map((response: HttpResponse<IProperty[]>) => response.body)
             )
             .subscribe((res: IProperty[]) => (this.properties = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.productService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IProduct[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IProduct[]>) => response.body)
+            )
+            .subscribe((res: IProduct[]) => (this.products = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -71,6 +80,10 @@ export class ProductUpdateComponent implements OnInit {
     }
 
     trackPropertyById(index: number, item: IProperty) {
+        return item.id;
+    }
+
+    trackProductById(index: number, item: IProduct) {
         return item.id;
     }
 

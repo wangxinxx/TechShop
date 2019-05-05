@@ -28,6 +28,8 @@ public class ProductCriteria implements Serializable {
 
     private LongFilter propertyId;
 
+    private LongFilter parentId;
+
     public LongFilter getId() {
         return id;
     }
@@ -52,6 +54,14 @@ public class ProductCriteria implements Serializable {
         this.propertyId = propertyId;
     }
 
+    public LongFilter getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(LongFilter parentId) {
+        this.parentId = parentId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -65,7 +75,8 @@ public class ProductCriteria implements Serializable {
         return
             Objects.equals(id, that.id) &&
             Objects.equals(name, that.name) &&
-            Objects.equals(propertyId, that.propertyId);
+            Objects.equals(propertyId, that.propertyId) &&
+            Objects.equals(parentId, that.parentId);
     }
 
     @Override
@@ -73,7 +84,8 @@ public class ProductCriteria implements Serializable {
         return Objects.hash(
         id,
         name,
-        propertyId
+        propertyId,
+        parentId
         );
     }
 
@@ -83,6 +95,7 @@ public class ProductCriteria implements Serializable {
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (propertyId != null ? "propertyId=" + propertyId + ", " : "") +
+                (parentId != null ? "parentId=" + parentId + ", " : "") +
             "}";
     }
 
