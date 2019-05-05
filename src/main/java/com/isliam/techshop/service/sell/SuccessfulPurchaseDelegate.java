@@ -2,7 +2,9 @@ package com.isliam.techshop.service.sell;
 
 import org.flowable.engine.delegate.DelegateExecution;
 import org.flowable.engine.delegate.JavaDelegate;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SuccessfulPurchaseDelegate implements JavaDelegate {
 
 	@Override

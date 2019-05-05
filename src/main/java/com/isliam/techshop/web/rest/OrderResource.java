@@ -2,16 +2,21 @@ package com.isliam.techshop.web.rest;
 
 import com.isliam.techshop.service.OrderService;
 import com.isliam.techshop.service.dto.ItemCriteria;
+import com.isliam.techshop.service.dto.TaskDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * OrderControllerResource controller
  */
 @RestController
-@RequestMapping("/api/order-controller")
+@RequestMapping("/api/order")
 public class OrderResource {
 
     private final OrderService orderService;
@@ -57,5 +62,14 @@ public class OrderResource {
         orderService.getItems(criteria,pageable);
         return "items";
     }
+
+    /**
+     * GET items
+     */
+    @GetMapping("/tasks")
+    public List<TaskDTO> tasks(ItemCriteria criteria, Pageable pageable) {
+        return orderService.getMyTasks(criteria,pageable).stream().collect(Collectors.toList());
+    }
+
 
 }

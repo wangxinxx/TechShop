@@ -1,7 +1,9 @@
 package com.isliam.techshop.web.rest;
 
 
+import com.isliam.techshop.domain.Profile;
 import com.isliam.techshop.domain.User;
+import com.isliam.techshop.repository.ProfileRepository;
 import com.isliam.techshop.repository.UserRepository;
 import com.isliam.techshop.security.SecurityUtils;
 import com.isliam.techshop.service.MailService;
@@ -37,11 +39,14 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    private final ProfileRepository profileRepository;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, ProfileRepository profileRepository) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.profileRepository = profileRepository;
     }
 
     /**
@@ -59,7 +64,9 @@ public class AccountResource {
             throw new InvalidPasswordException();
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
-        mailService.sendActivationEmail(user);
+
+
+//        mailService.sendActivationEmail(user);
     }
 
     /**

@@ -2,8 +2,11 @@ package com.isliam.techshop.service;
 
 import com.isliam.techshop.config.Constants;
 import com.isliam.techshop.domain.Authority;
+import com.isliam.techshop.domain.Profile;
 import com.isliam.techshop.domain.User;
 import com.isliam.techshop.repository.AuthorityRepository;
+import com.isliam.techshop.repository.PositionRepository;
+import com.isliam.techshop.repository.ProfileRepository;
 import com.isliam.techshop.repository.UserRepository;
 import com.isliam.techshop.security.AuthoritiesConstants;
 import com.isliam.techshop.security.SecurityUtils;
@@ -11,6 +14,7 @@ import com.isliam.techshop.service.dto.UserDTO;
 import com.isliam.techshop.service.util.RandomUtil;
 import com.isliam.techshop.web.rest.errors.*;
 
+import org.apache.ibatis.javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -43,11 +47,17 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    private final ProfileRepository profileRepository;
+
+    private final PositionRepository positionRepository;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager, ProfileRepository profileRepository, PositionRepository positionRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.profileRepository = profileRepository;
+        this.positionRepository = positionRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -111,13 +121,22 @@ public class UserService {
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
-        newUser.setActivated(false);
+        newUser.setActivated(true);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
+
         newUser.setAuthorities(authorities);
-        userRepository.save(newUser);
+        newUser = userRepository.save(newUser);
+
+        Profile profile = new Profile();
+
+        profile.setPosition(positionRepository.findOneByName("Customer")
+            .orElseThrow(ResourceNotFoundException::new));
+        profile.setUser(newUser);
+        profileRepository.save(profile);
+
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;

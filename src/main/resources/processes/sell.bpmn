@@ -1,76 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="myProcess" name="My process" isExecutable="true">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+               xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+               xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+               xmlns:flowable="http://flowable.org/bpmn"
+               typeLanguage="http://www.w3.org/2001/XMLSchema"
+               expressionLanguage="http://www.w3.org/1999/XPath"
+               targetNamespace="http://www.flowable.org/processdef">
+
+  <process id="sell" name="My process" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <serviceTask id="itemPresentServiceTask" name="Item Present" 
-        flowable:class="com.isliam.techshop.service.sell.SuccessfulPurchaseDelegate"></serviceTask>
+    <serviceTask id="itemPresentServiceTask"
+                 name="My Java Service Task"
+                 flowable:class="com.isliam.techshop.service.sell.SuccessfulPurchaseDelegate"/>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="itemPresentServiceTask"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="itemPresentServiceTask" targetRef="isPresentGateway"></sequenceFlow>
     <exclusiveGateway id="isPresentGateway"></exclusiveGateway>
     <sequenceFlow id="sellerApproveUserTaskFlow" sourceRef="isPresentGateway" targetRef="sellerApproveUserTask">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${itemPresent}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${item_present}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="itemNotPresentFlow" sourceRef="isPresentGateway" targetRef="endevent1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!itemPresent}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!item_present}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="sellerApproveUserTask" name="Approve order by seller" flowable:candidateGroup="approve_order"></userTask>
+    <userTask id="sellerApproveUserTask" name="Approve order by seller" flowable:candidateGroups="approve_order"></userTask>
     <serviceTask id="successfulPurchase" name="Item Present" flowable:class="com.isliam.techshop.service.sell.SuccessfulPurchaseDelegate"></serviceTask>
     <sequenceFlow id="sequenceFlow-fc80f54c-836c-414e-845e-a6cc8bd0937f" sourceRef="sellerApproveUserTask" targetRef="successfulPurchase"></sequenceFlow>
     <sequenceFlow id="sequenceFlow-5a506025-183f-4e80-af8b-9104d68ca687" sourceRef="successfulPurchase" targetRef="endevent1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
-    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
-      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="0.0" y="52.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="620.0" y="50.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="itemPresentServiceTask" id="BPMNShape_itemPresentServiceTask">
-        <omgdc:Bounds height="60.0" width="100.0" x="80.0" y="37.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="isPresentGateway" id="BPMNShape_isPresentGateway">
-        <omgdc:Bounds height="40.0" width="40.0" x="230.0" y="46.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="sellerApproveUserTask" id="BPMNShape_sellerApproveUserTask">
-        <omgdc:Bounds height="60.0" width="100.0" x="320.0" y="100.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="successfulPurchase" id="BPMNShape_successfulPurchase">
-        <omgdc:Bounds height="60.0" width="100.0" x="470.0" y="100.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="35.0" y="69.0"></omgdi:waypoint>
-        <omgdi:waypoint x="80.0" y="67.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="180.0" y="67.0"></omgdi:waypoint>
-        <omgdi:waypoint x="192.0" y="67.0"></omgdi:waypoint>
-        <omgdi:waypoint x="192.0" y="66.0"></omgdi:waypoint>
-        <omgdi:waypoint x="230.0" y="66.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sellerApproveUserTaskFlow" id="BPMNEdge_sellerApproveUserTaskFlow">
-        <omgdi:waypoint x="270.0" y="66.0"></omgdi:waypoint>
-        <omgdi:waypoint x="282.0" y="66.0"></omgdi:waypoint>
-        <omgdi:waypoint x="282.0" y="130.0"></omgdi:waypoint>
-        <omgdi:waypoint x="320.0" y="130.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="itemNotPresentFlow" id="BPMNEdge_itemNotPresentFlow">
-        <omgdi:waypoint x="270.0" y="66.0"></omgdi:waypoint>
-        <omgdi:waypoint x="282.0" y="66.0"></omgdi:waypoint>
-        <omgdi:waypoint x="282.0" y="65.0"></omgdi:waypoint>
-        <omgdi:waypoint x="620.0" y="67.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sequenceFlow-fc80f54c-836c-414e-845e-a6cc8bd0937f" id="BPMNEdge_sequenceFlow-fc80f54c-836c-414e-845e-a6cc8bd0937f">
-        <omgdi:waypoint x="420.0" y="130.0"></omgdi:waypoint>
-        <omgdi:waypoint x="470.0" y="130.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sequenceFlow-5a506025-183f-4e80-af8b-9104d68ca687" id="BPMNEdge_sequenceFlow-5a506025-183f-4e80-af8b-9104d68ca687">
-        <omgdi:waypoint x="570.0" y="130.0"></omgdi:waypoint>
-        <omgdi:waypoint x="582.0" y="130.0"></omgdi:waypoint>
-        <omgdi:waypoint x="582.0" y="65.0"></omgdi:waypoint>
-        <omgdi:waypoint x="620.0" y="67.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-    </bpmndi:BPMNPlane>
-  </bpmndi:BPMNDiagram>
 </definitions>

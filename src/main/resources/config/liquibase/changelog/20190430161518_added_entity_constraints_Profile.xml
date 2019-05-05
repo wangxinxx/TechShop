@@ -19,6 +19,10 @@
                                  constraintName="fk_profile_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/profiles.csv"
+                  separator=";"
+                  tableName="profile"/>
 
     </changeSet>
 </databaseChangeLog>

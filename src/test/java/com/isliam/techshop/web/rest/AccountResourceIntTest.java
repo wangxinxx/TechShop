@@ -5,6 +5,7 @@ import com.isliam.techshop.config.Constants;
 import com.isliam.techshop.domain.Authority;
 import com.isliam.techshop.domain.User;
 import com.isliam.techshop.repository.AuthorityRepository;
+import com.isliam.techshop.repository.ProfileRepository;
 import com.isliam.techshop.repository.UserRepository;
 import com.isliam.techshop.security.AuthoritiesConstants;
 import com.isliam.techshop.service.MailService;
@@ -69,6 +70,9 @@ public class AccountResourceIntTest {
     @Autowired
     private ExceptionTranslator exceptionTranslator;
 
+    @Autowired
+    private ProfileRepository profileRepository;
+
     @Mock
     private UserService mockUserService;
 
@@ -84,10 +88,10 @@ public class AccountResourceIntTest {
         MockitoAnnotations.initMocks(this);
         doNothing().when(mockMailService).sendActivationEmail(any());
         AccountResource accountResource =
-            new AccountResource(userRepository, userService, mockMailService);
+            new AccountResource(userRepository, userService, mockMailService, profileRepository);
 
         AccountResource accountUserMockResource =
-            new AccountResource(userRepository, mockUserService, mockMailService);
+            new AccountResource(userRepository, mockUserService, mockMailService, profileRepository);
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource)
             .setMessageConverters(httpMessageConverters)
             .setControllerAdvice(exceptionTranslator)

@@ -1,5 +1,6 @@
 package com.isliam.techshop.service.impl;
 
+import com.isliam.techshop.domain.Permission;
 import com.isliam.techshop.domain.User;
 import com.isliam.techshop.service.ProfileService;
 import com.isliam.techshop.domain.Profile;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -100,5 +102,13 @@ public class ProfileServiceImpl implements ProfileService {
 
         return profileRepository.findOneByUserId(user.getId())
             .orElseThrow(ResourceNotFoundException::new);
+    }
+
+    @Override
+    public List<Profile> getProfilesByPermissionName(String permissionName) {
+        User user = userService.getUserWithAuthorities()
+            .orElseThrow(ResourceNotFoundException::new);
+
+        return profileRepository.findAll();
     }
 }

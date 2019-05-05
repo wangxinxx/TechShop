@@ -325,20 +325,11 @@
             <artifactId>flowable-engine</artifactId>
             <version>6.4.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.flowable/flowable-spring -->
         <dependency>
             <groupId>org.flowable</groupId>
-            <artifactId>flowable-spring</artifactId>
+            <artifactId>flowable-spring-boot-starter</artifactId>
             <version>6.4.1</version>
         </dependency>
-
-        <!-- jhipster-needle-maven-add-dependency -->
-        <dependency>
-			<groupId>org.flowable</groupId>
-			<artifactId>flowable-spring-boot-starter</artifactId>
-			<version>6.4.1</version>
-		</dependency>
-
 <!--		<dependency>-->
 <!--			<groupId>org.flowable</groupId>-->
 <!--			<artifactId>flowable-spring-boot-starter-actuator</artifactId>-->
