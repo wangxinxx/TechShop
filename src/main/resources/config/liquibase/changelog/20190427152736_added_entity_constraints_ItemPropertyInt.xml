@@ -20,6 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="property"/>
 
+        <addUniqueConstraint
+            columnNames="item_id,property_id"
+            constraintName="item_property_int_unique_constraint"
+            tableName="item_property_int"/>
+
         <loadData encoding="UTF-8"
                   file="config/liquibase/prop_int.csv"
                   separator=";"
