@@ -26,7 +26,23 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="address" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="zip_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="active" type="boolean">
+                <constraints nullable="false" />
+            </column>
+
             <column name="position_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="city_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 

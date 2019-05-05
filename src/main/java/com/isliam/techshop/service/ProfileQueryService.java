@@ -92,6 +92,15 @@ public class ProfileQueryService extends QueryService<Profile> {
             if (criteria.getPhone() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getPhone(), Profile_.phone));
             }
+            if (criteria.getAddress() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getAddress(), Profile_.address));
+            }
+            if (criteria.getZipCode() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getZipCode(), Profile_.zipCode));
+            }
+            if (criteria.getActive() != null) {
+                specification = specification.and(buildSpecification(criteria.getActive(), Profile_.active));
+            }
             if (criteria.getPositionId() != null) {
                 specification = specification.and(buildSpecification(criteria.getPositionId(),
                     root -> root.join(Profile_.position, JoinType.LEFT).get(Position_.id)));
@@ -103,6 +112,10 @@ public class ProfileQueryService extends QueryService<Profile> {
             if (criteria.getUserId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUserId(),
                     root -> root.join(Profile_.user, JoinType.LEFT).get(User_.id)));
+            }
+            if (criteria.getCityId() != null) {
+                specification = specification.and(buildSpecification(criteria.getCityId(),
+                    root -> root.join(Profile_.city, JoinType.LEFT).get(City_.id)));
             }
         }
         return specification;

@@ -31,6 +31,16 @@ public class Profile implements Serializable {
     @Column(name = "phone", length = 12)
     private String phone;
 
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "zip_code")
+    private String zipCode;
+
+    @NotNull
+    @Column(name = "active", nullable = false)
+    private Boolean active;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("profiles")
@@ -44,6 +54,11 @@ public class Profile implements Serializable {
     @MapsId
     @JoinColumn(name = "id")
     private User user;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("profiles")
+    private City city;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -65,6 +80,45 @@ public class Profile implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Profile address(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public Profile zipCode(String zipCode) {
+        this.zipCode = zipCode;
+        return this;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public Profile active(Boolean active) {
+        this.active = active;
+        return this;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Position getPosition() {
@@ -117,6 +171,19 @@ public class Profile implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public City getCity() {
+        return city;
+    }
+
+    public Profile city(City city) {
+        this.city = city;
+        return this;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -144,6 +211,9 @@ public class Profile implements Serializable {
         return "Profile{" +
             "id=" + getId() +
             ", phone='" + getPhone() + "'" +
+            ", address='" + getAddress() + "'" +
+            ", zipCode='" + getZipCode() + "'" +
+            ", active='" + isActive() + "'" +
             "}";
     }
 }

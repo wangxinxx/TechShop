@@ -13,6 +13,13 @@ public class ProfileDTO implements Serializable {
     @Size(min = 12, max = 12)
     private String phone;
 
+    private String address;
+
+    private String zipCode;
+
+    @NotNull
+    private Boolean active;
+
 
     private Long positionId;
 
@@ -21,6 +28,10 @@ public class ProfileDTO implements Serializable {
     private Long userId;
 
     private String userLogin;
+
+    private Long cityId;
+
+    private String cityName;
 
     public Long getId() {
         return id;
@@ -36,6 +47,30 @@ public class ProfileDTO implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Long getPositionId() {
@@ -70,6 +105,22 @@ public class ProfileDTO implements Serializable {
         this.userLogin = userLogin;
     }
 
+    public Long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -96,10 +147,15 @@ public class ProfileDTO implements Serializable {
         return "ProfileDTO{" +
             "id=" + getId() +
             ", phone='" + getPhone() + "'" +
+            ", address='" + getAddress() + "'" +
+            ", zipCode='" + getZipCode() + "'" +
+            ", active='" + isActive() + "'" +
             ", position=" + getPositionId() +
             ", position='" + getPositionName() + "'" +
             ", user=" + getUserId() +
             ", user='" + getUserLogin() + "'" +
+            ", city=" + getCityId() +
+            ", city='" + getCityName() + "'" +
             "}";
     }
 }

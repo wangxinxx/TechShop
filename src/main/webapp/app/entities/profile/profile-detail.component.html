@@ -9,6 +9,18 @@
                 <dd>
                     <span>{{profile.phone}}</span>
                 </dd>
+                <dt><span>Address</span></dt>
+                <dd>
+                    <span>{{profile.address}}</span>
+                </dd>
+                <dt><span>Zip Code</span></dt>
+                <dd>
+                    <span>{{profile.zipCode}}</span>
+                </dd>
+                <dt><span>Active</span></dt>
+                <dd>
+                    <span>{{profile.active}}</span>
+                </dd>
                 <dt><span>Position</span></dt>
                 <dd>
                     <div *ngIf="profile.positionId">
@@ -18,6 +30,12 @@
                 <dt><span>User</span></dt>
                 <dd>
                     {{profile.userLogin}}
+                </dd>
+                <dt><span>City</span></dt>
+                <dd>
+                    <div *ngIf="profile.cityId">
+                        <a [routerLink]="['/city', profile.cityId, 'view']">{{profile.cityName}}</a>
+                    </div>
                 </dd>
             </dl>
 

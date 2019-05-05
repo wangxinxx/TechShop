@@ -9,6 +9,8 @@ import { ProfileService } from './profile.service';
 import { IPosition } from 'app/shared/model/position.model';
 import { PositionService } from 'app/entities/position';
 import { IUser, UserService } from 'app/core';
+import { ICity } from 'app/shared/model/city.model';
+import { CityService } from 'app/entities/city';
 
 @Component({
     selector: 'jhi-profile-update',
@@ -22,11 +24,14 @@ export class ProfileUpdateComponent implements OnInit {
 
     users: IUser[];
 
+    cities: ICity[];
+
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected profileService: ProfileService,
         protected positionService: PositionService,
         protected userService: UserService,
+        protected cityService: CityService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -49,6 +54,13 @@ export class ProfileUpdateComponent implements OnInit {
                 map((response: HttpResponse<IUser[]>) => response.body)
             )
             .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.cityService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<ICity[]>) => mayBeOk.ok),
+                map((response: HttpResponse<ICity[]>) => response.body)
+            )
+            .subscribe((res: ICity[]) => (this.cities = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -86,6 +98,10 @@ export class ProfileUpdateComponent implements OnInit {
     }
 
     trackUserById(index: number, item: IUser) {
+        return item.id;
+    }
+
+    trackCityById(index: number, item: ICity) {
         return item.id;
     }
 }

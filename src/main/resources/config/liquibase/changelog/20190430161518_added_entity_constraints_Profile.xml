@@ -19,10 +19,20 @@
                                  constraintName="fk_profile_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="city_id"
+                                 baseTableName="profile"
+                                 constraintName="fk_profile_city_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="city"/>
+
+
         <loadData encoding="UTF-8"
                   file="config/liquibase/profiles.csv"
                   separator=";"
-                  tableName="profile"/>
+                  tableName="profile">
+            <column name="active" type="boolean"/>
+        </loadData>
 
     </changeSet>
 </databaseChangeLog>

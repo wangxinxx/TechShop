@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(ProfileService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Profile(0, 'AAAAAAA');
+            elemDefault = new Profile(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', false);
         });
 
         describe('Service methods', async () => {
@@ -55,7 +55,10 @@ describe('Service Tests', () => {
             it('should update a Profile', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        phone: 'BBBBBB'
+                        phone: 'BBBBBB',
+                        address: 'BBBBBB',
+                        zipCode: 'BBBBBB',
+                        active: true
                     },
                     elemDefault
                 );
@@ -72,7 +75,10 @@ describe('Service Tests', () => {
             it('should return a list of Profile', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        phone: 'BBBBBB'
+                        phone: 'BBBBBB',
+                        address: 'BBBBBB',
+                        zipCode: 'BBBBBB',
+                        active: true
                     },
                     elemDefault
                 );

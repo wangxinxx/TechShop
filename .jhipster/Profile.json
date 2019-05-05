@@ -32,6 +32,17 @@
             "useJPADerivedIdentifier": true,
             "otherEntityRelationshipName": "profile",
             "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "city",
+            "otherEntityName": "city",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "profile",
+            "otherEntityRelationshipNameUndefined": false
         }
     ],
     "fields": [
@@ -44,6 +55,22 @@
             ],
             "fieldValidateRulesMinlength": "12",
             "fieldValidateRulesMaxlength": "12"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "zipCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "active",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20190430161518",
