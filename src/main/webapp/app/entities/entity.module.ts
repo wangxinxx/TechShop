@@ -87,6 +87,14 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'profile',
                 loadChildren: './profile/profile.module#TechShopProfileModule'
+            },
+            {
+                path: 'notification',
+                loadChildren: './notification/notification.module#TechShopNotificationModule'
+            },
+            {
+                path: 'notification',
+                loadChildren: './notification/notification.module#TechShopNotificationModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

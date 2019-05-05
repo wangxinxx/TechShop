@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="notification">
+            <h2><span>Notification</span> {{notification.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Message</span></dt>
+                <dd>
+                    <span>{{notification.message}}</span>
+                </dd>
+                <dt><span>Viewed</span></dt>
+                <dd>
+                    <span>{{notification.viewed}}</span>
+                </dd>
+                <dt><span>Profile</span></dt>
+                <dd>
+                    <div *ngIf="notification.profileId">
+                        <a [routerLink]="['/profile', notification.profileId, 'view']">{{notification.profileId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/notification', notification.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

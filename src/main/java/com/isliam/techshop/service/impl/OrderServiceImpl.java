@@ -72,14 +72,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void rejectOrder(String taskId) {
+        Profile profile = profileService.getCurrentUserProfile();
         Map<String, Object> variables = taskService.getVariables(taskId);
+        variables.replace("seller_id", profile.getId());
         variables.replace("order_approved", false);
         taskService.complete(taskId.toString(), variables);
     }
 
     @Override
     public void approveOrder(String taskId) {
+        Profile profile = profileService.getCurrentUserProfile();
         Map<String, Object> variables = taskService.getVariables(taskId);
+        variables.replace("seller_id", profile.getId());
         variables.replace("order_approved", true);
         taskService.complete(taskId.toString(), variables);
     }
