@@ -1,7 +1,7 @@
-id;jhi_value;item_id;property_id
-1;Red;1;6
-2;DOS;1;7
-3;Intel Pentium N4200;1;2
-4;Red;2;6
-5;Windows 8 Home 64bit;2;7
-6;AMD E2-9000;2;2
+jhi_value;item_id;property_id
+Red;1;6
+DOS;1;7
+Intel Pentium N4200;1;2
+Red;2;6
+Windows 8 Home 64bit;2;7
+AMD E2-9000;2;2

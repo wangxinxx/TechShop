@@ -35,10 +35,11 @@ spring:
         serialization:
             indent-output: true
     datasource:
-        type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/TechShop?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
-        username: root
-        password: STRONGpwd1$
+#        classpath: /home/isliambahirov/sqljdbc_4.2/enu/jre8/sqljdbc42.jar
+#        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#        url: Server=tcp:kyrsa4.database.windows.net,1433;Initial Catalog=TechShop;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+#        username: root1
+#        password: STRONGpwd1$
         hikari:
             poolName: Hikari
             auto-commit: false
@@ -48,9 +49,11 @@ spring:
                 prepStmtCacheSqlLimit: 2048
                 useServerPrepStmts: true
     jpa:
-        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database-platform: org.hibernate.dialect.SQLServer2012Dialect
         database: MYSQL
         show-sql: true
+        hibernate:
+            dialect: org.hibernate.dialect.SQLServer2012Dialect
         properties:
             hibernate.id.new_generator_mappings: true
             hibernate.connection.provider_disables_autocommit: true

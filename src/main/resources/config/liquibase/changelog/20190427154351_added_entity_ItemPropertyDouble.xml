@@ -36,6 +36,10 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+
+<!--        <sql>SET IDENTITY_INSERT [item_property_double] ON-->
+<!--            <comment>Identity-insert for MSSQL Server</comment>-->
+<!--        </sql>-->
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

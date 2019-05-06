@@ -1,5 +1,5 @@
-id;jhi_value;item_id;property_id
-1;1;1;8
-2;1;1;9
-3;0;2;10
-4;1;1;10
+jhi_value;item_id;property_id
+1;1;8
+1;1;9
+0;2;10
+1;1;10

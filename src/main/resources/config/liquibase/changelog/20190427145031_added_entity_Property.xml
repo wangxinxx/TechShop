@@ -32,6 +32,10 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+
+<!--        <sql>SET IDENTITY_INSERT property ON-->
+<!--            <comment>Identity-insert for MSSQL Server</comment>-->
+<!--        </sql>-->
         
         <createTable tableName="property_product">
             <column name="product_id" type="bigint">
@@ -42,8 +46,12 @@
             </column>
         </createTable>
 
+<!--        <sql>SET IDENTITY_INSERT [property_product] ON-->
+<!--            <comment>Identity-insert for MSSQL Server</comment>-->
+<!--        </sql>-->
+
         <addPrimaryKey columnNames="property_id, product_id" tableName="property_product"/>
-        
+
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

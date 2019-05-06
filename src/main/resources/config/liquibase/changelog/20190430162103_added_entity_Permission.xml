@@ -28,6 +28,10 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+
+<!--        <sql>SET IDENTITY_INSERT permission ON-->
+<!--            <comment>Identity-insert for MSSQL Server</comment>-->
+<!--        </sql>-->
         
         <createTable tableName="permission_position">
             <column name="position_id" type="bigint">
@@ -37,6 +41,10 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+<!--        <sql>SET IDENTITY_INSERT [permission_position] ON-->
+<!--            <comment>Identity-insert for MSSQL Server</comment>-->
+<!--        </sql>-->
 
         <addPrimaryKey columnNames="permission_id, position_id" tableName="permission_position"/>
 

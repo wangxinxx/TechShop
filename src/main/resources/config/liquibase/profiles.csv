@@ -1,6 +1,6 @@
-id;position_id;phone;active;city_id
-3;1;380730795214;true;1
-4;5;380508266719;true;1
-5;3;797882575461;true;1
-6;4;380953602837;true;1
+position_id;phone;active;city_id
+1;380730795214;true;1
+5;380508266719;true;1
+3;797882575461;true;1
+4;380953602837;true;1
 

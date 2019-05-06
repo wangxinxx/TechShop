@@ -1,11 +1,11 @@
-id;name;value_type
-1;Screen Diagonal;FLOAT
-2;Processor Name;STRING
-3;HDD;INTEGER
-4;RAM;INTEGER
-5;Weight;FLOAT
-6;Color;STRING
-7;OS;STRING
-8;Has webcam;BOOLEAN
-9;Has bluetooth;BOOLEAN
-10;Has disk drive;BOOLEAN
+name;value_type
+Screen Diagonal;FLOAT
+Processor Name;STRING
+HDD;INTEGER
+RAM;INTEGER
+Weight;FLOAT
+Color;STRING
+OS;STRING
+Has webcam;BOOLEAN
+Has bluetooth;BOOLEAN
+Has disk drive;BOOLEAN

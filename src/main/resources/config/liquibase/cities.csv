@@ -1,24 +1,24 @@
-id;country_id;name
-1;1;Lviv
-2;1;Kyiv
-3;1;Dnipro
-4;1;Kharkiv
-5;1;Kherson
-6;1;Zaporizhzhia
-7;1;Poltava
-8;1;Odessa
-9;1;Mykolaiv
-10;1;Uzhhorod
-11;1;Zhytomyr
-12;1;Chernivtsi
-13;1;Vinnytsia
-14;1;Lutsk
-15;1;Kryvyi Rih
-16;1;Chernihiv
-17;1;Sumy
-18;1;Makiivka
-19;1;Ivano-Frankivsk
-20;1;Drohobych
-21;1;Cherkasy
-22;1;Rivne
-23;1;Bila Tserkva
+country_id;name
+1;Lviv
+1;Kyiv
+1;Dnipro
+1;Kharkiv
+1;Kherson
+1;Zaporizhzhia
+1;Poltava
+1;Odessa
+1;Mykolaiv
+1;Uzhhorod
+1;Zhytomyr
+1;Chernivtsi
+1;Vinnytsia
+1;Lutsk
+1;Kryvyi Rih
+1;Chernihiv
+1;Sumy
+1;Makiivka
+1;Ivano-Frankivsk
+1;Drohobych
+1;Cherkasy
+1;Rivne
+1;Bila Tserkva

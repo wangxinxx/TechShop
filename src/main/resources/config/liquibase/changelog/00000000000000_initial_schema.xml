@@ -76,6 +76,11 @@
         <addNotNullConstraint   columnName="password_hash"
                                 columnDataType="varchar(60)"
                                 tableName="jhi_user"/>
+
+<!--        <sql>SET IDENTITY_INSERT [jhi_user] ON-->
+<!--            <comment>Identity-insert for MSSQL Server</comment>-->
+<!--        </sql>-->
+
         <loadData encoding="UTF-8"
                   file="config/liquibase/users.csv"
                   separator=";"

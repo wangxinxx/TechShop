@@ -30,9 +30,10 @@ public class TechShopDatasourceConfig {
     @ConfigurationProperties(prefix="spring.datasource")
     public DataSource primaryDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.type(HikariDataSource.class);
-        dataSourceBuilder.url("jdbc:mysql://localhost:3306/TechShop?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&rewriteBatchedStatements=true&relaxAutoCommit=true");
-        dataSourceBuilder.username("root");
+        dataSourceBuilder.driverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//        dataSourceBuilder.type(HikariDataSource.class);
+        dataSourceBuilder.url("jdbc:sqlserver://kyrsa4.database.windows.net:1433;database=TechShop;user=root1@kyrsa4;password=STRONGpwd1$;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
+        dataSourceBuilder.username("root1");
         dataSourceBuilder.password("STRONGpwd1$");
         return dataSourceBuilder.build();
     }
