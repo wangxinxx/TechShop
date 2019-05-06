@@ -98,6 +98,12 @@ public class OperationQueryService extends QueryService<Operation> {
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), Operation_.description));
             }
+            if (criteria.getCreatedAt() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCreatedAt(), Operation_.createdAt));
+            }
+            if (criteria.getLastModifiedAt() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getLastModifiedAt(), Operation_.lastModifiedAt));
+            }
             if (criteria.getCustomerId() != null) {
                 specification = specification.and(buildSpecification(criteria.getCustomerId(),
                     root -> root.join(Operation_.customer, JoinType.LEFT).get(Profile_.id)));

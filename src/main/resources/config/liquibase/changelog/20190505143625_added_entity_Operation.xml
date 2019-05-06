@@ -34,6 +34,14 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="created_at" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_modified_at" type="date">
+                <constraints nullable="true" />
+            </column>
+
             <column name="customer_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -52,10 +60,6 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-
-<!--        <sql>SET IDENTITY_INSERT operation ON-->
-<!--            <comment>Identity-insert for MSSQL Server</comment>-->
-<!--        </sql>-->
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 export const enum OperationType {
     SELL = 'SELL',
     RETURN = 'RETURN'
@@ -14,6 +16,8 @@ export interface IOperation {
     type?: OperationType;
     state?: OperationState;
     description?: string;
+    createdAt?: Moment;
+    lastModifiedAt?: Moment;
     customerId?: number;
     sellerId?: number;
     curierId?: number;
@@ -27,6 +31,8 @@ export class Operation implements IOperation {
         public type?: OperationType,
         public state?: OperationState,
         public description?: string,
+        public createdAt?: Moment,
+        public lastModifiedAt?: Moment,
         public customerId?: number,
         public sellerId?: number,
         public curierId?: number,

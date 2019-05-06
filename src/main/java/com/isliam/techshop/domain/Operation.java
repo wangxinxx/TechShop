@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import com.isliam.techshop.domain.enumeration.OperationType;
@@ -41,6 +42,12 @@ public class Operation implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    @Column(name = "last_modified_at")
+    private LocalDate lastModifiedAt;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -106,6 +113,32 @@ public class Operation implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public Operation createdAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getLastModifiedAt() {
+        return lastModifiedAt;
+    }
+
+    public Operation lastModifiedAt(LocalDate lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
+        return this;
+    }
+
+    public void setLastModifiedAt(LocalDate lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
     }
 
     public Profile getCustomer() {
@@ -188,6 +221,8 @@ public class Operation implements Serializable {
             ", type='" + getType() + "'" +
             ", state='" + getState() + "'" +
             ", description='" + getDescription() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", lastModifiedAt='" + getLastModifiedAt() + "'" +
             "}";
     }
 }

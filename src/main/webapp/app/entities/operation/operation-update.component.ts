@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
 import { IOperation } from 'app/shared/model/operation.model';
 import { OperationService } from './operation.service';
@@ -22,6 +23,8 @@ export class OperationUpdateComponent implements OnInit {
     profiles: IProfile[];
 
     items: IItem[];
+    createdAtDp: any;
+    lastModifiedAtDp: any;
 
     constructor(
         protected jhiAlertService: JhiAlertService,

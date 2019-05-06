@@ -1,4 +1,5 @@
 package com.isliam.techshop.service.dto;
+import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,6 +20,10 @@ public class OperationDTO implements Serializable {
     private OperationState state;
 
     private String description;
+
+    private LocalDate createdAt;
+
+    private LocalDate lastModifiedAt;
 
 
     private Long customerId;
@@ -61,6 +66,22 @@ public class OperationDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getLastModifiedAt() {
+        return lastModifiedAt;
+    }
+
+    public void setLastModifiedAt(LocalDate lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
     }
 
     public Long getCustomerId() {
@@ -131,6 +152,8 @@ public class OperationDTO implements Serializable {
             ", type='" + getType() + "'" +
             ", state='" + getState() + "'" +
             ", description='" + getDescription() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", lastModifiedAt='" + getLastModifiedAt() + "'" +
             ", customer=" + getCustomerId() +
             ", seller=" + getSellerId() +
             ", curier=" + getCurierId() +

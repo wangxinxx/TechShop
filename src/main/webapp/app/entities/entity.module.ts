@@ -143,6 +143,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'product',
                 loadChildren: './product/product.module#TechShopProductModule'
+            },
+            {
+                path: 'operation',
+                loadChildren: './operation/operation.module#TechShopOperationModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

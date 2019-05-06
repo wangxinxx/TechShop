@@ -11,6 +11,7 @@ import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.LocalDateFilter;
 
 /**
  * Criteria class for the Operation entity. This class is used in OperationResource to
@@ -41,6 +42,10 @@ public class OperationCriteria implements Serializable {
     private OperationStateFilter state;
 
     private StringFilter description;
+
+    private LocalDateFilter createdAt;
+
+    private LocalDateFilter lastModifiedAt;
 
     private LongFilter customerId;
 
@@ -80,6 +85,22 @@ public class OperationCriteria implements Serializable {
 
     public void setDescription(StringFilter description) {
         this.description = description;
+    }
+
+    public LocalDateFilter getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateFilter createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateFilter getLastModifiedAt() {
+        return lastModifiedAt;
+    }
+
+    public void setLastModifiedAt(LocalDateFilter lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
     }
 
     public LongFilter getCustomerId() {
@@ -129,6 +150,8 @@ public class OperationCriteria implements Serializable {
             Objects.equals(type, that.type) &&
             Objects.equals(state, that.state) &&
             Objects.equals(description, that.description) &&
+            Objects.equals(createdAt, that.createdAt) &&
+            Objects.equals(lastModifiedAt, that.lastModifiedAt) &&
             Objects.equals(customerId, that.customerId) &&
             Objects.equals(sellerId, that.sellerId) &&
             Objects.equals(curierId, that.curierId) &&
@@ -142,6 +165,8 @@ public class OperationCriteria implements Serializable {
         type,
         state,
         description,
+        createdAt,
+        lastModifiedAt,
         customerId,
         sellerId,
         curierId,
@@ -156,6 +181,8 @@ public class OperationCriteria implements Serializable {
                 (type != null ? "type=" + type + ", " : "") +
                 (state != null ? "state=" + state + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
+                (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
+                (lastModifiedAt != null ? "lastModifiedAt=" + lastModifiedAt + ", " : "") +
                 (customerId != null ? "customerId=" + customerId + ", " : "") +
                 (sellerId != null ? "sellerId=" + sellerId + ", " : "") +
                 (curierId != null ? "curierId=" + curierId + ", " : "") +

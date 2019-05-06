@@ -29,6 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 
@@ -57,6 +59,12 @@ public class OperationResourceIntTest {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_CREATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_LAST_MODIFIED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_LAST_MODIFIED_AT = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private OperationRepository operationRepository;
@@ -111,7 +119,9 @@ public class OperationResourceIntTest {
         Operation operation = new Operation()
             .type(DEFAULT_TYPE)
             .state(DEFAULT_STATE)
-            .description(DEFAULT_DESCRIPTION);
+            .description(DEFAULT_DESCRIPTION)
+            .createdAt(DEFAULT_CREATED_AT)
+            .lastModifiedAt(DEFAULT_LAST_MODIFIED_AT);
         // Add required entity
         Profile profile = ProfileResourceIntTest.createEntity(em);
         em.persist(profile);
@@ -146,6 +156,8 @@ public class OperationResourceIntTest {
         assertThat(testOperation.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testOperation.getState()).isEqualTo(DEFAULT_STATE);
         assertThat(testOperation.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testOperation.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        assertThat(testOperation.getLastModifiedAt()).isEqualTo(DEFAULT_LAST_MODIFIED_AT);
     }
 
     @Test
@@ -219,7 +231,9 @@ public class OperationResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(operation.getId().intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].lastModifiedAt").value(hasItem(DEFAULT_LAST_MODIFIED_AT.toString())));
     }
     
     @Test
@@ -235,7 +249,9 @@ public class OperationResourceIntTest {
             .andExpect(jsonPath("$.id").value(operation.getId().intValue()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.state").value(DEFAULT_STATE.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
+            .andExpect(jsonPath("$.lastModifiedAt").value(DEFAULT_LAST_MODIFIED_AT.toString()));
     }
 
     @Test
@@ -357,6 +373,138 @@ public class OperationResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllOperationsByCreatedAtIsEqualToSomething() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where createdAt equals to DEFAULT_CREATED_AT
+        defaultOperationShouldBeFound("createdAt.equals=" + DEFAULT_CREATED_AT);
+
+        // Get all the operationList where createdAt equals to UPDATED_CREATED_AT
+        defaultOperationShouldNotBeFound("createdAt.equals=" + UPDATED_CREATED_AT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByCreatedAtIsInShouldWork() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where createdAt in DEFAULT_CREATED_AT or UPDATED_CREATED_AT
+        defaultOperationShouldBeFound("createdAt.in=" + DEFAULT_CREATED_AT + "," + UPDATED_CREATED_AT);
+
+        // Get all the operationList where createdAt equals to UPDATED_CREATED_AT
+        defaultOperationShouldNotBeFound("createdAt.in=" + UPDATED_CREATED_AT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByCreatedAtIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where createdAt is not null
+        defaultOperationShouldBeFound("createdAt.specified=true");
+
+        // Get all the operationList where createdAt is null
+        defaultOperationShouldNotBeFound("createdAt.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByCreatedAtIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where createdAt greater than or equals to DEFAULT_CREATED_AT
+        defaultOperationShouldBeFound("createdAt.greaterOrEqualThan=" + DEFAULT_CREATED_AT);
+
+        // Get all the operationList where createdAt greater than or equals to UPDATED_CREATED_AT
+        defaultOperationShouldNotBeFound("createdAt.greaterOrEqualThan=" + UPDATED_CREATED_AT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByCreatedAtIsLessThanSomething() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where createdAt less than or equals to DEFAULT_CREATED_AT
+        defaultOperationShouldNotBeFound("createdAt.lessThan=" + DEFAULT_CREATED_AT);
+
+        // Get all the operationList where createdAt less than or equals to UPDATED_CREATED_AT
+        defaultOperationShouldBeFound("createdAt.lessThan=" + UPDATED_CREATED_AT);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllOperationsByLastModifiedAtIsEqualToSomething() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where lastModifiedAt equals to DEFAULT_LAST_MODIFIED_AT
+        defaultOperationShouldBeFound("lastModifiedAt.equals=" + DEFAULT_LAST_MODIFIED_AT);
+
+        // Get all the operationList where lastModifiedAt equals to UPDATED_LAST_MODIFIED_AT
+        defaultOperationShouldNotBeFound("lastModifiedAt.equals=" + UPDATED_LAST_MODIFIED_AT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByLastModifiedAtIsInShouldWork() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where lastModifiedAt in DEFAULT_LAST_MODIFIED_AT or UPDATED_LAST_MODIFIED_AT
+        defaultOperationShouldBeFound("lastModifiedAt.in=" + DEFAULT_LAST_MODIFIED_AT + "," + UPDATED_LAST_MODIFIED_AT);
+
+        // Get all the operationList where lastModifiedAt equals to UPDATED_LAST_MODIFIED_AT
+        defaultOperationShouldNotBeFound("lastModifiedAt.in=" + UPDATED_LAST_MODIFIED_AT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByLastModifiedAtIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where lastModifiedAt is not null
+        defaultOperationShouldBeFound("lastModifiedAt.specified=true");
+
+        // Get all the operationList where lastModifiedAt is null
+        defaultOperationShouldNotBeFound("lastModifiedAt.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByLastModifiedAtIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where lastModifiedAt greater than or equals to DEFAULT_LAST_MODIFIED_AT
+        defaultOperationShouldBeFound("lastModifiedAt.greaterOrEqualThan=" + DEFAULT_LAST_MODIFIED_AT);
+
+        // Get all the operationList where lastModifiedAt greater than or equals to UPDATED_LAST_MODIFIED_AT
+        defaultOperationShouldNotBeFound("lastModifiedAt.greaterOrEqualThan=" + UPDATED_LAST_MODIFIED_AT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByLastModifiedAtIsLessThanSomething() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where lastModifiedAt less than or equals to DEFAULT_LAST_MODIFIED_AT
+        defaultOperationShouldNotBeFound("lastModifiedAt.lessThan=" + DEFAULT_LAST_MODIFIED_AT);
+
+        // Get all the operationList where lastModifiedAt less than or equals to UPDATED_LAST_MODIFIED_AT
+        defaultOperationShouldBeFound("lastModifiedAt.lessThan=" + UPDATED_LAST_MODIFIED_AT);
+    }
+
+
+    @Test
+    @Transactional
     public void getAllOperationsByCustomerIsEqualToSomething() throws Exception {
         // Initialize the database
         Profile customer = ProfileResourceIntTest.createEntity(em);
@@ -440,7 +588,9 @@ public class OperationResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(operation.getId().intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].lastModifiedAt").value(hasItem(DEFAULT_LAST_MODIFIED_AT.toString())));
 
         // Check, that the count call also returns 1
         restOperationMockMvc.perform(get("/api/operations/count?sort=id,desc&" + filter))
@@ -490,7 +640,9 @@ public class OperationResourceIntTest {
         updatedOperation
             .type(UPDATED_TYPE)
             .state(UPDATED_STATE)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .createdAt(UPDATED_CREATED_AT)
+            .lastModifiedAt(UPDATED_LAST_MODIFIED_AT);
         OperationDTO operationDTO = operationMapper.toDto(updatedOperation);
 
         restOperationMockMvc.perform(put("/api/operations")
@@ -505,6 +657,8 @@ public class OperationResourceIntTest {
         assertThat(testOperation.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testOperation.getState()).isEqualTo(UPDATED_STATE);
         assertThat(testOperation.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testOperation.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testOperation.getLastModifiedAt()).isEqualTo(UPDATED_LAST_MODIFIED_AT);
     }
 
     @Test
