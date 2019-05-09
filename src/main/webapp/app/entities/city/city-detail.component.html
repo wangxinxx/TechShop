@@ -9,10 +9,10 @@
                 <dd>
                     <span>{{city.name}}</span>
                 </dd>
-                <dt><span>Country</span></dt>
+                <dt><span>Region</span></dt>
                 <dd>
-                    <div *ngIf="city.countryId">
-                        <a [routerLink]="['/country', city.countryId, 'view']">{{city.countryName}}</a>
+                    <div *ngIf="city.regionId">
+                        <a [routerLink]="['/region', city.regionId, 'view']">{{city.regionName}}</a>
                     </div>
                 </dd>
             </dl>

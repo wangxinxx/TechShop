@@ -57,6 +57,8 @@ public class OperationCriteria implements Serializable {
 
     private LongFilter itemId;
 
+    private LongFilter addressId;
+
     public LongFilter getId() {
         return id;
     }
@@ -145,6 +147,14 @@ public class OperationCriteria implements Serializable {
         this.itemId = itemId;
     }
 
+    public LongFilter getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(LongFilter addressId) {
+        this.addressId = addressId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -166,7 +176,8 @@ public class OperationCriteria implements Serializable {
             Objects.equals(customerId, that.customerId) &&
             Objects.equals(sellerId, that.sellerId) &&
             Objects.equals(curierId, that.curierId) &&
-            Objects.equals(itemId, that.itemId);
+            Objects.equals(itemId, that.itemId) &&
+            Objects.equals(addressId, that.addressId);
     }
 
     @Override
@@ -182,7 +193,8 @@ public class OperationCriteria implements Serializable {
         customerId,
         sellerId,
         curierId,
-        itemId
+        itemId,
+        addressId
         );
     }
 
@@ -200,6 +212,7 @@ public class OperationCriteria implements Serializable {
                 (sellerId != null ? "sellerId=" + sellerId + ", " : "") +
                 (curierId != null ? "curierId=" + curierId + ", " : "") +
                 (itemId != null ? "itemId=" + itemId + ", " : "") +
+                (addressId != null ? "addressId=" + addressId + ", " : "") +
             "}";
     }
 

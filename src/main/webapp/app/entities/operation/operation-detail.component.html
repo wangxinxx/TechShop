@@ -53,6 +53,12 @@
                         <a [routerLink]="['/item', operation.itemId, 'view']">{{operation.itemName}}</a>
                     </div>
                 </dd>
+                <dt><span>Address</span></dt>
+                <dd>
+                    <div *ngIf="operation.addressId">
+                        <a [routerLink]="['/address', operation.addressId, 'view']">{{operation.addressStreet}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

@@ -26,10 +26,6 @@ public class ProfileCriteria implements Serializable {
 
     private StringFilter phone;
 
-    private StringFilter address;
-
-    private StringFilter zipCode;
-
     private BooleanFilter active;
 
     private LongFilter positionId;
@@ -38,7 +34,7 @@ public class ProfileCriteria implements Serializable {
 
     private LongFilter userId;
 
-    private LongFilter cityId;
+    private LongFilter addressId;
 
     public LongFilter getId() {
         return id;
@@ -54,22 +50,6 @@ public class ProfileCriteria implements Serializable {
 
     public void setPhone(StringFilter phone) {
         this.phone = phone;
-    }
-
-    public StringFilter getAddress() {
-        return address;
-    }
-
-    public void setAddress(StringFilter address) {
-        this.address = address;
-    }
-
-    public StringFilter getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(StringFilter zipCode) {
-        this.zipCode = zipCode;
     }
 
     public BooleanFilter getActive() {
@@ -104,12 +84,12 @@ public class ProfileCriteria implements Serializable {
         this.userId = userId;
     }
 
-    public LongFilter getCityId() {
-        return cityId;
+    public LongFilter getAddressId() {
+        return addressId;
     }
 
-    public void setCityId(LongFilter cityId) {
-        this.cityId = cityId;
+    public void setAddressId(LongFilter addressId) {
+        this.addressId = addressId;
     }
 
 
@@ -125,13 +105,11 @@ public class ProfileCriteria implements Serializable {
         return
             Objects.equals(id, that.id) &&
             Objects.equals(phone, that.phone) &&
-            Objects.equals(address, that.address) &&
-            Objects.equals(zipCode, that.zipCode) &&
             Objects.equals(active, that.active) &&
             Objects.equals(positionId, that.positionId) &&
             Objects.equals(passportId, that.passportId) &&
             Objects.equals(userId, that.userId) &&
-            Objects.equals(cityId, that.cityId);
+            Objects.equals(addressId, that.addressId);
     }
 
     @Override
@@ -139,13 +117,11 @@ public class ProfileCriteria implements Serializable {
         return Objects.hash(
         id,
         phone,
-        address,
-        zipCode,
         active,
         positionId,
         passportId,
         userId,
-        cityId
+        addressId
         );
     }
 
@@ -154,13 +130,11 @@ public class ProfileCriteria implements Serializable {
         return "ProfileCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (phone != null ? "phone=" + phone + ", " : "") +
-                (address != null ? "address=" + address + ", " : "") +
-                (zipCode != null ? "zipCode=" + zipCode + ", " : "") +
                 (active != null ? "active=" + active + ", " : "") +
                 (positionId != null ? "positionId=" + positionId + ", " : "") +
                 (passportId != null ? "passportId=" + passportId + ", " : "") +
                 (userId != null ? "userId=" + userId + ", " : "") +
-                (cityId != null ? "cityId=" + cityId + ", " : "") +
+                (addressId != null ? "addressId=" + addressId + ", " : "") +
             "}";
     }
 

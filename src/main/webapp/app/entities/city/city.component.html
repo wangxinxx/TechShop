@@ -16,7 +16,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="countryName"><span>Country</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="regionName"><span>Region</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -25,8 +25,8 @@
                 <td><a [routerLink]="['/city', city.id, 'view' ]">{{city.id}}</a></td>
                 <td>{{city.name}}</td>
                 <td>
-                    <div *ngIf="city.countryId">
-                        <a [routerLink]="['../country', city.countryId , 'view' ]" >{{city.countryName}}</a>
+                    <div *ngIf="city.regionId">
+                        <a [routerLink]="['../region', city.regionId , 'view' ]" >{{city.regionName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

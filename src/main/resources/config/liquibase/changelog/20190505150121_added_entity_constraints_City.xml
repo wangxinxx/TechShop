@@ -8,11 +8,11 @@
     -->
     <changeSet id="20190505150121-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="country_id"
+        <addForeignKeyConstraint baseColumnNames="region_id"
                                  baseTableName="city"
-                                 constraintName="fk_city_country_id"
+                                 constraintName="fk_city_region_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="country"/>
+                                 referencedTableName="region"/>
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/cities.csv"

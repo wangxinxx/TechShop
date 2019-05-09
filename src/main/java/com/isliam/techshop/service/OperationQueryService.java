@@ -123,6 +123,10 @@ public class OperationQueryService extends QueryService<Operation> {
                 specification = specification.and(buildSpecification(criteria.getItemId(),
                     root -> root.join(Operation_.item, JoinType.LEFT).get(Item_.id)));
             }
+            if (criteria.getAddressId() != null) {
+                specification = specification.and(buildSpecification(criteria.getAddressId(),
+                    root -> root.join(Operation_.address, JoinType.LEFT).get(Address_.id)));
+            }
         }
         return specification;
     }

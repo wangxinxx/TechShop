@@ -3,7 +3,7 @@ package com.isliam.techshop.web.rest;
 import com.isliam.techshop.TechShopApp;
 
 import com.isliam.techshop.domain.City;
-import com.isliam.techshop.domain.Country;
+import com.isliam.techshop.domain.Region;
 import com.isliam.techshop.repository.CityRepository;
 import com.isliam.techshop.service.CityService;
 import com.isliam.techshop.service.dto.CityDTO;
@@ -101,11 +101,6 @@ public class CityResourceIntTest {
     public static City createEntity(EntityManager em) {
         City city = new City()
             .name(DEFAULT_NAME);
-        // Add required entity
-        Country country = CountryResourceIntTest.createEntity(em);
-        em.persist(country);
-        em.flush();
-        city.setCountry(country);
         return city;
     }
 
@@ -241,20 +236,20 @@ public class CityResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllCitiesByCountryIsEqualToSomething() throws Exception {
+    public void getAllCitiesByRegionIsEqualToSomething() throws Exception {
         // Initialize the database
-        Country country = CountryResourceIntTest.createEntity(em);
-        em.persist(country);
+        Region region = RegionResourceIntTest.createEntity(em);
+        em.persist(region);
         em.flush();
-        city.setCountry(country);
+        city.setRegion(region);
         cityRepository.saveAndFlush(city);
-        Long countryId = country.getId();
+        Long regionId = region.getId();
 
-        // Get all the cityList where country equals to countryId
-        defaultCityShouldBeFound("countryId.equals=" + countryId);
+        // Get all the cityList where region equals to regionId
+        defaultCityShouldBeFound("regionId.equals=" + regionId);
 
-        // Get all the cityList where country equals to countryId + 1
-        defaultCityShouldNotBeFound("countryId.equals=" + (countryId + 1));
+        // Get all the cityList where region equals to regionId + 1
+        defaultCityShouldNotBeFound("regionId.equals=" + (regionId + 1));
     }
 
     /**

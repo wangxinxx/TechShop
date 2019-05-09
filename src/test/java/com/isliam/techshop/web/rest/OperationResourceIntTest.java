@@ -5,6 +5,7 @@ import com.isliam.techshop.TechShopApp;
 import com.isliam.techshop.domain.Operation;
 import com.isliam.techshop.domain.Profile;
 import com.isliam.techshop.domain.Item;
+import com.isliam.techshop.domain.Address;
 import com.isliam.techshop.repository.OperationRepository;
 import com.isliam.techshop.service.OperationService;
 import com.isliam.techshop.service.dto.OperationDTO;
@@ -133,6 +134,11 @@ public class OperationResourceIntTest {
         operation.setCustomer(profile);
         // Add required entity
         operation.setSeller(profile);
+        // Add required entity
+        Address address = AddressResourceIntTest.createEntity(em);
+        em.persist(address);
+        em.flush();
+        operation.setAddress(address);
         return operation;
     }
 
@@ -649,6 +655,25 @@ public class OperationResourceIntTest {
 
         // Get all the operationList where item equals to itemId + 1
         defaultOperationShouldNotBeFound("itemId.equals=" + (itemId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllOperationsByAddressIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Address address = AddressResourceIntTest.createEntity(em);
+        em.persist(address);
+        em.flush();
+        operation.setAddress(address);
+        operationRepository.saveAndFlush(operation);
+        Long addressId = address.getId();
+
+        // Get all the operationList where address equals to addressId
+        defaultOperationShouldBeFound("addressId.equals=" + addressId);
+
+        // Get all the operationList where address equals to addressId + 1
+        defaultOperationShouldNotBeFound("addressId.equals=" + (addressId + 1));
     }
 
     /**

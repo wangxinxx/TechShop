@@ -1,0 +1,3 @@
+jhi_type;state;description;order_date;approve_date;delivery_date;customer_id;seller_id;curier_id;item_id;address_id
+SELL;PENDING;sell laptop  ;2019-05-07;2019-05-18;NULL;1;2;3;2;3
+SELL;SUCCESS;sell laptop 2;2019-05-30;2019-06-01;2019-06-04;1;2;4;1;4

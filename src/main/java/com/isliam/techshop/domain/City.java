@@ -30,9 +30,9 @@ public class City implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(optional = false)
-//    @NotNull
-    private Country country;
+    @ManyToOne
+    @JsonIgnoreProperties("cities")
+    private Region region;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -56,17 +56,17 @@ public class City implements Serializable {
         this.name = name;
     }
 
-    public Country getCountry() {
-        return country;
+    public Region getRegion() {
+        return region;
     }
 
-    public City country(Country country) {
-        this.country = country;
+    public City region(Region region) {
+        this.region = region;
         return this;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setRegion(Region region) {
+        this.region = region;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

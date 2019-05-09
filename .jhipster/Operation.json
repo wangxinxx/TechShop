@@ -40,6 +40,17 @@
             "otherEntityField": "name",
             "otherEntityRelationshipName": "operation",
             "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "address",
+            "otherEntityName": "address",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "street",
+            "otherEntityRelationshipName": "operation",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

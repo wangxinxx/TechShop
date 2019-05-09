@@ -26,17 +26,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_country">Country</label>
-                    <select class="form-control" id="field_country" name="country" [(ngModel)]="city.countryId"  required>
-                        <option *ngIf="!editForm.value.country" [ngValue]="null" selected></option>
-                        <option [ngValue]="countryOption.id" *ngFor="let countryOption of countries; trackBy: trackCountryById">{{countryOption.name}}</option>
+                    <label class="form-control-label" for="field_region">Region</label>
+                    <select class="form-control" id="field_region" name="region" [(ngModel)]="city.regionId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="regionOption.id" *ngFor="let regionOption of regions; trackBy: trackRegionById">{{regionOption.name}}</option>
                     </select>
-                </div>
-                <div [hidden]="!(editForm.controls.country?.dirty && editForm.controls.country?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.country?.errors?.required">
-                        This field is required.
-                    </small>
                 </div>
             </div>
             <div>

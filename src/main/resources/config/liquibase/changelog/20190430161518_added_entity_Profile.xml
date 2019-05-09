@@ -26,14 +26,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="address" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="zip_code" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
             <column name="active" type="boolean">
                 <constraints nullable="false" />
             </column>
@@ -42,16 +34,12 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="city_id" type="bigint">
-                <constraints nullable="false" />
+            <column name="address_id" type="bigint">
+                <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-
-<!--        <sql>SET IDENTITY_INSERT profile ON-->
-<!--            <comment>Identity-insert for MSSQL Server</comment>-->
-<!--        </sql>-->
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

@@ -26,16 +26,12 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="country_id" type="bigint">
+            <column name="region_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-
-<!--        <sql>SET IDENTITY_INSERT city ON-->
-<!--            <comment>Identity-insert for MSSQL Server</comment>-->
-<!--        </sql>-->
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

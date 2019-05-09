@@ -38,6 +38,10 @@ public class OperationDTO implements Serializable {
 
     private String itemName;
 
+    private Long addressId;
+
+    private String addressStreet;
+
     public Long getId() {
         return id;
     }
@@ -134,6 +138,22 @@ public class OperationDTO implements Serializable {
         this.itemName = itemName;
     }
 
+    public Long getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getAddressStreet() {
+        return addressStreet;
+    }
+
+    public void setAddressStreet(String addressStreet) {
+        this.addressStreet = addressStreet;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -170,6 +190,8 @@ public class OperationDTO implements Serializable {
             ", curier=" + getCurierId() +
             ", item=" + getItemId() +
             ", item='" + getItemName() + "'" +
+            ", address=" + getAddressId() +
+            ", address='" + getAddressStreet() + "'" +
             "}";
     }
 }

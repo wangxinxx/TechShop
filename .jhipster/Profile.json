@@ -34,15 +34,12 @@
             "otherEntityRelationshipNameUndefined": false
         },
         {
-            "relationshipName": "city",
-            "otherEntityName": "city",
+            "relationshipName": "address",
+            "otherEntityName": "address",
             "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name",
+            "otherEntityField": "street",
             "otherEntityRelationshipName": "profile",
-            "otherEntityRelationshipNameUndefined": false
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [
@@ -55,15 +52,6 @@
             ],
             "fieldValidateRulesMinlength": "12",
             "fieldValidateRulesMaxlength": "12"
-        },
-        {
-            "fieldName": "address",
-            "fieldType": "String",
-            "fieldValidateRules": []
-        },
-        {
-            "fieldName": "zipCode",
-            "fieldType": "String"
         },
         {
             "fieldName": "active",

@@ -3,13 +3,12 @@
     "clientRootFolder": "",
     "relationships": [
         {
-            "relationshipName": "country",
-            "otherEntityName": "country",
+            "relationshipName": "region",
+            "otherEntityName": "region",
             "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "city",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

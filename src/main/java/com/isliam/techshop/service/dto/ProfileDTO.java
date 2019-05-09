@@ -13,10 +13,6 @@ public class ProfileDTO implements Serializable {
     @Size(min = 12, max = 12)
     private String phone;
 
-    private String address;
-
-    private String zipCode;
-
     @NotNull
     private Boolean active;
 
@@ -29,9 +25,9 @@ public class ProfileDTO implements Serializable {
 
     private String userLogin;
 
-    private Long cityId;
+    private Long addressId;
 
-    private String cityName;
+    private String addressStreet;
 
     public Long getId() {
         return id;
@@ -47,22 +43,6 @@ public class ProfileDTO implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
     }
 
     public Boolean isActive() {
@@ -105,20 +85,20 @@ public class ProfileDTO implements Serializable {
         this.userLogin = userLogin;
     }
 
-    public Long getCityId() {
-        return cityId;
+    public Long getAddressId() {
+        return addressId;
     }
 
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getAddressStreet() {
+        return addressStreet;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setAddressStreet(String addressStreet) {
+        this.addressStreet = addressStreet;
     }
 
     @Override
@@ -147,15 +127,13 @@ public class ProfileDTO implements Serializable {
         return "ProfileDTO{" +
             "id=" + getId() +
             ", phone='" + getPhone() + "'" +
-            ", address='" + getAddress() + "'" +
-            ", zipCode='" + getZipCode() + "'" +
             ", active='" + isActive() + "'" +
             ", position=" + getPositionId() +
             ", position='" + getPositionName() + "'" +
             ", user=" + getUserId() +
             ", user='" + getUserLogin() + "'" +
-            ", city=" + getCityId() +
-            ", city='" + getCityName() + "'" +
+            ", address=" + getAddressId() +
+            ", address='" + getAddressStreet() + "'" +
             "}";
     }
 }

@@ -9,8 +9,8 @@ import { ProfileService } from './profile.service';
 import { IPosition } from 'app/shared/model/position.model';
 import { PositionService } from 'app/entities/position';
 import { IUser, UserService } from 'app/core';
-import { ICity } from 'app/shared/model/city.model';
-import { CityService } from 'app/entities/city';
+import { IAddress } from 'app/shared/model/address.model';
+import { AddressService } from 'app/entities/address';
 
 @Component({
     selector: 'jhi-profile-update',
@@ -24,14 +24,14 @@ export class ProfileUpdateComponent implements OnInit {
 
     users: IUser[];
 
-    cities: ICity[];
+    addresses: IAddress[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected profileService: ProfileService,
         protected positionService: PositionService,
         protected userService: UserService,
-        protected cityService: CityService,
+        protected addressService: AddressService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -54,13 +54,13 @@ export class ProfileUpdateComponent implements OnInit {
                 map((response: HttpResponse<IUser[]>) => response.body)
             )
             .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.cityService
+        this.addressService
             .query()
             .pipe(
-                filter((mayBeOk: HttpResponse<ICity[]>) => mayBeOk.ok),
-                map((response: HttpResponse<ICity[]>) => response.body)
+                filter((mayBeOk: HttpResponse<IAddress[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IAddress[]>) => response.body)
             )
-            .subscribe((res: ICity[]) => (this.cities = res), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: IAddress[]) => (this.addresses = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -101,7 +101,7 @@ export class ProfileUpdateComponent implements OnInit {
         return item.id;
     }
 
-    trackCityById(index: number, item: ICity) {
+    trackAddressById(index: number, item: IAddress) {
         return item.id;
     }
 }

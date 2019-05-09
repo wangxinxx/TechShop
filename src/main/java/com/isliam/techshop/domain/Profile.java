@@ -31,12 +31,6 @@ public class Profile implements Serializable {
     @Column(name = "phone", length = 12)
     private String phone;
 
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "zip_code")
-    private String zipCode;
-
     @NotNull
     @Column(name = "active", nullable = false)
     private Boolean active;
@@ -55,10 +49,9 @@ public class Profile implements Serializable {
     @JoinColumn(name = "id")
     private User user;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     @JsonIgnoreProperties("profiles")
-    private City city;
+    private Address address;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -80,32 +73,6 @@ public class Profile implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public Profile address(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public Profile zipCode(String zipCode) {
-        this.zipCode = zipCode;
-        return this;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
     }
 
     public Boolean isActive() {
@@ -172,17 +139,17 @@ public class Profile implements Serializable {
         this.user = user;
     }
 
-    public City getCity() {
-        return city;
+    public Address getAddress() {
+        return address;
     }
 
-    public Profile city(City city) {
-        this.city = city;
+    public Profile address(Address address) {
+        this.address = address;
         return this;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setAddress(Address address) {
+        this.address = address;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -211,8 +178,6 @@ public class Profile implements Serializable {
         return "Profile{" +
             "id=" + getId() +
             ", phone='" + getPhone() + "'" +
-            ", address='" + getAddress() + "'" +
-            ", zipCode='" + getZipCode() + "'" +
             ", active='" + isActive() + "'" +
             "}";
     }

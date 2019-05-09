@@ -15,9 +15,9 @@ public class CityDTO implements Serializable {
     private String name;
 
 
-    private Long countryId;
+    private Long regionId;
 
-    private String countryName;
+    private String regionName;
 
     public Long getId() {
         return id;
@@ -35,20 +35,20 @@ public class CityDTO implements Serializable {
         this.name = name;
     }
 
-    public Long getCountryId() {
-        return countryId;
+    public Long getRegionId() {
+        return regionId;
     }
 
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
     }
 
-    public String getCountryName() {
-        return countryName;
+    public String getRegionName() {
+        return regionName;
     }
 
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
     }
 
     @Override
@@ -77,8 +77,8 @@ public class CityDTO implements Serializable {
         return "CityDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", country=" + getCountryId() +
-            ", country='" + getCountryName() + "'" +
+            ", region=" + getRegionId() +
+            ", region='" + getRegionName() + "'" +
             "}";
     }
 }

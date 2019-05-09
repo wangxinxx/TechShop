@@ -32,5 +32,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="item"/>
 
+        <addForeignKeyConstraint baseColumnNames="address_id"
+                                 baseTableName="operation"
+                                 constraintName="fk_operation_address_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/operations.csv"
+                  separator=";"
+                  tableName="operation">
+        </loadData>
+
     </changeSet>
 </databaseChangeLog>

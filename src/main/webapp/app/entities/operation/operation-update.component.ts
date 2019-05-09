@@ -11,6 +11,8 @@ import { IProfile } from 'app/shared/model/profile.model';
 import { ProfileService } from 'app/entities/profile';
 import { IItem } from 'app/shared/model/item.model';
 import { ItemService } from 'app/entities/item';
+import { IAddress } from 'app/shared/model/address.model';
+import { AddressService } from 'app/entities/address';
 
 @Component({
     selector: 'jhi-operation-update',
@@ -23,6 +25,8 @@ export class OperationUpdateComponent implements OnInit {
     profiles: IProfile[];
 
     items: IItem[];
+
+    addresses: IAddress[];
     orderDateDp: any;
     approveDateDp: any;
     deliveryDateDp: any;
@@ -32,6 +36,7 @@ export class OperationUpdateComponent implements OnInit {
         protected operationService: OperationService,
         protected profileService: ProfileService,
         protected itemService: ItemService,
+        protected addressService: AddressService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -54,6 +59,13 @@ export class OperationUpdateComponent implements OnInit {
                 map((response: HttpResponse<IItem[]>) => response.body)
             )
             .subscribe((res: IItem[]) => (this.items = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.addressService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IAddress[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IAddress[]>) => response.body)
+            )
+            .subscribe((res: IAddress[]) => (this.addresses = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -91,6 +103,10 @@ export class OperationUpdateComponent implements OnInit {
     }
 
     trackItemById(index: number, item: IItem) {
+        return item.id;
+    }
+
+    trackAddressById(index: number, item: IAddress) {
         return item.id;
     }
 }

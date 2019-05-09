@@ -155,6 +155,42 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'operation',
                 loadChildren: './operation/operation.module#TechShopOperationModule'
+            },
+            {
+                path: 'region',
+                loadChildren: './region/region.module#TechShopRegionModule'
+            },
+            {
+                path: 'city',
+                loadChildren: './city/city.module#TechShopCityModule'
+            },
+            {
+                path: 'city',
+                loadChildren: './city/city.module#TechShopCityModule'
+            },
+            {
+                path: 'address',
+                loadChildren: './address/address.module#TechShopAddressModule'
+            },
+            {
+                path: 'address',
+                loadChildren: './address/address.module#TechShopAddressModule'
+            },
+            {
+                path: 'profile',
+                loadChildren: './profile/profile.module#TechShopProfileModule'
+            },
+            {
+                path: 'address',
+                loadChildren: './address/address.module#TechShopAddressModule'
+            },
+            {
+                path: 'profile',
+                loadChildren: './profile/profile.module#TechShopProfileModule'
+            },
+            {
+                path: 'operation',
+                loadChildren: './operation/operation.module#TechShopOperationModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

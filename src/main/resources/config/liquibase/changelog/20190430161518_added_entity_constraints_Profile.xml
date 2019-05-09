@@ -20,12 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
-        <addForeignKeyConstraint baseColumnNames="city_id"
+        <addForeignKeyConstraint baseColumnNames="address_id"
                                  baseTableName="profile"
-                                 constraintName="fk_profile_city_id"
+                                 constraintName="fk_profile_address_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="city"/>
-
+                                 referencedTableName="address"/>
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/profiles.csv"

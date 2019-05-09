@@ -25,6 +25,7 @@
             <th jhiSortBy="sellerId"><span>Seller</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="curierId"><span>Curier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="itemName"><span>Item</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="addressStreet"><span>Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -55,6 +56,11 @@
                 <td>
                     <div *ngIf="operation.itemId">
                         <a [routerLink]="['../item', operation.itemId , 'view' ]" >{{operation.itemName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="operation.addressId">
+                        <a [routerLink]="['../address', operation.addressId , 'view' ]" >{{operation.addressStreet}}</a>
                     </div>
                 </td>
                 <td class="text-right">

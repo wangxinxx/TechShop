@@ -26,7 +26,7 @@ public class CityCriteria implements Serializable {
 
     private StringFilter name;
 
-    private LongFilter countryId;
+    private LongFilter regionId;
 
     public LongFilter getId() {
         return id;
@@ -44,12 +44,12 @@ public class CityCriteria implements Serializable {
         this.name = name;
     }
 
-    public LongFilter getCountryId() {
-        return countryId;
+    public LongFilter getRegionId() {
+        return regionId;
     }
 
-    public void setCountryId(LongFilter countryId) {
-        this.countryId = countryId;
+    public void setRegionId(LongFilter regionId) {
+        this.regionId = regionId;
     }
 
 
@@ -65,7 +65,7 @@ public class CityCriteria implements Serializable {
         return
             Objects.equals(id, that.id) &&
             Objects.equals(name, that.name) &&
-            Objects.equals(countryId, that.countryId);
+            Objects.equals(regionId, that.regionId);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class CityCriteria implements Serializable {
         return Objects.hash(
         id,
         name,
-        countryId
+        regionId
         );
     }
 
@@ -82,7 +82,7 @@ public class CityCriteria implements Serializable {
         return "CityCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
-                (countryId != null ? "countryId=" + countryId + ", " : "") +
+                (regionId != null ? "regionId=" + regionId + ", " : "") +
             "}";
     }
 

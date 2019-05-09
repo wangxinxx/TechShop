@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Region.
+    -->
+    <changeSet id="20190509170224-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="country_id"
+                                 baseTableName="region"
+                                 constraintName="fk_region_country_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="country"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/regions.csv"
+                  separator=";"
+                  tableName="region">
+        </loadData>
+
+    </changeSet>
+</databaseChangeLog>

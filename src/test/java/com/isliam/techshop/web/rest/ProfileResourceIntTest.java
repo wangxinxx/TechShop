@@ -6,7 +6,7 @@ import com.isliam.techshop.domain.Profile;
 import com.isliam.techshop.domain.Position;
 import com.isliam.techshop.domain.Passport;
 import com.isliam.techshop.domain.User;
-import com.isliam.techshop.domain.City;
+import com.isliam.techshop.domain.Address;
 import com.isliam.techshop.repository.ProfileRepository;
 import com.isliam.techshop.service.ProfileService;
 import com.isliam.techshop.service.dto.ProfileDTO;
@@ -51,12 +51,6 @@ public class ProfileResourceIntTest {
 
     private static final String DEFAULT_PHONE = "AAAAAAAAAAAA";
     private static final String UPDATED_PHONE = "BBBBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ZIP_CODE = "AAAAAAAAAA";
-    private static final String UPDATED_ZIP_CODE = "BBBBBBBBBB";
 
     private static final Boolean DEFAULT_ACTIVE = false;
     private static final Boolean UPDATED_ACTIVE = true;
@@ -113,8 +107,6 @@ public class ProfileResourceIntTest {
     public static Profile createEntity(EntityManager em) {
         Profile profile = new Profile()
             .phone(DEFAULT_PHONE)
-            .address(DEFAULT_ADDRESS)
-            .zipCode(DEFAULT_ZIP_CODE)
             .active(DEFAULT_ACTIVE);
         // Add required entity
         Position position = PositionResourceIntTest.createEntity(em);
@@ -126,11 +118,6 @@ public class ProfileResourceIntTest {
         em.persist(user);
         em.flush();
         profile.setUser(user);
-        // Add required entity
-        City city = CityResourceIntTest.createEntity(em);
-        em.persist(city);
-        em.flush();
-        profile.setCity(city);
         return profile;
     }
 
@@ -156,8 +143,6 @@ public class ProfileResourceIntTest {
         assertThat(profileList).hasSize(databaseSizeBeforeCreate + 1);
         Profile testProfile = profileList.get(profileList.size() - 1);
         assertThat(testProfile.getPhone()).isEqualTo(DEFAULT_PHONE);
-        assertThat(testProfile.getAddress()).isEqualTo(DEFAULT_ADDRESS);
-        assertThat(testProfile.getZipCode()).isEqualTo(DEFAULT_ZIP_CODE);
         assertThat(testProfile.isActive()).isEqualTo(DEFAULT_ACTIVE);
 
         // Validate the id for MapsId, the ids must be same
@@ -215,8 +200,6 @@ public class ProfileResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(profile.getId().intValue())))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.toString())))
-            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
-            .andExpect(jsonPath("$.[*].zipCode").value(hasItem(DEFAULT_ZIP_CODE.toString())))
             .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())));
     }
     
@@ -232,8 +215,6 @@ public class ProfileResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(profile.getId().intValue()))
             .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE.toString()))
-            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
-            .andExpect(jsonPath("$.zipCode").value(DEFAULT_ZIP_CODE.toString()))
             .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()));
     }
 
@@ -274,84 +255,6 @@ public class ProfileResourceIntTest {
 
         // Get all the profileList where phone is null
         defaultProfileShouldNotBeFound("phone.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllProfilesByAddressIsEqualToSomething() throws Exception {
-        // Initialize the database
-        profileRepository.saveAndFlush(profile);
-
-        // Get all the profileList where address equals to DEFAULT_ADDRESS
-        defaultProfileShouldBeFound("address.equals=" + DEFAULT_ADDRESS);
-
-        // Get all the profileList where address equals to UPDATED_ADDRESS
-        defaultProfileShouldNotBeFound("address.equals=" + UPDATED_ADDRESS);
-    }
-
-    @Test
-    @Transactional
-    public void getAllProfilesByAddressIsInShouldWork() throws Exception {
-        // Initialize the database
-        profileRepository.saveAndFlush(profile);
-
-        // Get all the profileList where address in DEFAULT_ADDRESS or UPDATED_ADDRESS
-        defaultProfileShouldBeFound("address.in=" + DEFAULT_ADDRESS + "," + UPDATED_ADDRESS);
-
-        // Get all the profileList where address equals to UPDATED_ADDRESS
-        defaultProfileShouldNotBeFound("address.in=" + UPDATED_ADDRESS);
-    }
-
-    @Test
-    @Transactional
-    public void getAllProfilesByAddressIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        profileRepository.saveAndFlush(profile);
-
-        // Get all the profileList where address is not null
-        defaultProfileShouldBeFound("address.specified=true");
-
-        // Get all the profileList where address is null
-        defaultProfileShouldNotBeFound("address.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllProfilesByZipCodeIsEqualToSomething() throws Exception {
-        // Initialize the database
-        profileRepository.saveAndFlush(profile);
-
-        // Get all the profileList where zipCode equals to DEFAULT_ZIP_CODE
-        defaultProfileShouldBeFound("zipCode.equals=" + DEFAULT_ZIP_CODE);
-
-        // Get all the profileList where zipCode equals to UPDATED_ZIP_CODE
-        defaultProfileShouldNotBeFound("zipCode.equals=" + UPDATED_ZIP_CODE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllProfilesByZipCodeIsInShouldWork() throws Exception {
-        // Initialize the database
-        profileRepository.saveAndFlush(profile);
-
-        // Get all the profileList where zipCode in DEFAULT_ZIP_CODE or UPDATED_ZIP_CODE
-        defaultProfileShouldBeFound("zipCode.in=" + DEFAULT_ZIP_CODE + "," + UPDATED_ZIP_CODE);
-
-        // Get all the profileList where zipCode equals to UPDATED_ZIP_CODE
-        defaultProfileShouldNotBeFound("zipCode.in=" + UPDATED_ZIP_CODE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllProfilesByZipCodeIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        profileRepository.saveAndFlush(profile);
-
-        // Get all the profileList where zipCode is not null
-        defaultProfileShouldBeFound("zipCode.specified=true");
-
-        // Get all the profileList where zipCode is null
-        defaultProfileShouldNotBeFound("zipCode.specified=false");
     }
 
     @Test
@@ -452,20 +355,20 @@ public class ProfileResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllProfilesByCityIsEqualToSomething() throws Exception {
+    public void getAllProfilesByAddressIsEqualToSomething() throws Exception {
         // Initialize the database
-        City city = CityResourceIntTest.createEntity(em);
-        em.persist(city);
+        Address address = AddressResourceIntTest.createEntity(em);
+        em.persist(address);
         em.flush();
-        profile.setCity(city);
+        profile.setAddress(address);
         profileRepository.saveAndFlush(profile);
-        Long cityId = city.getId();
+        Long addressId = address.getId();
 
-        // Get all the profileList where city equals to cityId
-        defaultProfileShouldBeFound("cityId.equals=" + cityId);
+        // Get all the profileList where address equals to addressId
+        defaultProfileShouldBeFound("addressId.equals=" + addressId);
 
-        // Get all the profileList where city equals to cityId + 1
-        defaultProfileShouldNotBeFound("cityId.equals=" + (cityId + 1));
+        // Get all the profileList where address equals to addressId + 1
+        defaultProfileShouldNotBeFound("addressId.equals=" + (addressId + 1));
     }
 
     /**
@@ -477,8 +380,6 @@ public class ProfileResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(profile.getId().intValue())))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)))
-            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
-            .andExpect(jsonPath("$.[*].zipCode").value(hasItem(DEFAULT_ZIP_CODE)))
             .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())));
 
         // Check, that the count call also returns 1
@@ -528,8 +429,6 @@ public class ProfileResourceIntTest {
         em.detach(updatedProfile);
         updatedProfile
             .phone(UPDATED_PHONE)
-            .address(UPDATED_ADDRESS)
-            .zipCode(UPDATED_ZIP_CODE)
             .active(UPDATED_ACTIVE);
         ProfileDTO profileDTO = profileMapper.toDto(updatedProfile);
 
@@ -543,8 +442,6 @@ public class ProfileResourceIntTest {
         assertThat(profileList).hasSize(databaseSizeBeforeUpdate);
         Profile testProfile = profileList.get(profileList.size() - 1);
         assertThat(testProfile.getPhone()).isEqualTo(UPDATED_PHONE);
-        assertThat(testProfile.getAddress()).isEqualTo(UPDATED_ADDRESS);
-        assertThat(testProfile.getZipCode()).isEqualTo(UPDATED_ZIP_CODE);
         assertThat(testProfile.isActive()).isEqualTo(UPDATED_ACTIVE);
     }
 

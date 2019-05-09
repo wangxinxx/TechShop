@@ -15,11 +15,13 @@
     <include file="config/liquibase/changelog/20190427154351_added_entity_ItemPropertyDouble.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190430161312_added_entity_Passport.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190505145933_added_entity_Country.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190509170224_added_entity_Region.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190505150121_added_entity_City.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190430161518_added_entity_Profile.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190430162103_added_entity_Permission.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190430162315_added_entity_Position.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190505133033_added_entity_Notification.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190509171343_added_entity_Address.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190430161518_added_entity_Profile.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190505143625_added_entity_Operation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190427145221_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
@@ -30,12 +32,14 @@
     <include file="config/liquibase/changelog/20190427153112_added_entity_constraints_ItemPropertyFloat.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190427154137_added_entity_constraints_ItemPropertyBool.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190427154351_added_entity_constraints_ItemPropertyDouble.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190430161312_added_entity_constraints_Passport.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190509170224_added_entity_constraints_Region.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190505150121_added_entity_constraints_City.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190509171343_added_entity_constraints_Address.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190430162315_added_entity_constraints_Position.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190430162103_added_entity_constraints_Permission.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190505150121_added_entity_constraints_City.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190430161518_added_entity_constraints_Profile.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190430161312_added_entity_constraints_Passport.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190505133033_added_entity_constraints_Notification.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190505143625_added_entity_constraints_Operation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190505133033_added_entity_constraints_Notification.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

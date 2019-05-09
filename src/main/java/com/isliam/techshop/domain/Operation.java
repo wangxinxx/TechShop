@@ -70,6 +70,11 @@ public class Operation implements Serializable {
     @JsonIgnoreProperties("operations")
     private Item item;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("operations")
+    private Address address;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -207,6 +212,19 @@ public class Operation implements Serializable {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Operation address(Address address) {
+        this.address = address;
+        return this;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

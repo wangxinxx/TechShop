@@ -24,6 +24,8 @@ export interface IOperation {
     curierId?: number;
     itemName?: string;
     itemId?: number;
+    addressStreet?: string;
+    addressId?: number;
 }
 
 export class Operation implements IOperation {
@@ -39,6 +41,8 @@ export class Operation implements IOperation {
         public sellerId?: number,
         public curierId?: number,
         public itemName?: string,
-        public itemId?: number
+        public itemId?: number,
+        public addressStreet?: string,
+        public addressId?: number
     ) {}
 }

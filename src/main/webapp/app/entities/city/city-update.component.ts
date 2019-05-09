@@ -6,8 +6,8 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { ICity } from 'app/shared/model/city.model';
 import { CityService } from './city.service';
-import { ICountry } from 'app/shared/model/country.model';
-import { CountryService } from 'app/entities/country';
+import { IRegion } from 'app/shared/model/region.model';
+import { RegionService } from 'app/entities/region';
 
 @Component({
     selector: 'jhi-city-update',
@@ -17,12 +17,12 @@ export class CityUpdateComponent implements OnInit {
     city: ICity;
     isSaving: boolean;
 
-    countries: ICountry[];
+    regions: IRegion[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected cityService: CityService,
-        protected countryService: CountryService,
+        protected regionService: RegionService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -31,13 +31,13 @@ export class CityUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ city }) => {
             this.city = city;
         });
-        this.countryService
+        this.regionService
             .query()
             .pipe(
-                filter((mayBeOk: HttpResponse<ICountry[]>) => mayBeOk.ok),
-                map((response: HttpResponse<ICountry[]>) => response.body)
+                filter((mayBeOk: HttpResponse<IRegion[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IRegion[]>) => response.body)
             )
-            .subscribe((res: ICountry[]) => (this.countries = res), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: IRegion[]) => (this.regions = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -70,7 +70,7 @@ export class CityUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackCountryById(index: number, item: ICountry) {
+    trackRegionById(index: number, item: IRegion) {
         return item.id;
     }
 }

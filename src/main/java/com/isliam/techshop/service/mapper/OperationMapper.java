@@ -8,7 +8,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Operation and its DTO OperationDTO.
  */
-@Mapper(componentModel = "spring", uses = {ProfileMapper.class, ItemMapper.class})
+@Mapper(componentModel = "spring", uses = {ProfileMapper.class, ItemMapper.class, AddressMapper.class})
 public interface OperationMapper extends EntityMapper<OperationDTO, Operation> {
 
     @Mapping(source = "customer.id", target = "customerId")
@@ -16,12 +16,15 @@ public interface OperationMapper extends EntityMapper<OperationDTO, Operation> {
     @Mapping(source = "curier.id", target = "curierId")
     @Mapping(source = "item.id", target = "itemId")
     @Mapping(source = "item.name", target = "itemName")
+    @Mapping(source = "address.id", target = "addressId")
+    @Mapping(source = "address.street", target = "addressStreet")
     OperationDTO toDto(Operation operation);
 
     @Mapping(source = "customerId", target = "customer")
     @Mapping(source = "sellerId", target = "seller")
     @Mapping(source = "curierId", target = "curier")
     @Mapping(source = "itemId", target = "item")
+    @Mapping(source = "addressId", target = "address")
     Operation toEntity(OperationDTO operationDTO);
 
     default Operation fromId(Long id) {
