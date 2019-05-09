@@ -21,9 +21,11 @@ public class OperationDTO implements Serializable {
 
     private String description;
 
-    private LocalDate createdAt;
+    private LocalDate orderDate;
 
-    private LocalDate lastModifiedAt;
+    private LocalDate approveDate;
+
+    private LocalDate deliveryDate;
 
 
     private Long customerId;
@@ -68,20 +70,28 @@ public class OperationDTO implements Serializable {
         this.description = description;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
+    public LocalDate getOrderDate() {
+        return orderDate;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
     }
 
-    public LocalDate getLastModifiedAt() {
-        return lastModifiedAt;
+    public LocalDate getApproveDate() {
+        return approveDate;
     }
 
-    public void setLastModifiedAt(LocalDate lastModifiedAt) {
-        this.lastModifiedAt = lastModifiedAt;
+    public void setApproveDate(LocalDate approveDate) {
+        this.approveDate = approveDate;
+    }
+
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     public Long getCustomerId() {
@@ -152,8 +162,9 @@ public class OperationDTO implements Serializable {
             ", type='" + getType() + "'" +
             ", state='" + getState() + "'" +
             ", description='" + getDescription() + "'" +
-            ", createdAt='" + getCreatedAt() + "'" +
-            ", lastModifiedAt='" + getLastModifiedAt() + "'" +
+            ", orderDate='" + getOrderDate() + "'" +
+            ", approveDate='" + getApproveDate() + "'" +
+            ", deliveryDate='" + getDeliveryDate() + "'" +
             ", customer=" + getCustomerId() +
             ", seller=" + getSellerId() +
             ", curier=" + getCurierId() +

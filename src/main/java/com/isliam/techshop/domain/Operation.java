@@ -43,11 +43,14 @@ public class Operation implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "created_at")
-    private LocalDate createdAt;
+    @Column(name = "order_date")
+    private LocalDate orderDate;
 
-    @Column(name = "last_modified_at")
-    private LocalDate lastModifiedAt;
+    @Column(name = "approve_date")
+    private LocalDate approveDate;
+
+    @Column(name = "delivery_date")
+    private LocalDate deliveryDate;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -115,30 +118,43 @@ public class Operation implements Serializable {
         this.description = description;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
+    public LocalDate getOrderDate() {
+        return orderDate;
     }
 
-    public Operation createdAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
+    public Operation orderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
         return this;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
     }
 
-    public LocalDate getLastModifiedAt() {
-        return lastModifiedAt;
+    public LocalDate getApproveDate() {
+        return approveDate;
     }
 
-    public Operation lastModifiedAt(LocalDate lastModifiedAt) {
-        this.lastModifiedAt = lastModifiedAt;
+    public Operation approveDate(LocalDate approveDate) {
+        this.approveDate = approveDate;
         return this;
     }
 
-    public void setLastModifiedAt(LocalDate lastModifiedAt) {
-        this.lastModifiedAt = lastModifiedAt;
+    public void setApproveDate(LocalDate approveDate) {
+        this.approveDate = approveDate;
+    }
+
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public Operation deliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
+        return this;
+    }
+
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     public Profile getCustomer() {
@@ -221,8 +237,9 @@ public class Operation implements Serializable {
             ", type='" + getType() + "'" +
             ", state='" + getState() + "'" +
             ", description='" + getDescription() + "'" +
-            ", createdAt='" + getCreatedAt() + "'" +
-            ", lastModifiedAt='" + getLastModifiedAt() + "'" +
+            ", orderDate='" + getOrderDate() + "'" +
+            ", approveDate='" + getApproveDate() + "'" +
+            ", deliveryDate='" + getDeliveryDate() + "'" +
             "}";
     }
 }

@@ -25,15 +25,16 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Operation(0, OperationType.SELL, OperationState.SUCCESS, 'AAAAAAA', currentDate, currentDate);
+            elemDefault = new Operation(0, OperationType.SELL, OperationState.SUCCESS, 'AAAAAAA', currentDate, currentDate, currentDate);
         });
 
         describe('Service methods', async () => {
             it('should find an element', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        createdAt: currentDate.format(DATE_FORMAT),
-                        lastModifiedAt: currentDate.format(DATE_FORMAT)
+                        orderDate: currentDate.format(DATE_FORMAT),
+                        approveDate: currentDate.format(DATE_FORMAT),
+                        deliveryDate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
@@ -50,15 +51,17 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         id: 0,
-                        createdAt: currentDate.format(DATE_FORMAT),
-                        lastModifiedAt: currentDate.format(DATE_FORMAT)
+                        orderDate: currentDate.format(DATE_FORMAT),
+                        approveDate: currentDate.format(DATE_FORMAT),
+                        deliveryDate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
                 const expected = Object.assign(
                     {
-                        createdAt: currentDate,
-                        lastModifiedAt: currentDate
+                        orderDate: currentDate,
+                        approveDate: currentDate,
+                        deliveryDate: currentDate
                     },
                     returnedFromService
                 );
@@ -76,16 +79,18 @@ describe('Service Tests', () => {
                         type: 'BBBBBB',
                         state: 'BBBBBB',
                         description: 'BBBBBB',
-                        createdAt: currentDate.format(DATE_FORMAT),
-                        lastModifiedAt: currentDate.format(DATE_FORMAT)
+                        orderDate: currentDate.format(DATE_FORMAT),
+                        approveDate: currentDate.format(DATE_FORMAT),
+                        deliveryDate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
 
                 const expected = Object.assign(
                     {
-                        createdAt: currentDate,
-                        lastModifiedAt: currentDate
+                        orderDate: currentDate,
+                        approveDate: currentDate,
+                        deliveryDate: currentDate
                     },
                     returnedFromService
                 );
@@ -103,15 +108,17 @@ describe('Service Tests', () => {
                         type: 'BBBBBB',
                         state: 'BBBBBB',
                         description: 'BBBBBB',
-                        createdAt: currentDate.format(DATE_FORMAT),
-                        lastModifiedAt: currentDate.format(DATE_FORMAT)
+                        orderDate: currentDate.format(DATE_FORMAT),
+                        approveDate: currentDate.format(DATE_FORMAT),
+                        deliveryDate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
                 const expected = Object.assign(
                     {
-                        createdAt: currentDate,
-                        lastModifiedAt: currentDate
+                        orderDate: currentDate,
+                        approveDate: currentDate,
+                        deliveryDate: currentDate
                     },
                     returnedFromService
                 );

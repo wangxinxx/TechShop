@@ -34,11 +34,15 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="created_at" type="date">
+            <column name="order_date" type="date">
                 <constraints nullable="true" />
             </column>
 
-            <column name="last_modified_at" type="date">
+            <column name="approve_date" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="delivery_date" type="date">
                 <constraints nullable="true" />
             </column>
 

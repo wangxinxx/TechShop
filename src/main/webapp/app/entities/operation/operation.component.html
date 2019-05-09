@@ -18,8 +18,9 @@
             <th jhiSortBy="type"><span>Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="state"><span>State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="createdAt"><span>Created At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="lastModifiedAt"><span>Last Modified At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="orderDate"><span>Order Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="approveDate"><span>Approve Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="deliveryDate"><span>Delivery Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="customerId"><span>Customer</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="sellerId"><span>Seller</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="curierId"><span>Curier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -33,8 +34,9 @@
                 <td>{{operation.type}}</td>
                 <td>{{operation.state}}</td>
                 <td>{{operation.description}}</td>
-                <td>{{operation.createdAt | date:'mediumDate'}}</td>
-                <td>{{operation.lastModifiedAt | date:'mediumDate'}}</td>
+                <td>{{operation.orderDate | date:'mediumDate'}}</td>
+                <td>{{operation.approveDate | date:'mediumDate'}}</td>
+                <td>{{operation.deliveryDate | date:'mediumDate'}}</td>
                 <td>
                     <div *ngIf="operation.customerId">
                         <a [routerLink]="['../profile', operation.customerId , 'view' ]" >{{operation.customerId}}</a>

@@ -51,17 +51,20 @@ export class OperationService {
 
     protected convertDateFromClient(operation: IOperation): IOperation {
         const copy: IOperation = Object.assign({}, operation, {
-            createdAt: operation.createdAt != null && operation.createdAt.isValid() ? operation.createdAt.format(DATE_FORMAT) : null,
-            lastModifiedAt:
-                operation.lastModifiedAt != null && operation.lastModifiedAt.isValid() ? operation.lastModifiedAt.format(DATE_FORMAT) : null
+            orderDate: operation.orderDate != null && operation.orderDate.isValid() ? operation.orderDate.format(DATE_FORMAT) : null,
+            approveDate:
+                operation.approveDate != null && operation.approveDate.isValid() ? operation.approveDate.format(DATE_FORMAT) : null,
+            deliveryDate:
+                operation.deliveryDate != null && operation.deliveryDate.isValid() ? operation.deliveryDate.format(DATE_FORMAT) : null
         });
         return copy;
     }
 
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
-            res.body.createdAt = res.body.createdAt != null ? moment(res.body.createdAt) : null;
-            res.body.lastModifiedAt = res.body.lastModifiedAt != null ? moment(res.body.lastModifiedAt) : null;
+            res.body.orderDate = res.body.orderDate != null ? moment(res.body.orderDate) : null;
+            res.body.approveDate = res.body.approveDate != null ? moment(res.body.approveDate) : null;
+            res.body.deliveryDate = res.body.deliveryDate != null ? moment(res.body.deliveryDate) : null;
         }
         return res;
     }
@@ -69,8 +72,9 @@ export class OperationService {
     protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         if (res.body) {
             res.body.forEach((operation: IOperation) => {
-                operation.createdAt = operation.createdAt != null ? moment(operation.createdAt) : null;
-                operation.lastModifiedAt = operation.lastModifiedAt != null ? moment(operation.lastModifiedAt) : null;
+                operation.orderDate = operation.orderDate != null ? moment(operation.orderDate) : null;
+                operation.approveDate = operation.approveDate != null ? moment(operation.approveDate) : null;
+                operation.deliveryDate = operation.deliveryDate != null ? moment(operation.deliveryDate) : null;
             });
         }
         return res;

@@ -42,22 +42,32 @@
                         [(ngModel)]="operation.description" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_createdAt">Created At</label>
+                    <label class="form-control-label" for="field_orderDate">Order Date</label>
                     <div class="input-group">
-                        <input id="field_createdAt" type="text" class="form-control" name="createdAt" ngbDatepicker  #createdAtDp="ngbDatepicker" [(ngModel)]="operation.createdAt"
+                        <input id="field_orderDate" type="text" class="form-control" name="orderDate" ngbDatepicker  #orderDateDp="ngbDatepicker" [(ngModel)]="operation.orderDate"
                         />
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="createdAtDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            <button type="button" class="btn btn-secondary" (click)="orderDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_lastModifiedAt">Last Modified At</label>
+                    <label class="form-control-label" for="field_approveDate">Approve Date</label>
                     <div class="input-group">
-                        <input id="field_lastModifiedAt" type="text" class="form-control" name="lastModifiedAt" ngbDatepicker  #lastModifiedAtDp="ngbDatepicker" [(ngModel)]="operation.lastModifiedAt"
+                        <input id="field_approveDate" type="text" class="form-control" name="approveDate" ngbDatepicker  #approveDateDp="ngbDatepicker" [(ngModel)]="operation.approveDate"
                         />
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="lastModifiedAtDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            <button type="button" class="btn btn-secondary" (click)="approveDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_deliveryDate">Delivery Date</label>
+                    <div class="input-group">
+                        <input id="field_deliveryDate" type="text" class="form-control" name="deliveryDate" ngbDatepicker  #deliveryDateDp="ngbDatepicker" [(ngModel)]="operation.deliveryDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="deliveryDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
                     </div>
                 </div>

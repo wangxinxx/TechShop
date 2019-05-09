@@ -60,11 +60,14 @@ public class OperationResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_CREATED_AT = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATED_AT = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_ORDER_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_ORDER_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final LocalDate DEFAULT_LAST_MODIFIED_AT = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_LAST_MODIFIED_AT = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_APPROVE_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_APPROVE_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_DELIVERY_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DELIVERY_DATE = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private OperationRepository operationRepository;
@@ -120,8 +123,9 @@ public class OperationResourceIntTest {
             .type(DEFAULT_TYPE)
             .state(DEFAULT_STATE)
             .description(DEFAULT_DESCRIPTION)
-            .createdAt(DEFAULT_CREATED_AT)
-            .lastModifiedAt(DEFAULT_LAST_MODIFIED_AT);
+            .orderDate(DEFAULT_ORDER_DATE)
+            .approveDate(DEFAULT_APPROVE_DATE)
+            .deliveryDate(DEFAULT_DELIVERY_DATE);
         // Add required entity
         Profile profile = ProfileResourceIntTest.createEntity(em);
         em.persist(profile);
@@ -156,8 +160,9 @@ public class OperationResourceIntTest {
         assertThat(testOperation.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testOperation.getState()).isEqualTo(DEFAULT_STATE);
         assertThat(testOperation.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testOperation.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testOperation.getLastModifiedAt()).isEqualTo(DEFAULT_LAST_MODIFIED_AT);
+        assertThat(testOperation.getOrderDate()).isEqualTo(DEFAULT_ORDER_DATE);
+        assertThat(testOperation.getApproveDate()).isEqualTo(DEFAULT_APPROVE_DATE);
+        assertThat(testOperation.getDeliveryDate()).isEqualTo(DEFAULT_DELIVERY_DATE);
     }
 
     @Test
@@ -232,8 +237,9 @@ public class OperationResourceIntTest {
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].lastModifiedAt").value(hasItem(DEFAULT_LAST_MODIFIED_AT.toString())));
+            .andExpect(jsonPath("$.[*].orderDate").value(hasItem(DEFAULT_ORDER_DATE.toString())))
+            .andExpect(jsonPath("$.[*].approveDate").value(hasItem(DEFAULT_APPROVE_DATE.toString())))
+            .andExpect(jsonPath("$.[*].deliveryDate").value(hasItem(DEFAULT_DELIVERY_DATE.toString())));
     }
     
     @Test
@@ -250,8 +256,9 @@ public class OperationResourceIntTest {
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.state").value(DEFAULT_STATE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
-            .andExpect(jsonPath("$.lastModifiedAt").value(DEFAULT_LAST_MODIFIED_AT.toString()));
+            .andExpect(jsonPath("$.orderDate").value(DEFAULT_ORDER_DATE.toString()))
+            .andExpect(jsonPath("$.approveDate").value(DEFAULT_APPROVE_DATE.toString()))
+            .andExpect(jsonPath("$.deliveryDate").value(DEFAULT_DELIVERY_DATE.toString()));
     }
 
     @Test
@@ -373,133 +380,199 @@ public class OperationResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllOperationsByCreatedAtIsEqualToSomething() throws Exception {
+    public void getAllOperationsByOrderDateIsEqualToSomething() throws Exception {
         // Initialize the database
         operationRepository.saveAndFlush(operation);
 
-        // Get all the operationList where createdAt equals to DEFAULT_CREATED_AT
-        defaultOperationShouldBeFound("createdAt.equals=" + DEFAULT_CREATED_AT);
+        // Get all the operationList where orderDate equals to DEFAULT_ORDER_DATE
+        defaultOperationShouldBeFound("orderDate.equals=" + DEFAULT_ORDER_DATE);
 
-        // Get all the operationList where createdAt equals to UPDATED_CREATED_AT
-        defaultOperationShouldNotBeFound("createdAt.equals=" + UPDATED_CREATED_AT);
+        // Get all the operationList where orderDate equals to UPDATED_ORDER_DATE
+        defaultOperationShouldNotBeFound("orderDate.equals=" + UPDATED_ORDER_DATE);
     }
 
     @Test
     @Transactional
-    public void getAllOperationsByCreatedAtIsInShouldWork() throws Exception {
+    public void getAllOperationsByOrderDateIsInShouldWork() throws Exception {
         // Initialize the database
         operationRepository.saveAndFlush(operation);
 
-        // Get all the operationList where createdAt in DEFAULT_CREATED_AT or UPDATED_CREATED_AT
-        defaultOperationShouldBeFound("createdAt.in=" + DEFAULT_CREATED_AT + "," + UPDATED_CREATED_AT);
+        // Get all the operationList where orderDate in DEFAULT_ORDER_DATE or UPDATED_ORDER_DATE
+        defaultOperationShouldBeFound("orderDate.in=" + DEFAULT_ORDER_DATE + "," + UPDATED_ORDER_DATE);
 
-        // Get all the operationList where createdAt equals to UPDATED_CREATED_AT
-        defaultOperationShouldNotBeFound("createdAt.in=" + UPDATED_CREATED_AT);
+        // Get all the operationList where orderDate equals to UPDATED_ORDER_DATE
+        defaultOperationShouldNotBeFound("orderDate.in=" + UPDATED_ORDER_DATE);
     }
 
     @Test
     @Transactional
-    public void getAllOperationsByCreatedAtIsNullOrNotNull() throws Exception {
+    public void getAllOperationsByOrderDateIsNullOrNotNull() throws Exception {
         // Initialize the database
         operationRepository.saveAndFlush(operation);
 
-        // Get all the operationList where createdAt is not null
-        defaultOperationShouldBeFound("createdAt.specified=true");
+        // Get all the operationList where orderDate is not null
+        defaultOperationShouldBeFound("orderDate.specified=true");
 
-        // Get all the operationList where createdAt is null
-        defaultOperationShouldNotBeFound("createdAt.specified=false");
+        // Get all the operationList where orderDate is null
+        defaultOperationShouldNotBeFound("orderDate.specified=false");
     }
 
     @Test
     @Transactional
-    public void getAllOperationsByCreatedAtIsGreaterThanOrEqualToSomething() throws Exception {
+    public void getAllOperationsByOrderDateIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         operationRepository.saveAndFlush(operation);
 
-        // Get all the operationList where createdAt greater than or equals to DEFAULT_CREATED_AT
-        defaultOperationShouldBeFound("createdAt.greaterOrEqualThan=" + DEFAULT_CREATED_AT);
+        // Get all the operationList where orderDate greater than or equals to DEFAULT_ORDER_DATE
+        defaultOperationShouldBeFound("orderDate.greaterOrEqualThan=" + DEFAULT_ORDER_DATE);
 
-        // Get all the operationList where createdAt greater than or equals to UPDATED_CREATED_AT
-        defaultOperationShouldNotBeFound("createdAt.greaterOrEqualThan=" + UPDATED_CREATED_AT);
+        // Get all the operationList where orderDate greater than or equals to UPDATED_ORDER_DATE
+        defaultOperationShouldNotBeFound("orderDate.greaterOrEqualThan=" + UPDATED_ORDER_DATE);
     }
 
     @Test
     @Transactional
-    public void getAllOperationsByCreatedAtIsLessThanSomething() throws Exception {
+    public void getAllOperationsByOrderDateIsLessThanSomething() throws Exception {
         // Initialize the database
         operationRepository.saveAndFlush(operation);
 
-        // Get all the operationList where createdAt less than or equals to DEFAULT_CREATED_AT
-        defaultOperationShouldNotBeFound("createdAt.lessThan=" + DEFAULT_CREATED_AT);
+        // Get all the operationList where orderDate less than or equals to DEFAULT_ORDER_DATE
+        defaultOperationShouldNotBeFound("orderDate.lessThan=" + DEFAULT_ORDER_DATE);
 
-        // Get all the operationList where createdAt less than or equals to UPDATED_CREATED_AT
-        defaultOperationShouldBeFound("createdAt.lessThan=" + UPDATED_CREATED_AT);
+        // Get all the operationList where orderDate less than or equals to UPDATED_ORDER_DATE
+        defaultOperationShouldBeFound("orderDate.lessThan=" + UPDATED_ORDER_DATE);
     }
 
 
     @Test
     @Transactional
-    public void getAllOperationsByLastModifiedAtIsEqualToSomething() throws Exception {
+    public void getAllOperationsByApproveDateIsEqualToSomething() throws Exception {
         // Initialize the database
         operationRepository.saveAndFlush(operation);
 
-        // Get all the operationList where lastModifiedAt equals to DEFAULT_LAST_MODIFIED_AT
-        defaultOperationShouldBeFound("lastModifiedAt.equals=" + DEFAULT_LAST_MODIFIED_AT);
+        // Get all the operationList where approveDate equals to DEFAULT_APPROVE_DATE
+        defaultOperationShouldBeFound("approveDate.equals=" + DEFAULT_APPROVE_DATE);
 
-        // Get all the operationList where lastModifiedAt equals to UPDATED_LAST_MODIFIED_AT
-        defaultOperationShouldNotBeFound("lastModifiedAt.equals=" + UPDATED_LAST_MODIFIED_AT);
+        // Get all the operationList where approveDate equals to UPDATED_APPROVE_DATE
+        defaultOperationShouldNotBeFound("approveDate.equals=" + UPDATED_APPROVE_DATE);
     }
 
     @Test
     @Transactional
-    public void getAllOperationsByLastModifiedAtIsInShouldWork() throws Exception {
+    public void getAllOperationsByApproveDateIsInShouldWork() throws Exception {
         // Initialize the database
         operationRepository.saveAndFlush(operation);
 
-        // Get all the operationList where lastModifiedAt in DEFAULT_LAST_MODIFIED_AT or UPDATED_LAST_MODIFIED_AT
-        defaultOperationShouldBeFound("lastModifiedAt.in=" + DEFAULT_LAST_MODIFIED_AT + "," + UPDATED_LAST_MODIFIED_AT);
+        // Get all the operationList where approveDate in DEFAULT_APPROVE_DATE or UPDATED_APPROVE_DATE
+        defaultOperationShouldBeFound("approveDate.in=" + DEFAULT_APPROVE_DATE + "," + UPDATED_APPROVE_DATE);
 
-        // Get all the operationList where lastModifiedAt equals to UPDATED_LAST_MODIFIED_AT
-        defaultOperationShouldNotBeFound("lastModifiedAt.in=" + UPDATED_LAST_MODIFIED_AT);
+        // Get all the operationList where approveDate equals to UPDATED_APPROVE_DATE
+        defaultOperationShouldNotBeFound("approveDate.in=" + UPDATED_APPROVE_DATE);
     }
 
     @Test
     @Transactional
-    public void getAllOperationsByLastModifiedAtIsNullOrNotNull() throws Exception {
+    public void getAllOperationsByApproveDateIsNullOrNotNull() throws Exception {
         // Initialize the database
         operationRepository.saveAndFlush(operation);
 
-        // Get all the operationList where lastModifiedAt is not null
-        defaultOperationShouldBeFound("lastModifiedAt.specified=true");
+        // Get all the operationList where approveDate is not null
+        defaultOperationShouldBeFound("approveDate.specified=true");
 
-        // Get all the operationList where lastModifiedAt is null
-        defaultOperationShouldNotBeFound("lastModifiedAt.specified=false");
+        // Get all the operationList where approveDate is null
+        defaultOperationShouldNotBeFound("approveDate.specified=false");
     }
 
     @Test
     @Transactional
-    public void getAllOperationsByLastModifiedAtIsGreaterThanOrEqualToSomething() throws Exception {
+    public void getAllOperationsByApproveDateIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         operationRepository.saveAndFlush(operation);
 
-        // Get all the operationList where lastModifiedAt greater than or equals to DEFAULT_LAST_MODIFIED_AT
-        defaultOperationShouldBeFound("lastModifiedAt.greaterOrEqualThan=" + DEFAULT_LAST_MODIFIED_AT);
+        // Get all the operationList where approveDate greater than or equals to DEFAULT_APPROVE_DATE
+        defaultOperationShouldBeFound("approveDate.greaterOrEqualThan=" + DEFAULT_APPROVE_DATE);
 
-        // Get all the operationList where lastModifiedAt greater than or equals to UPDATED_LAST_MODIFIED_AT
-        defaultOperationShouldNotBeFound("lastModifiedAt.greaterOrEqualThan=" + UPDATED_LAST_MODIFIED_AT);
+        // Get all the operationList where approveDate greater than or equals to UPDATED_APPROVE_DATE
+        defaultOperationShouldNotBeFound("approveDate.greaterOrEqualThan=" + UPDATED_APPROVE_DATE);
     }
 
     @Test
     @Transactional
-    public void getAllOperationsByLastModifiedAtIsLessThanSomething() throws Exception {
+    public void getAllOperationsByApproveDateIsLessThanSomething() throws Exception {
         // Initialize the database
         operationRepository.saveAndFlush(operation);
 
-        // Get all the operationList where lastModifiedAt less than or equals to DEFAULT_LAST_MODIFIED_AT
-        defaultOperationShouldNotBeFound("lastModifiedAt.lessThan=" + DEFAULT_LAST_MODIFIED_AT);
+        // Get all the operationList where approveDate less than or equals to DEFAULT_APPROVE_DATE
+        defaultOperationShouldNotBeFound("approveDate.lessThan=" + DEFAULT_APPROVE_DATE);
 
-        // Get all the operationList where lastModifiedAt less than or equals to UPDATED_LAST_MODIFIED_AT
-        defaultOperationShouldBeFound("lastModifiedAt.lessThan=" + UPDATED_LAST_MODIFIED_AT);
+        // Get all the operationList where approveDate less than or equals to UPDATED_APPROVE_DATE
+        defaultOperationShouldBeFound("approveDate.lessThan=" + UPDATED_APPROVE_DATE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllOperationsByDeliveryDateIsEqualToSomething() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where deliveryDate equals to DEFAULT_DELIVERY_DATE
+        defaultOperationShouldBeFound("deliveryDate.equals=" + DEFAULT_DELIVERY_DATE);
+
+        // Get all the operationList where deliveryDate equals to UPDATED_DELIVERY_DATE
+        defaultOperationShouldNotBeFound("deliveryDate.equals=" + UPDATED_DELIVERY_DATE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByDeliveryDateIsInShouldWork() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where deliveryDate in DEFAULT_DELIVERY_DATE or UPDATED_DELIVERY_DATE
+        defaultOperationShouldBeFound("deliveryDate.in=" + DEFAULT_DELIVERY_DATE + "," + UPDATED_DELIVERY_DATE);
+
+        // Get all the operationList where deliveryDate equals to UPDATED_DELIVERY_DATE
+        defaultOperationShouldNotBeFound("deliveryDate.in=" + UPDATED_DELIVERY_DATE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByDeliveryDateIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where deliveryDate is not null
+        defaultOperationShouldBeFound("deliveryDate.specified=true");
+
+        // Get all the operationList where deliveryDate is null
+        defaultOperationShouldNotBeFound("deliveryDate.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByDeliveryDateIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where deliveryDate greater than or equals to DEFAULT_DELIVERY_DATE
+        defaultOperationShouldBeFound("deliveryDate.greaterOrEqualThan=" + DEFAULT_DELIVERY_DATE);
+
+        // Get all the operationList where deliveryDate greater than or equals to UPDATED_DELIVERY_DATE
+        defaultOperationShouldNotBeFound("deliveryDate.greaterOrEqualThan=" + UPDATED_DELIVERY_DATE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllOperationsByDeliveryDateIsLessThanSomething() throws Exception {
+        // Initialize the database
+        operationRepository.saveAndFlush(operation);
+
+        // Get all the operationList where deliveryDate less than or equals to DEFAULT_DELIVERY_DATE
+        defaultOperationShouldNotBeFound("deliveryDate.lessThan=" + DEFAULT_DELIVERY_DATE);
+
+        // Get all the operationList where deliveryDate less than or equals to UPDATED_DELIVERY_DATE
+        defaultOperationShouldBeFound("deliveryDate.lessThan=" + UPDATED_DELIVERY_DATE);
     }
 
 
@@ -589,8 +662,9 @@ public class OperationResourceIntTest {
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].lastModifiedAt").value(hasItem(DEFAULT_LAST_MODIFIED_AT.toString())));
+            .andExpect(jsonPath("$.[*].orderDate").value(hasItem(DEFAULT_ORDER_DATE.toString())))
+            .andExpect(jsonPath("$.[*].approveDate").value(hasItem(DEFAULT_APPROVE_DATE.toString())))
+            .andExpect(jsonPath("$.[*].deliveryDate").value(hasItem(DEFAULT_DELIVERY_DATE.toString())));
 
         // Check, that the count call also returns 1
         restOperationMockMvc.perform(get("/api/operations/count?sort=id,desc&" + filter))
@@ -641,8 +715,9 @@ public class OperationResourceIntTest {
             .type(UPDATED_TYPE)
             .state(UPDATED_STATE)
             .description(UPDATED_DESCRIPTION)
-            .createdAt(UPDATED_CREATED_AT)
-            .lastModifiedAt(UPDATED_LAST_MODIFIED_AT);
+            .orderDate(UPDATED_ORDER_DATE)
+            .approveDate(UPDATED_APPROVE_DATE)
+            .deliveryDate(UPDATED_DELIVERY_DATE);
         OperationDTO operationDTO = operationMapper.toDto(updatedOperation);
 
         restOperationMockMvc.perform(put("/api/operations")
@@ -657,8 +732,9 @@ public class OperationResourceIntTest {
         assertThat(testOperation.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testOperation.getState()).isEqualTo(UPDATED_STATE);
         assertThat(testOperation.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testOperation.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
-        assertThat(testOperation.getLastModifiedAt()).isEqualTo(UPDATED_LAST_MODIFIED_AT);
+        assertThat(testOperation.getOrderDate()).isEqualTo(UPDATED_ORDER_DATE);
+        assertThat(testOperation.getApproveDate()).isEqualTo(UPDATED_APPROVE_DATE);
+        assertThat(testOperation.getDeliveryDate()).isEqualTo(UPDATED_DELIVERY_DATE);
     }
 
     @Test

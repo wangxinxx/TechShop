@@ -16,8 +16,9 @@ export interface IOperation {
     type?: OperationType;
     state?: OperationState;
     description?: string;
-    createdAt?: Moment;
-    lastModifiedAt?: Moment;
+    orderDate?: Moment;
+    approveDate?: Moment;
+    deliveryDate?: Moment;
     customerId?: number;
     sellerId?: number;
     curierId?: number;
@@ -31,8 +32,9 @@ export class Operation implements IOperation {
         public type?: OperationType,
         public state?: OperationState,
         public description?: string,
-        public createdAt?: Moment,
-        public lastModifiedAt?: Moment,
+        public orderDate?: Moment,
+        public approveDate?: Moment,
+        public deliveryDate?: Moment,
         public customerId?: number,
         public sellerId?: number,
         public curierId?: number,

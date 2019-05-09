@@ -64,11 +64,15 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "createdAt",
+            "fieldName": "orderDate",
             "fieldType": "LocalDate"
         },
         {
-            "fieldName": "lastModifiedAt",
+            "fieldName": "approveDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "deliveryDate",
             "fieldType": "LocalDate"
         }
     ],

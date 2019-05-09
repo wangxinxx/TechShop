@@ -23,8 +23,9 @@ export class OperationUpdateComponent implements OnInit {
     profiles: IProfile[];
 
     items: IItem[];
-    createdAtDp: any;
-    lastModifiedAtDp: any;
+    orderDateDp: any;
+    approveDateDp: any;
+    deliveryDateDp: any;
 
     constructor(
         protected jhiAlertService: JhiAlertService,

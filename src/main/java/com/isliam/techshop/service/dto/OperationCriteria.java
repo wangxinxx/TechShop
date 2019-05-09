@@ -43,9 +43,11 @@ public class OperationCriteria implements Serializable {
 
     private StringFilter description;
 
-    private LocalDateFilter createdAt;
+    private LocalDateFilter orderDate;
 
-    private LocalDateFilter lastModifiedAt;
+    private LocalDateFilter approveDate;
+
+    private LocalDateFilter deliveryDate;
 
     private LongFilter customerId;
 
@@ -87,20 +89,28 @@ public class OperationCriteria implements Serializable {
         this.description = description;
     }
 
-    public LocalDateFilter getCreatedAt() {
-        return createdAt;
+    public LocalDateFilter getOrderDate() {
+        return orderDate;
     }
 
-    public void setCreatedAt(LocalDateFilter createdAt) {
-        this.createdAt = createdAt;
+    public void setOrderDate(LocalDateFilter orderDate) {
+        this.orderDate = orderDate;
     }
 
-    public LocalDateFilter getLastModifiedAt() {
-        return lastModifiedAt;
+    public LocalDateFilter getApproveDate() {
+        return approveDate;
     }
 
-    public void setLastModifiedAt(LocalDateFilter lastModifiedAt) {
-        this.lastModifiedAt = lastModifiedAt;
+    public void setApproveDate(LocalDateFilter approveDate) {
+        this.approveDate = approveDate;
+    }
+
+    public LocalDateFilter getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDateFilter deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     public LongFilter getCustomerId() {
@@ -150,8 +160,9 @@ public class OperationCriteria implements Serializable {
             Objects.equals(type, that.type) &&
             Objects.equals(state, that.state) &&
             Objects.equals(description, that.description) &&
-            Objects.equals(createdAt, that.createdAt) &&
-            Objects.equals(lastModifiedAt, that.lastModifiedAt) &&
+            Objects.equals(orderDate, that.orderDate) &&
+            Objects.equals(approveDate, that.approveDate) &&
+            Objects.equals(deliveryDate, that.deliveryDate) &&
             Objects.equals(customerId, that.customerId) &&
             Objects.equals(sellerId, that.sellerId) &&
             Objects.equals(curierId, that.curierId) &&
@@ -165,8 +176,9 @@ public class OperationCriteria implements Serializable {
         type,
         state,
         description,
-        createdAt,
-        lastModifiedAt,
+        orderDate,
+        approveDate,
+        deliveryDate,
         customerId,
         sellerId,
         curierId,
@@ -181,8 +193,9 @@ public class OperationCriteria implements Serializable {
                 (type != null ? "type=" + type + ", " : "") +
                 (state != null ? "state=" + state + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
-                (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
-                (lastModifiedAt != null ? "lastModifiedAt=" + lastModifiedAt + ", " : "") +
+                (orderDate != null ? "orderDate=" + orderDate + ", " : "") +
+                (approveDate != null ? "approveDate=" + approveDate + ", " : "") +
+                (deliveryDate != null ? "deliveryDate=" + deliveryDate + ", " : "") +
                 (customerId != null ? "customerId=" + customerId + ", " : "") +
                 (sellerId != null ? "sellerId=" + sellerId + ", " : "") +
                 (curierId != null ? "curierId=" + curierId + ", " : "") +
