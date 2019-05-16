@@ -36,7 +36,7 @@
 <!--        <sql>SET IDENTITY_INSERT position ON-->
 <!--            <comment>Identity-insert for MSSQL Server</comment>-->
 <!--        </sql>-->
-        
+
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>
