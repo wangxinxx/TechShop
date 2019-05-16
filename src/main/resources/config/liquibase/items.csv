@@ -1,3 +1,11 @@
 gtin;barcode;jhi_cost;name;active;product_id
 NULL;NULL;302.9;Asus VivoBook D540NA-GQ211T;1;1
 NULL;NULL;245;Lenovo IdeaPad 330-15AST;1;1
+NULL;NULL;782.2;Asus A782;1;1
+NULL;NULL;902.9;Hp Probook K991;1;1
+NULL;NULL;531.1;Samsung S-891;1;1
+NULL;NULL;478.5;Apple MacBook Pro 2013;1;1
+NULL;NULL;193.2;Philips G-312;1;2
+NULL;NULL;193.2;Philips G-135;1;2
+NULL;NULL;193.2;Philips G-345;1;2
+NULL;NULL;193.2;Samsung L-41 dual freeze;1;2
