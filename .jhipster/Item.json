@@ -12,6 +12,14 @@
             "otherEntityField": "name",
             "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "item"
+        },
+        {
+            "relationshipName": "manufacturer",
+            "otherEntityName": "manufacturer",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "item",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

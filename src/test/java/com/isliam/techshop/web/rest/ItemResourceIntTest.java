@@ -4,6 +4,7 @@ import com.isliam.techshop.TechShopApp;
 
 import com.isliam.techshop.domain.Item;
 import com.isliam.techshop.domain.Product;
+import com.isliam.techshop.domain.Manufacturer;
 import com.isliam.techshop.repository.ItemRepository;
 import com.isliam.techshop.service.ItemService;
 import com.isliam.techshop.service.dto.ItemDTO;
@@ -439,6 +440,25 @@ public class ItemResourceIntTest {
 
         // Get all the itemList where product equals to productId + 1
         defaultItemShouldNotBeFound("productId.equals=" + (productId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllItemsByManufacturerIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Manufacturer manufacturer = ManufacturerResourceIntTest.createEntity(em);
+        em.persist(manufacturer);
+        em.flush();
+        item.setManufacturer(manufacturer);
+        itemRepository.saveAndFlush(item);
+        Long manufacturerId = manufacturer.getId();
+
+        // Get all the itemList where manufacturer equals to manufacturerId
+        defaultItemShouldBeFound("manufacturerId.equals=" + manufacturerId);
+
+        // Get all the itemList where manufacturer equals to manufacturerId + 1
+        defaultItemShouldNotBeFound("manufacturerId.equals=" + (manufacturerId + 1));
     }
 
     /**

@@ -32,6 +32,10 @@ public class ItemDTO implements Serializable {
 
     private String productName;
 
+    private Long manufacturerId;
+
+    private String manufacturerName;
+
     public Long getId() {
         return id;
     }
@@ -96,6 +100,22 @@ public class ItemDTO implements Serializable {
         this.productName = productName;
     }
 
+    public Long getManufacturerId() {
+        return manufacturerId;
+    }
+
+    public void setManufacturerId(Long manufacturerId) {
+        this.manufacturerId = manufacturerId;
+    }
+
+    public String getManufacturerName() {
+        return manufacturerName;
+    }
+
+    public void setManufacturerName(String manufacturerName) {
+        this.manufacturerName = manufacturerName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -128,6 +148,8 @@ public class ItemDTO implements Serializable {
             ", active='" + isActive() + "'" +
             ", product=" + getProductId() +
             ", product='" + getProductName() + "'" +
+            ", manufacturer=" + getManufacturerId() +
+            ", manufacturer='" + getManufacturerName() + "'" +
             "}";
     }
 }

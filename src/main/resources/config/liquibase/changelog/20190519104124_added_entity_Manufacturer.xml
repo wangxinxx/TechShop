@@ -15,43 +15,23 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity Item.
+        Added the entity Manufacturer.
     -->
-    <changeSet id="20190427150657-1" author="jhipster">
-        <createTable tableName="item">
+    <changeSet id="20190519104124-1" author="jhipster">
+        <createTable tableName="manufacturer">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="gtin" type="varchar(13)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="barcode" type="clob">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="jhi_cost" type="double">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="name" type="varchar(30)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="active" type="boolean">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="product_id" type="bigint">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="manufacturer_id" type="bigint">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+
+        <loadData tableName="manufacturer"
+                  file="config/liquibase/manufacturer.csv"
+                  separator=";"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

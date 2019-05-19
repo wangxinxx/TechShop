@@ -1,64 +1,44 @@
 <div>
     <h2 id="page-heading">
-        <span>Items</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-item" [routerLink]="['/item/new']">
+        <span>Manufacturers</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-manufacturer" [routerLink]="['/manufacturer/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
-            Create new Item
+            Create new Manufacturer
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="items">
+    <div class="table-responsive" *ngIf="manufacturers">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="gtin"><span>Gtin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="barcode"><span>Barcode</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="cost"><span>Cost</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="active"><span>Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="productName"><span>Product</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="manufacturerName"><span>Manufacturer</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let item of items ;trackBy: trackId">
-                <td><a [routerLink]="['/item', item.id, 'view' ]">{{item.id}}</a></td>
-                <td>{{item.gtin}}</td>
-                <td>{{item.barcode}}</td>
-                <td>{{item.cost}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.active}}</td>
-                <td>
-                    <div *ngIf="item.productId">
-                        <a [routerLink]="['../product', item.productId , 'view' ]" >{{item.productName}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="item.manufacturerId">
-                        <a [routerLink]="['../manufacturer', item.manufacturerId , 'view' ]" >{{item.manufacturerName}}</a>
-                    </div>
-                </td>
+            <tr *ngFor="let manufacturer of manufacturers ;trackBy: trackId">
+                <td><a [routerLink]="['/manufacturer', manufacturer.id, 'view' ]">{{manufacturer.id}}</a></td>
+                <td>{{manufacturer.name}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['/item', item.id, 'view' ]"
+                                [routerLink]="['/manufacturer', manufacturer.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/item', item.id, 'edit']"
+                                [routerLink]="['/manufacturer', manufacturer.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', 'item', { outlets: { popup: item.id + '/delete'} }]"
+                                [routerLink]="['/', 'manufacturer', { outlets: { popup: manufacturer.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

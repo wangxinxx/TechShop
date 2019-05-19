@@ -8,6 +8,8 @@ import { IItem } from 'app/shared/model/item.model';
 import { ItemService } from './item.service';
 import { IProduct } from 'app/shared/model/product.model';
 import { ProductService } from 'app/entities/product';
+import { IManufacturer } from 'app/shared/model/manufacturer.model';
+import { ManufacturerService } from 'app/entities/manufacturer';
 
 @Component({
     selector: 'jhi-item-update',
@@ -19,11 +21,14 @@ export class ItemUpdateComponent implements OnInit {
 
     products: IProduct[];
 
+    manufacturers: IManufacturer[];
+
     constructor(
         protected dataUtils: JhiDataUtils,
         protected jhiAlertService: JhiAlertService,
         protected itemService: ItemService,
         protected productService: ProductService,
+        protected manufacturerService: ManufacturerService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -39,6 +44,13 @@ export class ItemUpdateComponent implements OnInit {
                 map((response: HttpResponse<IProduct[]>) => response.body)
             )
             .subscribe((res: IProduct[]) => (this.products = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.manufacturerService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IManufacturer[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IManufacturer[]>) => response.body)
+            )
+            .subscribe((res: IManufacturer[]) => (this.manufacturers = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     byteSize(field) {
@@ -84,6 +96,10 @@ export class ItemUpdateComponent implements OnInit {
     }
 
     trackProductById(index: number, item: IProduct) {
+        return item.id;
+    }
+
+    trackManufacturerById(index: number, item: IManufacturer) {
         return item.id;
     }
 }

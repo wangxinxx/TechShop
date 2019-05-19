@@ -19,6 +19,7 @@ logging:
         io.github.jhipster: DEBUG
         com.isliam.techshop: DEBUG
 
+
 spring:
     profiles:
         active: dev
@@ -35,6 +36,21 @@ spring:
         serialization:
             indent-output: true
     datasource:
+        url: jdbc:mysql://localhost:3306/TechShop?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&rewriteBatchedStatements=true&relaxAutoCommit=true
+        username: root
+        password: STRONGpwd1$
+        hikari:
+            poolName: Hikari
+            auto-commit: false
+            data-source-properties:
+                cachePrepStmts: true
+                prepStmtCacheSize: 250
+                prepStmtCacheSqlLimit: 2048
+                useServerPrepStmts: true
+    flowable-datasource:
+        url: jdbc:mysql://localhost:3306/flowable?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&rewriteBatchedStatements=true&relaxAutoCommit=true
+        username: root
+        password: STRONGpwd1$
         hikari:
             poolName: Hikari
             auto-commit: false
@@ -44,31 +60,18 @@ spring:
                 prepStmtCacheSqlLimit: 2048
                 useServerPrepStmts: true
     jpa:
-        database-platform: org.hibernate.dialect.SQLServer2012Dialect
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
         database: MYSQL
         show-sql: true
-        hibernate:
-            dialect: org.hibernate.dialect.SQLServer2012Dialect
         properties:
+            hibernate.format_sql: true
             hibernate.id.new_generator_mappings: true
             hibernate.connection.provider_disables_autocommit: true
             hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
             hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory
-#    jpa:
-#        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-#        database: MYSQL
-#        show-sql: true
-#        properties:
-#            hibernate.format_sql: true
-#            hibernate.id.new_generator_mappings: true
-#            hibernate.connection.provider_disables_autocommit: true
-#            hibernate.cache.use_second_level_cache: true
-#            hibernate.cache.use_query_cache: false
-#            hibernate.generate_statistics: true
-#            hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory
-#            hibernate.naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
+            hibernate.naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
     liquibase:
         contexts: dev
     mail:
@@ -82,7 +85,7 @@ spring:
         cache: false
 
 server:
-    port: 8090
+    port: 8080
 
 # ===================================================================
 # JHipster specific properties

@@ -21,5 +21,11 @@
             <column name="active" type="boolean"/>
         </loadData>
 
+        <addForeignKeyConstraint baseColumnNames="manufacturer_id"
+                                 baseTableName="item"
+                                 constraintName="fk_item_manufacturer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="manufacturer"/>
+
     </changeSet>
 </databaseChangeLog>

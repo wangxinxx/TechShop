@@ -3,7 +3,9 @@ package com.isliam.techshop.config;
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -26,16 +28,16 @@ import java.util.HashMap;
 public class FlowableDataSourceConfig {
 
 
+    @Primary
+    @Bean("flowableDataSourceProperties")
+    @ConfigurationProperties("spring.flowable-datasource")
+    public DataSourceProperties dataSourceProperties() {
+        return new DataSourceProperties();
+    }
 
     @Primary
     @Bean(name = "flowableDataSource")
-    @ConfigurationProperties(prefix="spring.seconddatasource")
-    public DataSource secondaryDataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.type(HikariDataSource.class);
-        dataSourceBuilder.url("jdbc:mysql://localhost:3306/flowable?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&rewriteBatchedStatements=true&relaxAutoCommit=true");
-        dataSourceBuilder.username("root");
-        dataSourceBuilder.password("STRONGpwd1$");
-        return dataSourceBuilder.build();
+    public DataSource secondaryDataSource(@Qualifier("flowableDataSourceProperties") DataSourceProperties dataSourceProperties) {
+        return dataSourceProperties.initializeDataSourceBuilder().build();
     }
 }

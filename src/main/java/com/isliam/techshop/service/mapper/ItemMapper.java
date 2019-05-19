@@ -8,14 +8,17 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Item and its DTO ItemDTO.
  */
-@Mapper(componentModel = "spring", uses = {ProductMapper.class})
+@Mapper(componentModel = "spring", uses = {ProductMapper.class, ManufacturerMapper.class})
 public interface ItemMapper extends EntityMapper<ItemDTO, Item> {
 
     @Mapping(source = "product.id", target = "productId")
     @Mapping(source = "product.name", target = "productName")
+    @Mapping(source = "manufacturer.id", target = "manufacturerId")
+    @Mapping(source = "manufacturer.name", target = "manufacturerName")
     ItemDTO toDto(Item item);
 
     @Mapping(source = "productId", target = "product")
+    @Mapping(source = "manufacturerId", target = "manufacturer")
     Item toEntity(ItemDTO itemDTO);
 
     default Item fromId(Long id) {

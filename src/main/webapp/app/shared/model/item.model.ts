@@ -7,6 +7,8 @@ export interface IItem {
     active?: boolean;
     productName?: string;
     productId?: number;
+    manufacturerName?: string;
+    manufacturerId?: number;
 }
 
 export class Item implements IItem {
@@ -18,7 +20,9 @@ export class Item implements IItem {
         public name?: string,
         public active?: boolean,
         public productName?: string,
-        public productId?: number
+        public productId?: number,
+        public manufacturerName?: string,
+        public manufacturerId?: number
     ) {
         this.active = this.active || false;
     }
