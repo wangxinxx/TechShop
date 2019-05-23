@@ -19,7 +19,42 @@
             "relationshipType": "many-to-one",
             "otherEntityField": "name",
             "otherEntityRelationshipName": "item",
-            "otherEntityRelationshipNameUndefined": true
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "itemPropertyBool",
+            "otherEntityName": "itemPropertyBool",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "item",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "itemPropertyDouble",
+            "otherEntityName": "itemPropertyDouble",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "item",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "itemPropertyFloat",
+            "otherEntityName": "itemPropertyFloat",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "item",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "itemPropertyInt",
+            "otherEntityName": "itemPropertyInt",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "item",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "itemPropertyString",
+            "otherEntityName": "itemPropertyString",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "item",
+            "otherEntityRelationshipNameUndefined": false
         }
     ],
     "fields": [

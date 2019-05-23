@@ -1,10 +1,11 @@
 package com.isliam.techshop.service.impl;
 
+import com.isliam.techshop.domain.*;
 import com.isliam.techshop.service.ItemService;
-import com.isliam.techshop.domain.Item;
 import com.isliam.techshop.repository.ItemRepository;
 import com.isliam.techshop.service.dto.ItemDTO;
 import com.isliam.techshop.service.mapper.ItemMapper;
+import com.isliam.techshop.web.rest.errors.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing Item.
@@ -72,8 +75,41 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = true)
     public Optional<ItemDTO> findOne(Long id) {
         log.debug("Request to get Item : {}", id);
-        return itemRepository.findById(id)
-            .map(itemMapper::toDto);
+        Item item = itemRepository.findById(id)
+            .orElseThrow(ResourceNotFoundException::new);
+
+        ItemDTO itemDTO = itemMapper.toDto(item);
+        itemDTO.setProperties(getProperties(item));
+
+        return
+            Optional.of(itemDTO);
+    }
+
+    private Map<String,String> getProperties(Item item){
+        Set<ItemPropertyBool> itemPropertyBoolList = item.getItemPropertyBools();
+        Set<ItemPropertyDouble> itemPropertyDoubles = item.getItemPropertyDoubles();
+        Set<ItemPropertyFloat> itemPropertyFloats = item.getItemPropertyFloats();
+        Set<ItemPropertyInt> itemPropertyInts = item.getItemPropertyInts();
+        Set<ItemPropertyString> itemPropertyStrings = item.getItemPropertyStrings();
+
+        Map<String, String> result = new HashMap<>();
+
+        result.putAll(itemPropertyBoolList.stream().collect(
+            Collectors.toMap( a->a.getProperty().getName(),a->a.isValue().toString())));
+
+        result.putAll(itemPropertyDoubles.stream().collect(
+            Collectors.toMap( a->a.getProperty().getName(),a->a.getValue().toString())));
+
+        result.putAll(itemPropertyFloats.stream().collect(
+            Collectors.toMap( a->a.getProperty().getName(),a->a.getValue().toString())));
+
+        result.putAll(itemPropertyInts.stream().collect(
+            Collectors.toMap( a->a.getProperty().getName(),a->a.getValue().toString())));
+
+        result.putAll(itemPropertyStrings.stream().collect(
+            Collectors.toMap( a->a.getProperty().getName(), ItemPropertyString::getValue)));
+
+        return result;
     }
 
     /**

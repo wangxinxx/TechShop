@@ -36,6 +36,16 @@ public class ItemCriteria implements Serializable {
 
     private LongFilter manufacturerId;
 
+    private LongFilter itemPropertyBoolId;
+
+    private LongFilter itemPropertyDoubleId;
+
+    private LongFilter itemPropertyFloatId;
+
+    private LongFilter itemPropertyIntId;
+
+    private LongFilter itemPropertyStringId;
+
     public LongFilter getId() {
         return id;
     }
@@ -92,6 +102,46 @@ public class ItemCriteria implements Serializable {
         this.manufacturerId = manufacturerId;
     }
 
+    public LongFilter getItemPropertyBoolId() {
+        return itemPropertyBoolId;
+    }
+
+    public void setItemPropertyBoolId(LongFilter itemPropertyBoolId) {
+        this.itemPropertyBoolId = itemPropertyBoolId;
+    }
+
+    public LongFilter getItemPropertyDoubleId() {
+        return itemPropertyDoubleId;
+    }
+
+    public void setItemPropertyDoubleId(LongFilter itemPropertyDoubleId) {
+        this.itemPropertyDoubleId = itemPropertyDoubleId;
+    }
+
+    public LongFilter getItemPropertyFloatId() {
+        return itemPropertyFloatId;
+    }
+
+    public void setItemPropertyFloatId(LongFilter itemPropertyFloatId) {
+        this.itemPropertyFloatId = itemPropertyFloatId;
+    }
+
+    public LongFilter getItemPropertyIntId() {
+        return itemPropertyIntId;
+    }
+
+    public void setItemPropertyIntId(LongFilter itemPropertyIntId) {
+        this.itemPropertyIntId = itemPropertyIntId;
+    }
+
+    public LongFilter getItemPropertyStringId() {
+        return itemPropertyStringId;
+    }
+
+    public void setItemPropertyStringId(LongFilter itemPropertyStringId) {
+        this.itemPropertyStringId = itemPropertyStringId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -109,7 +159,12 @@ public class ItemCriteria implements Serializable {
             Objects.equals(name, that.name) &&
             Objects.equals(active, that.active) &&
             Objects.equals(productId, that.productId) &&
-            Objects.equals(manufacturerId, that.manufacturerId);
+            Objects.equals(manufacturerId, that.manufacturerId) &&
+            Objects.equals(itemPropertyBoolId, that.itemPropertyBoolId) &&
+            Objects.equals(itemPropertyDoubleId, that.itemPropertyDoubleId) &&
+            Objects.equals(itemPropertyFloatId, that.itemPropertyFloatId) &&
+            Objects.equals(itemPropertyIntId, that.itemPropertyIntId) &&
+            Objects.equals(itemPropertyStringId, that.itemPropertyStringId);
     }
 
     @Override
@@ -121,7 +176,12 @@ public class ItemCriteria implements Serializable {
         name,
         active,
         productId,
-        manufacturerId
+        manufacturerId,
+        itemPropertyBoolId,
+        itemPropertyDoubleId,
+        itemPropertyFloatId,
+        itemPropertyIntId,
+        itemPropertyStringId
         );
     }
 
@@ -135,6 +195,11 @@ public class ItemCriteria implements Serializable {
                 (active != null ? "active=" + active + ", " : "") +
                 (productId != null ? "productId=" + productId + ", " : "") +
                 (manufacturerId != null ? "manufacturerId=" + manufacturerId + ", " : "") +
+                (itemPropertyBoolId != null ? "itemPropertyBoolId=" + itemPropertyBoolId + ", " : "") +
+                (itemPropertyDoubleId != null ? "itemPropertyDoubleId=" + itemPropertyDoubleId + ", " : "") +
+                (itemPropertyFloatId != null ? "itemPropertyFloatId=" + itemPropertyFloatId + ", " : "") +
+                (itemPropertyIntId != null ? "itemPropertyIntId=" + itemPropertyIntId + ", " : "") +
+                (itemPropertyStringId != null ? "itemPropertyStringId=" + itemPropertyStringId + ", " : "") +
             "}";
     }
 

@@ -19,6 +19,11 @@ public interface ItemMapper extends EntityMapper<ItemDTO, Item> {
 
     @Mapping(source = "productId", target = "product")
     @Mapping(source = "manufacturerId", target = "manufacturer")
+    @Mapping(target = "itemPropertyBools", ignore = true)
+    @Mapping(target = "itemPropertyDoubles", ignore = true)
+    @Mapping(target = "itemPropertyFloats", ignore = true)
+    @Mapping(target = "itemPropertyInts", ignore = true)
+    @Mapping(target = "itemPropertyStrings", ignore = true)
     Item toEntity(ItemDTO itemDTO);
 
     default Item fromId(Long id) {

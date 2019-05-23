@@ -5,6 +5,11 @@ import com.isliam.techshop.TechShopApp;
 import com.isliam.techshop.domain.Item;
 import com.isliam.techshop.domain.Product;
 import com.isliam.techshop.domain.Manufacturer;
+import com.isliam.techshop.domain.ItemPropertyBool;
+import com.isliam.techshop.domain.ItemPropertyDouble;
+import com.isliam.techshop.domain.ItemPropertyFloat;
+import com.isliam.techshop.domain.ItemPropertyInt;
+import com.isliam.techshop.domain.ItemPropertyString;
 import com.isliam.techshop.repository.ItemRepository;
 import com.isliam.techshop.service.ItemService;
 import com.isliam.techshop.service.dto.ItemDTO;
@@ -459,6 +464,101 @@ public class ItemResourceIntTest {
 
         // Get all the itemList where manufacturer equals to manufacturerId + 1
         defaultItemShouldNotBeFound("manufacturerId.equals=" + (manufacturerId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllItemsByItemPropertyBoolIsEqualToSomething() throws Exception {
+        // Initialize the database
+        ItemPropertyBool itemPropertyBool = ItemPropertyBoolResourceIntTest.createEntity(em);
+        em.persist(itemPropertyBool);
+        em.flush();
+        item.addItemPropertyBool(itemPropertyBool);
+        itemRepository.saveAndFlush(item);
+        Long itemPropertyBoolId = itemPropertyBool.getId();
+
+        // Get all the itemList where itemPropertyBool equals to itemPropertyBoolId
+        defaultItemShouldBeFound("itemPropertyBoolId.equals=" + itemPropertyBoolId);
+
+        // Get all the itemList where itemPropertyBool equals to itemPropertyBoolId + 1
+        defaultItemShouldNotBeFound("itemPropertyBoolId.equals=" + (itemPropertyBoolId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllItemsByItemPropertyDoubleIsEqualToSomething() throws Exception {
+        // Initialize the database
+        ItemPropertyDouble itemPropertyDouble = ItemPropertyDoubleResourceIntTest.createEntity(em);
+        em.persist(itemPropertyDouble);
+        em.flush();
+        item.addItemPropertyDouble(itemPropertyDouble);
+        itemRepository.saveAndFlush(item);
+        Long itemPropertyDoubleId = itemPropertyDouble.getId();
+
+        // Get all the itemList where itemPropertyDouble equals to itemPropertyDoubleId
+        defaultItemShouldBeFound("itemPropertyDoubleId.equals=" + itemPropertyDoubleId);
+
+        // Get all the itemList where itemPropertyDouble equals to itemPropertyDoubleId + 1
+        defaultItemShouldNotBeFound("itemPropertyDoubleId.equals=" + (itemPropertyDoubleId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllItemsByItemPropertyFloatIsEqualToSomething() throws Exception {
+        // Initialize the database
+        ItemPropertyFloat itemPropertyFloat = ItemPropertyFloatResourceIntTest.createEntity(em);
+        em.persist(itemPropertyFloat);
+        em.flush();
+        item.addItemPropertyFloat(itemPropertyFloat);
+        itemRepository.saveAndFlush(item);
+        Long itemPropertyFloatId = itemPropertyFloat.getId();
+
+        // Get all the itemList where itemPropertyFloat equals to itemPropertyFloatId
+        defaultItemShouldBeFound("itemPropertyFloatId.equals=" + itemPropertyFloatId);
+
+        // Get all the itemList where itemPropertyFloat equals to itemPropertyFloatId + 1
+        defaultItemShouldNotBeFound("itemPropertyFloatId.equals=" + (itemPropertyFloatId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllItemsByItemPropertyIntIsEqualToSomething() throws Exception {
+        // Initialize the database
+        ItemPropertyInt itemPropertyInt = ItemPropertyIntResourceIntTest.createEntity(em);
+        em.persist(itemPropertyInt);
+        em.flush();
+        item.addItemPropertyInt(itemPropertyInt);
+        itemRepository.saveAndFlush(item);
+        Long itemPropertyIntId = itemPropertyInt.getId();
+
+        // Get all the itemList where itemPropertyInt equals to itemPropertyIntId
+        defaultItemShouldBeFound("itemPropertyIntId.equals=" + itemPropertyIntId);
+
+        // Get all the itemList where itemPropertyInt equals to itemPropertyIntId + 1
+        defaultItemShouldNotBeFound("itemPropertyIntId.equals=" + (itemPropertyIntId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllItemsByItemPropertyStringIsEqualToSomething() throws Exception {
+        // Initialize the database
+        ItemPropertyString itemPropertyString = ItemPropertyStringResourceIntTest.createEntity(em);
+        em.persist(itemPropertyString);
+        em.flush();
+        item.addItemPropertyString(itemPropertyString);
+        itemRepository.saveAndFlush(item);
+        Long itemPropertyStringId = itemPropertyString.getId();
+
+        // Get all the itemList where itemPropertyString equals to itemPropertyStringId
+        defaultItemShouldBeFound("itemPropertyStringId.equals=" + itemPropertyStringId);
+
+        // Get all the itemList where itemPropertyString equals to itemPropertyStringId + 1
+        defaultItemShouldNotBeFound("itemPropertyStringId.equals=" + (itemPropertyStringId + 1));
     }
 
     /**

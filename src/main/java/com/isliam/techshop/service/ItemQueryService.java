@@ -109,6 +109,26 @@ public class ItemQueryService extends QueryService<Item> {
                 specification = specification.and(buildSpecification(criteria.getManufacturerId(),
                     root -> root.join(Item_.manufacturer, JoinType.LEFT).get(Manufacturer_.id)));
             }
+            if (criteria.getItemPropertyBoolId() != null) {
+                specification = specification.and(buildSpecification(criteria.getItemPropertyBoolId(),
+                    root -> root.join(Item_.itemPropertyBools, JoinType.LEFT).get(ItemPropertyBool_.id)));
+            }
+            if (criteria.getItemPropertyDoubleId() != null) {
+                specification = specification.and(buildSpecification(criteria.getItemPropertyDoubleId(),
+                    root -> root.join(Item_.itemPropertyDoubles, JoinType.LEFT).get(ItemPropertyDouble_.id)));
+            }
+            if (criteria.getItemPropertyFloatId() != null) {
+                specification = specification.and(buildSpecification(criteria.getItemPropertyFloatId(),
+                    root -> root.join(Item_.itemPropertyFloats, JoinType.LEFT).get(ItemPropertyFloat_.id)));
+            }
+            if (criteria.getItemPropertyIntId() != null) {
+                specification = specification.and(buildSpecification(criteria.getItemPropertyIntId(),
+                    root -> root.join(Item_.itemPropertyInts, JoinType.LEFT).get(ItemPropertyInt_.id)));
+            }
+            if (criteria.getItemPropertyStringId() != null) {
+                specification = specification.and(buildSpecification(criteria.getItemPropertyStringId(),
+                    root -> root.join(Item_.itemPropertyStrings, JoinType.LEFT).get(ItemPropertyString_.id)));
+            }
         }
         return specification;
     }

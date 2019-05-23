@@ -1,7 +1,9 @@
 package com.isliam.techshop.service.impl;
 
+import com.isliam.techshop.domain.Item;
 import com.isliam.techshop.domain.Permission;
 import com.isliam.techshop.domain.Profile;
+import com.isliam.techshop.repository.ItemRepository;
 import com.isliam.techshop.repository.ProfileRepository;
 import com.isliam.techshop.service.ItemQueryService;
 import com.isliam.techshop.service.OrderService;
@@ -10,10 +12,11 @@ import com.isliam.techshop.service.ProfileService;
 import com.isliam.techshop.service.dto.ItemCriteria;
 import com.isliam.techshop.service.dto.ItemDTO;
 import com.isliam.techshop.service.dto.TaskDTO;
+import com.isliam.techshop.service.sell.BPMNVariables;
+import com.isliam.techshop.web.rest.errors.ResourceNotFoundException;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
-import org.flowable.engine.history.HistoricActivityInstance;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +28,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+import static com.isliam.techshop.service.sell.BPMNVariables.*;
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
-
     private final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     private final ItemQueryService itemQueryService;
@@ -43,14 +45,16 @@ public class OrderServiceImpl implements OrderService {
     private final TaskService taskService;
 
     private final HistoryService historyService;
+    private final ItemRepository itemRepository;
 
-    public OrderServiceImpl(ItemQueryService itemQueryService, ProfileRepository profileRepository, ProfileService profileService, RuntimeService runtimeService, TaskService taskService, HistoryService historyService) {
+    public OrderServiceImpl(ItemQueryService itemQueryService, ProfileRepository profileRepository, ProfileService profileService, RuntimeService runtimeService, TaskService taskService, HistoryService historyService, ItemRepository itemRepository) {
         this.itemQueryService = itemQueryService;
         this.profileRepository = profileRepository;
         this.profileService = profileService;
         this.runtimeService = runtimeService;
         this.taskService = taskService;
         this.historyService = historyService;
+        this.itemRepository = itemRepository;
     }
 
     @Override
@@ -58,14 +62,17 @@ public class OrderServiceImpl implements OrderService {
         Map<String, Object> variables = new HashMap<String, Object>();
 
         Profile profile = profileService.getCurrentUserProfile();
+        Item item = itemRepository.findById(item_id)
+            .orElseThrow(ResourceNotFoundException::new);
 
-        variables.put("seller_id", null);
-        variables.put("customer_id", profile.getId()/*profile.getId()*/);
-        variables.put("item_present", true/*profile.getId()*/);
-        variables.put("curier_id", null);
-        variables.put("order_approved", false);
-        variables.put("item_transported", false);
-        variables.put("paid", false);
+        variables.put(sellerId, null);
+        variables.put(itemId, item_id);
+        variables.put(customerId, profile.getId());
+        variables.put(itemPresent, true);
+        variables.put(curierId, null);
+        variables.put(orderApproved, false);
+        variables.put(itemTransported, false);
+        variables.put(paid, false);
         ProcessInstance processInstance =
             runtimeService.startProcessInstanceByKey(ProcessConstants.SELL_PROCESS, variables);
     }

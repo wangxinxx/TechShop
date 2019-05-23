@@ -1,6 +1,7 @@
 package com.isliam.techshop.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Objects;
 import javax.persistence.Lob;
 
@@ -27,6 +28,7 @@ public class ItemDTO implements Serializable {
     @NotNull
     private Boolean active;
 
+    private Map<String,String> properties;
 
     private Long productId;
 
@@ -114,6 +116,18 @@ public class ItemDTO implements Serializable {
 
     public void setManufacturerName(String manufacturerName) {
         this.manufacturerName = manufacturerName;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public Map<String, String> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map<String, String> properties) {
+        this.properties = properties;
     }
 
     @Override

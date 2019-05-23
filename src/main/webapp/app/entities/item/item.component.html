@@ -57,6 +57,14 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
+                        <form action="/api/order/make-an-order/{{item.id}}" method="post">
+                            <button type="submit"
+                                [routerLink]="['/item', item.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                                <span class="d-none d-md-inline">Buy</span>
+                            </button>
+                        </form>
+                        
                         <button type="submit"
                                 [routerLink]="['/', 'item', { outlets: { popup: item.id + '/delete'} }]"
                                 replaceUrl="true"

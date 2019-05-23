@@ -37,6 +37,12 @@
                         <a [routerLink]="['/manufacturer', item.manufacturerId, 'view']">{{item.manufacturerName}}</a>
                     </div>
                 </dd>
+                <div *ngFor="let recipient of item.properties | keyvalue">
+                        <dt><span>{{recipient.key}}</span></dt>
+                        <dd>
+                            <span>{{recipient.value}}</span>
+                        </dd>
+                </div>
             </dl>
 
             <button type="submit"

@@ -1,6 +1,7 @@
 package com.isliam.techshop.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -9,6 +10,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -55,6 +58,21 @@ public class Item implements Serializable {
     @JsonIgnoreProperties("items")
     private Manufacturer manufacturer;
 
+    @OneToMany(mappedBy = "item")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ItemPropertyBool> itemPropertyBools = new HashSet<>();
+    @OneToMany(mappedBy = "item")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ItemPropertyDouble> itemPropertyDoubles = new HashSet<>();
+    @OneToMany(mappedBy = "item")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ItemPropertyFloat> itemPropertyFloats = new HashSet<>();
+    @OneToMany(mappedBy = "item")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ItemPropertyInt> itemPropertyInts = new HashSet<>();
+    @OneToMany(mappedBy = "item")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ItemPropertyString> itemPropertyStrings = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -153,6 +171,131 @@ public class Item implements Serializable {
 
     public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    public Set<ItemPropertyBool> getItemPropertyBools() {
+        return itemPropertyBools;
+    }
+
+    public Item itemPropertyBools(Set<ItemPropertyBool> itemPropertyBools) {
+        this.itemPropertyBools = itemPropertyBools;
+        return this;
+    }
+
+    public Item addItemPropertyBool(ItemPropertyBool itemPropertyBool) {
+        this.itemPropertyBools.add(itemPropertyBool);
+        itemPropertyBool.setItem(this);
+        return this;
+    }
+
+    public Item removeItemPropertyBool(ItemPropertyBool itemPropertyBool) {
+        this.itemPropertyBools.remove(itemPropertyBool);
+        itemPropertyBool.setItem(null);
+        return this;
+    }
+
+    public void setItemPropertyBools(Set<ItemPropertyBool> itemPropertyBools) {
+        this.itemPropertyBools = itemPropertyBools;
+    }
+
+    public Set<ItemPropertyDouble> getItemPropertyDoubles() {
+        return itemPropertyDoubles;
+    }
+
+    public Item itemPropertyDoubles(Set<ItemPropertyDouble> itemPropertyDoubles) {
+        this.itemPropertyDoubles = itemPropertyDoubles;
+        return this;
+    }
+
+    public Item addItemPropertyDouble(ItemPropertyDouble itemPropertyDouble) {
+        this.itemPropertyDoubles.add(itemPropertyDouble);
+        itemPropertyDouble.setItem(this);
+        return this;
+    }
+
+    public Item removeItemPropertyDouble(ItemPropertyDouble itemPropertyDouble) {
+        this.itemPropertyDoubles.remove(itemPropertyDouble);
+        itemPropertyDouble.setItem(null);
+        return this;
+    }
+
+    public void setItemPropertyDoubles(Set<ItemPropertyDouble> itemPropertyDoubles) {
+        this.itemPropertyDoubles = itemPropertyDoubles;
+    }
+
+    public Set<ItemPropertyFloat> getItemPropertyFloats() {
+        return itemPropertyFloats;
+    }
+
+    public Item itemPropertyFloats(Set<ItemPropertyFloat> itemPropertyFloats) {
+        this.itemPropertyFloats = itemPropertyFloats;
+        return this;
+    }
+
+    public Item addItemPropertyFloat(ItemPropertyFloat itemPropertyFloat) {
+        this.itemPropertyFloats.add(itemPropertyFloat);
+        itemPropertyFloat.setItem(this);
+        return this;
+    }
+
+    public Item removeItemPropertyFloat(ItemPropertyFloat itemPropertyFloat) {
+        this.itemPropertyFloats.remove(itemPropertyFloat);
+        itemPropertyFloat.setItem(null);
+        return this;
+    }
+
+    public void setItemPropertyFloats(Set<ItemPropertyFloat> itemPropertyFloats) {
+        this.itemPropertyFloats = itemPropertyFloats;
+    }
+
+    public Set<ItemPropertyInt> getItemPropertyInts() {
+        return itemPropertyInts;
+    }
+
+    public Item itemPropertyInts(Set<ItemPropertyInt> itemPropertyInts) {
+        this.itemPropertyInts = itemPropertyInts;
+        return this;
+    }
+
+    public Item addItemPropertyInt(ItemPropertyInt itemPropertyInt) {
+        this.itemPropertyInts.add(itemPropertyInt);
+        itemPropertyInt.setItem(this);
+        return this;
+    }
+
+    public Item removeItemPropertyInt(ItemPropertyInt itemPropertyInt) {
+        this.itemPropertyInts.remove(itemPropertyInt);
+        itemPropertyInt.setItem(null);
+        return this;
+    }
+
+    public void setItemPropertyInts(Set<ItemPropertyInt> itemPropertyInts) {
+        this.itemPropertyInts = itemPropertyInts;
+    }
+
+    public Set<ItemPropertyString> getItemPropertyStrings() {
+        return itemPropertyStrings;
+    }
+
+    public Item itemPropertyStrings(Set<ItemPropertyString> itemPropertyStrings) {
+        this.itemPropertyStrings = itemPropertyStrings;
+        return this;
+    }
+
+    public Item addItemPropertyString(ItemPropertyString itemPropertyString) {
+        this.itemPropertyStrings.add(itemPropertyString);
+        itemPropertyString.setItem(this);
+        return this;
+    }
+
+    public Item removeItemPropertyString(ItemPropertyString itemPropertyString) {
+        this.itemPropertyStrings.remove(itemPropertyString);
+        itemPropertyString.setItem(null);
+        return this;
+    }
+
+    public void setItemPropertyStrings(Set<ItemPropertyString> itemPropertyStrings) {
+        this.itemPropertyStrings = itemPropertyStrings;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
